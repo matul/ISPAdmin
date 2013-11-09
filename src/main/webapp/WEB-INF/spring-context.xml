@@ -5,14 +5,16 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/mvc/spring-mvc
-       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc/spring-mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-  <context:component-scan base-package="cz.ispadmin.controllers" />
-  <!-- <mvc:annotation-driven /> -->
+  <context:annotation-config/>
+  <!--<context:annotation-based/>-->
+  <context:component-scan base-package="cz.ispadmin" />
+  <context:component-scan base-package="org.springframework.web.servlet" />
  
   <bean
     class="org.springframework.web.servlet.view.InternalResourceViewResolver">
