@@ -17,13 +17,13 @@
       <value>com.mysql.jdbc.Driver</value>
     </property>
     <property name="url">
-      <value>jdbc:mysql://localhost:3306/ropr</value>
+      <value>jdbc:mysql://newisbeta.teranet.cz:3306/ropr</value>
     </property>
     <property name="username">
-      <value>root</value>
+      <value>ispadmin</value>
     </property>
     <property name="password">
-      <value>root</value>
+      <value>cd12ef34</value>
     </property>
   </bean>	
 	
