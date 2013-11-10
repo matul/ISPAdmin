@@ -1,6 +1,7 @@
 package cz.ispadmin.controllers;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.models.*;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 
@@ -33,13 +34,21 @@ public class DefaultController {
     return modelAndView;
   }
   
+  @RequestMapping("/user/list")
+  public ModelAndView listAllUsers() {
+    List<Users> users = model.getAllUsers();
+    modelAndView.addObject("users", users);
+    modelAndView.setViewName("usersList");
+    return modelAndView;
+  } 
+  
   @RequestMapping("/user/save")
   public ModelAndView saveUser() {
     Users user = new Users();
     user.setUsername("wooo");
     user.setFirstname("Jarda");
     user.setSurname("Klasik");
-    model.createUser(user);
+    model.insertOrUpdateUser(user);
     
     modelAndView.setViewName("index");
     return modelAndView;
