@@ -1,4 +1,5 @@
 package cz.ispadmin.controllers;
+import cz.ispadmin.entities.Users;
 import cz.ispadmin.models.*;
 
 import org.springframework.stereotype.Controller;
@@ -6,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,16 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class DefaultController {
   
-  private ModelAndView modelAndView;
-  private KotelModel kotelModel;
-
-  public DefaultController() {
-    this.modelAndView = new ModelAndView();
-  }
+  private final Model model;
+  private final ModelAndView modelAndView;
 
   @Autowired
-  public void setKotelModel(KotelModel kotelModel) {
-    this.kotelModel = kotelModel;
+  public DefaultController(Model model) {
+    this.model = model;
+    this.modelAndView = new ModelAndView();
   }
   
   @RequestMapping("/")
@@ -36,10 +33,15 @@ public class DefaultController {
     return modelAndView;
   }
   
-  @RequestMapping("/kotel/{ahoj}")
-  public ModelAndView dejKotel(HttpServletRequest request, HttpServletResponse response) {
-    modelAndView.addObject("kotelMessage", kotelModel.getKotel());
-    modelAndView.setViewName("kotel");
+  @RequestMapping("/user/save")
+  public ModelAndView saveUser() {
+    Users user = new Users();
+    user.setUsername("wooo");
+    user.setFirstname("Jarda");
+    user.setSurname("Klasik");
+    model.createUser(user);
+    
+    modelAndView.setViewName("index");
     return modelAndView;
   } 
   

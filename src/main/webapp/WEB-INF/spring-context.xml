@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
@@ -11,10 +13,12 @@
       http://www.springframework.org/schema/mvc/spring-mvc
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-  <context:annotation-config/>
-  <!--<context:annotation-based/>-->
+  <context:annotation-config />
+  <!--
+  <mvc:annotation-driven />
+  <tx:annotation-driven />
+  -->
   <context:component-scan base-package="cz.ispadmin" />
-  <context:component-scan base-package="org.springframework.web.servlet" />
  
   <bean
     class="org.springframework.web.servlet.view.InternalResourceViewResolver">
