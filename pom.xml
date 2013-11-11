@@ -25,6 +25,7 @@
     <!-- Testing -->
     <mockito.version>1.9.5</mockito.version>
     <junit.version>4.11</junit.version>
+    <dbunit.version>2.4.9</dbunit.version>
  
     <!-- Spring Framework -->
     <spring.version>3.2.4.RELEASE</spring.version>
@@ -39,8 +40,13 @@
   </properties>
   
   <dependencies>
-    
     <!-- Java EE 6.0 -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>jta</artifactId>
@@ -51,12 +57,6 @@
       <artifactId>spring-orm</artifactId>
       <version>3.2.2.RELEASE</version>
       <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
     </dependency>
     
     <!-- Javax Servlet. This needs to be included for runtime only! -->
@@ -76,6 +76,11 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>${dbunit.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -242,6 +247,11 @@
         </executions>
       </plugin>
     </plugins>
+    <testResources>
+      <testResource>
+        <directory>/src/main/webapp/WEB-INF</directory>
+      </testResource>
+    </testResources>
   </build>
 
 </project>
