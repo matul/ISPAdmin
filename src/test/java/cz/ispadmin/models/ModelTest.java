@@ -9,31 +9,30 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Configurable;
-//import org.springframework.test.context.ContextConfiguration;
-//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-//import org.springframework.test.context.web.WebAppConfiguration;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Roman
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 //@WebAppConfiguration
-//@ContextConfiguration(
-//  locations = {
-//    "file:src/main/webapp/WEB-INF/spring-servlet.xml",
-//    "file:src/main/webapp/WEB-INF/spring-context.xml",
-//  }
-//)
+@ContextConfiguration(
+  locations = {
+    "file:src/main/webapp/WEB-INF/spring-servlet.xml",
+    "file:src/main/webapp/WEB-INF/spring-context.xml",
+    "file:src/main/webapp/WEB-INF/spring-data-source.xml",
+  }
+)
 //@Configurable
 public class ModelTest {
   
-//  @Autowired
-//  private Model model;
-//  
-//  @Autowired Users user;
+  @Autowired
+  private Model model;
   
   public ModelTest() {
   }
@@ -57,17 +56,24 @@ public class ModelTest {
   /**
    * Test of getUserById method, of class Model.
    */
-//  @Test
-//  public void testGetUserById() {
-//    System.out.println("getUserById");
-//    int userId = 0;
-//    Model instance = new Model();
-//    Users expResult = null;
-//    Users result = instance.getUserById(userId);
-//    assertEquals(expResult, result);
-//    // TODO review the generated test code and remove the default call to fail.
-//    fail("The test case is a prototype.");
-//  }
+  @Test
+  public void testGetUserById() {
+    System.out.println("getUserById");
+    Users user = new Users();
+    user.setUsername("wooo");
+    user.setFirstname("Jarda");
+    user.setSurname("Klasik");
+    
+    Users user2 = new Users();
+    user2.setUsername("wooo");
+    user2.setFirstname("Jarda");
+    user2.setSurname("Klasik");
+    model.insertOrUpdateUser(user);
+    Users dbUser = model.getUserById(1);
+    System.out.println(user.toString());
+    System.out.println(dbUser.toString());
+    assertEquals(user.getSurname(), user2.getSurname());
+  }
 
   /**
    * Test of getAllUsers method, of class Model.

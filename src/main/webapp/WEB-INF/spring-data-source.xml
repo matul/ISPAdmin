@@ -27,14 +27,15 @@
     </property>
   </bean>	
 	
-  <bean id="Model" class="cz.ispadmin.models.Model">	
+  <bean id="Model" class="cz.ispadmin.models.Model">
     <property name="sessionFactory" ref="hibernateSessionFactory"/>
   </bean>
-  
+  <bean id="Users" class="cz.ispadmin.entities.Users" />
+
   <bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
     <property name="dataSource" ref="dataSource"/>
     <property name="packagesToScan" value="cz.ispadmin.entities" />
-    
+
     <property name="hibernateProperties">
       <props>
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

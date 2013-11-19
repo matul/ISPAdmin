@@ -16,6 +16,10 @@ import javax.persistence.Table;
 )
 public class Users implements java.io.Serializable {
 
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
   private Integer id;
   private String username;
   private String firstname;
@@ -36,9 +40,7 @@ public class Users implements java.io.Serializable {
     this.description = description;
   }
 
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  @Column(name = "id", unique = true, nullable = false)
+  //
   public Integer getId() {
     return this.id;
   }
@@ -47,7 +49,7 @@ public class Users implements java.io.Serializable {
     this.id = id;
   }
 
-  @Column(name = "username", nullable = false, length = 30)
+  //@Column(name = "username", nullable = false, length = 30)
   public String getUsername() {
     return this.username;
   }
@@ -56,7 +58,7 @@ public class Users implements java.io.Serializable {
     this.username = username;
   }
 
-  @Column(name = "firstname", length = 30)
+  //@Column(name = "firstname", length = 30)
   public String getFirstname() {
     return this.firstname;
   }
@@ -65,7 +67,7 @@ public class Users implements java.io.Serializable {
     this.firstname = firstname;
   }
 
-  @Column(name = "surname", length = 30)
+  //@Column(name = "surname", length = 30)
   public String getSurname() {
     return this.surname;
   }
@@ -74,7 +76,7 @@ public class Users implements java.io.Serializable {
     this.surname = surname;
   }
 
-  @Column(name = "description")
+  //@Column(name = "description")
   public String getDescription() {
     return this.description;
   }
