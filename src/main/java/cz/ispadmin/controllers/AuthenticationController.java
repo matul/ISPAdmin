@@ -11,24 +11,30 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Roman
  */
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/authentication")
+public class AuthenticationController {
   
   private final ModelAndView modelAndView;
   
-  public LoginController() {
+  public AuthenticationController() {
     this.modelAndView = new ModelAndView();
   }
   
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public ModelAndView loginScreen(HttpServletRequest request, HttpServletResponse response) {
-    modelAndView.setViewName("login");
+  @RequestMapping(method = RequestMethod.GET)
+  public ModelAndView loginPage(HttpServletRequest request, HttpServletResponse response) {
+    modelAndView.setViewName("logIn");
     return modelAndView;
   }
   
-  @RequestMapping(value = "/submit", method = RequestMethod.POST)
+  @RequestMapping(value = "/denied", method = RequestMethod.POST)
+  public ModelAndView accessDeniedPage(HttpServletRequest request, HttpServletResponse response) {
+    modelAndView.setViewName("accessDenied");
+    return modelAndView;
+  }
+  
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
   public ModelAndView logIn(HttpServletRequest request, HttpServletResponse response) {
-    modelAndView.setViewName("login");
+    modelAndView.setViewName("logIn");
     return modelAndView;
   }
   

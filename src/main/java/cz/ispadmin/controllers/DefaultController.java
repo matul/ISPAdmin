@@ -19,11 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class DefaultController {
   
-  private final Model model;
+  private final UserDAO model;
   private final ModelAndView modelAndView;
 
   @Autowired
-  public DefaultController(Model model) {
+  public DefaultController(UserDAO model) {
     this.model = model;
     this.modelAndView = new ModelAndView();
   }
