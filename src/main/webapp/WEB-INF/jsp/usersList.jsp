@@ -1,9 +1,3 @@
-<%-- 
-    Document   : usersList
-    Created on : Oct 27, 2013, 1:37:13 PM
-    Author     : Roman
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
