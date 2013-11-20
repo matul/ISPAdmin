@@ -34,7 +34,7 @@ public class DefaultController {
     return modelAndView;
   }
   
-  @RequestMapping("/user/list")
+  @RequestMapping("/user/listing")
   public ModelAndView listAllUsers() {
     List<Users> users = model.getAllUsers();
     modelAndView.addObject("users", users);
