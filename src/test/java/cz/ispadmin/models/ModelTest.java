@@ -18,6 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Roman
+ * test pokus konflikt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 //@WebAppConfiguration
