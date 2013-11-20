@@ -28,7 +28,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
     "file:src/main/webapp/WEB-INF/spring-data-source.xml",
   }
 )
-//@Configurableahoj
+//@Configurablecau
 public class ModelTest {
   
   @Autowired
