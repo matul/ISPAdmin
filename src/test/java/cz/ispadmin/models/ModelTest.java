@@ -18,7 +18,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * @author Roman
- * test pokus konflikt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 //@WebAppConfiguration
@@ -29,7 +28,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
     "file:src/main/webapp/WEB-INF/spring-data-source.xml",
   }
 )
-//@Configurableahoj
+//@Configurable
 public class ModelTest {
   
   @Autowired
