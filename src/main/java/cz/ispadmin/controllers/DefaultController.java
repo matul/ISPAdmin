@@ -42,6 +42,14 @@ public class DefaultController {
     return modelAndView;
   } 
   
+  @RequestMapping("/users/clients")
+  public ModelAndView listClients() {
+    List<Users> users = model.getAllUsers();
+    modelAndView.addObject("users", users);
+    modelAndView.setViewName("clientList");
+    return modelAndView;
+  } 
+  
   @RequestMapping("/user/save")
   public ModelAndView saveUser() {
     Users user = new Users();
