@@ -55,7 +55,7 @@ public class ModelTest {
 
   /**
    * Test of getUserById method, of class Model.
-   */
+   
   @Test
   public void testGetUserById() {
     System.out.println("getUserById");
@@ -74,6 +74,7 @@ public class ModelTest {
     System.out.println(dbUser.toString());
     assertEquals(user.getSurname(), user2.getSurname());
   }
+  *
 
   /**
    * Test of getAllUsers method, of class Model.
@@ -119,5 +120,12 @@ public class ModelTest {
 //    // TODO review the generated test code and remove the default call to fail.
 //    fail("The test case is a prototype.");
 //  }
+  
+  @Test
+  public void testDeleteUser() {
+
+    assertEquals(true, true);
+
+  }
   
 }
