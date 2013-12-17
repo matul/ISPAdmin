@@ -28,10 +28,10 @@
               <table id="companies" class="display">
                   <thead>
                       <tr>
-                          <th>Sranda</th>
-                          <th>Company name</th>
-                          <th>Address</th>
-                          <th>Town</th>
+                          <th>ID</th>
+                          <th>Uživatelské jméno</th>
+                          <th>Jméno</th>
+                          <th>Příjmení</th>
                       </tr>
                   </thead>
                   <tbody>

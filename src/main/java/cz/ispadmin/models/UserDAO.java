@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserDAO {
-
+  
   private SessionFactory sessionFactory;
 
   /**
@@ -47,10 +47,10 @@ public class UserDAO {
     }
   }
 
-  public Users getUser(String username) {
+  public Users getUserByUsername(String username) {
     Session s = sessionFactory.openSession();
     try {
-      Query query = sessionFactory.getCurrentSession().createQuery("from User where username = :username");
+      Query query = s.createQuery("from Users where username = :username");
       query.setParameter("username", username);
       return (Users)query.list().get(0);
     } catch (HibernateException e) {
