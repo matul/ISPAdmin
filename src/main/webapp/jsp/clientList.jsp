@@ -4,7 +4,12 @@
 <html>
     <head>
         <base href="http://localhost:8080/ispadmin/" />
-        <title>Applying JQuery DataTables plugin in the Java Server application</title>
+        <title>ISP Admin - Seznam klientů</title>
+
+        
+        <link href="resources/media/dataTables/demo_table.css" rel="stylesheet" type="text/css" />
+        <link href="resources/media/dataTables/demo_table_jui.css" rel="stylesheet" type="text/css" />
+        <link href="resources/media/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
         <link href="resources/media/themes/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" type="text/css" media="all" />
         <link href="resources/media/datedit.css" rel="stylesheet" type="text/css" />
         <link href="resources/media/site.css" rel="stylesheet" type="text/css" />
@@ -86,7 +91,7 @@
                                 <div id="modulesdropdown" class="hide">    
                                     <div id="container">          
                                         <div id="systemmsg"></div>
-                                        <h2>Nadpis</h2>  
+                                        <h2>Seznam klientů</h2>  
 
                                         <div id="demo_jui">
                                             <table id="companies" class="display">

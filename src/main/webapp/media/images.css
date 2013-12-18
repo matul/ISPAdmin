@@ -93,7 +93,7 @@
 /*#region BIG-ICONS*/
 .bigicons ul {list-style-type: none; padding-top: 6px;}
 .bigicons ul li {margin-left: 14px;}
-.bigicons ul li, .bigicons ul li a {float: left; display: block; width: 86px; text-decoration: none;}
+.bigicons ul li, .bigicons ul li a {float: left; display: block; text-decoration: none;}
 .bigicons ul li a {background-position: center center; color: #888; text-align: center; padding-top: 40px;}
 .bigicons ul li a:hover, .bigicons ul li a.active {color: white;}
 

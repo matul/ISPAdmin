@@ -5,7 +5,7 @@
  
   <display-name>Spring Hello World</display-name>
   <welcome-file-list>
-    <welcome-file>/</welcome-file>
+    <welcome-file>/users/clients</welcome-file>
   </welcome-file-list>
  
   <servlet>

@@ -14,7 +14,7 @@ img {border: none;}
 .shown {display: block;}
 .hidden {display: none;}
 
-.header-logo{float: left; width: 210px;}
+.header-logo{float: left; width: 160px; margin-top: 6px;}
 /*#endregion COMMON*/
 
 /*#region LAYOUT*/
@@ -193,7 +193,7 @@ ul.hiddenmodules li, ul.hiddenmodules li a {display: block; height: 26px; line-h
 ul.hiddenmodules li a {text-decoration: none; width: 196px; _width: 200px; padding-left: 4px;}
 ul.hiddenmodules li a:hover {background: white;}
 
-div#modulesdropdown { background: #D8E7E7; border: 1px solid #EFF5F5; border-top: none; border-right: none;}
+div#modulesdropdown { border: none;}
 a#modulesdropdown {float: right; display: block;}
 /*#endregion MENU*/
 
