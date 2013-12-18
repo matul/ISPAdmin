@@ -97,9 +97,9 @@
 .bigicons ul li a {background-position: center center; color: #888; text-align: center; padding-top: 40px;}
 .bigicons ul li a:hover, .bigicons ul li a.active {color: white;}
 
-.bigicons ul li a.preview {background: url('/images/bigicons/magnifier.png') no-repeat top center;}
-.bigicons ul li a.websetting {background: url('/images/bigicons/websetting.png') no-repeat top center;}
-.bigicons ul li a.log {background: url('/images/bigicons/log.png') no-repeat top center;}
+.bigicons ul li a.preview {background: url('./images/bigicons/magnifier.png') no-repeat top center;}
+.bigicons ul li a.websetting {background: url('./images/bigicons/websetting.png') no-repeat top center;}
+.bigicons ul li a.log {background: url('./images/bigicons/log.png') no-repeat top center;}
 .bigicons ul li a.user {background: url('./images/bigicons/user.png') no-repeat top center;}
 .bigicons ul li a.password {background: url('./images/bigicons/key.png') no-repeat top center;}
 .bigicons ul li a.help {background: url('./images/bigicons/help.png') no-repeat top center;}
