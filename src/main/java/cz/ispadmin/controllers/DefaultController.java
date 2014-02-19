@@ -4,10 +4,13 @@ import cz.ispadmin.models.*;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,12 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class DefaultController {
   
-  private final UserDAO model;
+  private final UserDAO userDAO;
   private final ModelAndView modelAndView;
 
   @Autowired
   public DefaultController(UserDAO model) {
-    this.model = model;
+    this.userDAO = model;
     this.modelAndView = new ModelAndView();
   }
   
@@ -36,7 +39,7 @@ public class DefaultController {
   
   @RequestMapping("/user/listing")
   public ModelAndView listAllUsers() {
-    List<Users> users = model.getAllUsers();
+    List<Users> users = userDAO.getAllUsers();
     modelAndView.addObject("users", users);
     modelAndView.setViewName("usersList");
     return modelAndView;
@@ -44,7 +47,7 @@ public class DefaultController {
   
   @RequestMapping("/users/clients")
   public ModelAndView listClients() {
-    List<Users> users = model.getAllUsers();
+    List<Users> users = userDAO.getAllUsers();
     modelAndView.addObject("users", users);
     modelAndView.setViewName("clientList");
     return modelAndView;
@@ -56,10 +59,19 @@ public class DefaultController {
     user.setUsername("wooo");
     user.setFirstname("Jarda");
     user.setSurname("Klasik");
-    model.insertOrUpdateUser(user);
+    userDAO.insertOrUpdateUser(user);
     
     modelAndView.setViewName("index");
     return modelAndView;
   } 
+  
+  @RequestMapping("/user/add")
+   public String submitForm(@Valid Users user, BindingResult result, Model m) {
+        if(!result.hasErrors()) {
+          //this.userDAO.insertOrUpdateUser(user);
+        }
+        m.addAttribute("user", user);
+         return "addUser";
+    }
   
 }
