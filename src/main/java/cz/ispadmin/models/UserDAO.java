@@ -59,6 +59,20 @@ public class UserDAO {
       s.close();
     }
   }
+  
+  public List<Users> getLastTwentyUsers() {
+    Session s = sessionFactory.openSession();
+    try {
+      Query query = s.createQuery("from Users");
+      query.setMaxResults(20);
+      List<Users> users = query.list();
+      return users;
+    } catch (HibernateException e) {
+      return null;
+    } finally {
+      s.close();
+    }
+  }
 
   public List<Users> getAllUsers() {
     Session s = sessionFactory.openSession();
