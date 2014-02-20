@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -65,13 +66,16 @@ public class DefaultController {
     return modelAndView;
   } 
   
-  @RequestMapping("/user/add")
-   public String submitForm(@Valid Users user, BindingResult result, Model m) {
-        if(!result.hasErrors()) {
-          //this.userDAO.insertOrUpdateUser(user);
-        }
-        m.addAttribute("user", user);
-         return "addUser";
+  @RequestMapping(value="/user/add")
+   public ModelAndView addUser(@Valid Users user, BindingResult result, Model m, HttpServletRequest request) {
+    if (request.getMethod().equals("POST")) {
+      if(!result.hasErrors())
+        this.userDAO.insertOrUpdateUser(user);
     }
+    m.addAttribute("user", user);
+    
+    modelAndView.setViewName("addUser");
+    return modelAndView;
+  }
   
 }
