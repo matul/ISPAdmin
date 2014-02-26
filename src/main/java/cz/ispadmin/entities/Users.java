@@ -17,26 +17,25 @@ import javax.validation.constraints.Size;
 )
 public class Users implements java.io.Serializable {
 
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
   private Integer id;
-    
-  @Size(min=2, max=30)
+
+  @Size(min = 2, max = 30)
   private String username;
-  
-  @Size(min=2, max=30)
+
+  @Size(min = 2, max = 30)
   private String firstname;
-  
-  @Size(min=2, max=30)
+
+  @Size(min = 2, max = 30)
   private String surname;
-  
-  @Size(min=2, max=30)
+
+  @Size(min = 2, max = 30)
   private String description;
 
   public Users() {
-    
+
   }
 
   public Users(String username) {
@@ -50,7 +49,6 @@ public class Users implements java.io.Serializable {
     this.description = description;
   }
 
-  //
   public Integer getId() {
     return this.id;
   }

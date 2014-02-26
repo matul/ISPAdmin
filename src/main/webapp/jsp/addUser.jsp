@@ -13,23 +13,23 @@
     <body>
         <h1>Přidání klienta</h1>
         <form:form method="POST" action="/ispadmin/user/add" modelattribute="user" commandName="user">
-            <label for="usernameId">Username: </label>
-            <form:input path="username" id="usernameId"></form:input>
+            <label>Username: </label>
+            <form:input path="username"></form:input>
             <form:errors path="username" cssclass="error"></form:errors>
             <br />
             
-            <label for="firstnameId">Firstname: </label>
-            <form:input path="firstname" id="firstnameId"></form:input>
+            <label>Firstname: </label>
+            <form:input path="firstname"></form:input>
             <form:errors path="firstname" cssclass="error"></form:errors>
             <br />
             
-            <label for="surnameId">Surname: </label>
-            <form:input path="surname" id="surnameId"></form:input>
+            <label>Surname: </label>
+            <form:input path="surname"></form:input>
             <form:errors path="surname" cssclass="error"></form:errors>
             <br />
             
-            <label for="descriptionId">Description: </label>
-            <form:textarea path="description" id="descriptionId"></form:textarea>
+            <label>Description: </label>
+            <form:textarea path="description"></form:textarea>
             <form:errors path="description" cssclass="error"></form:errors>
             <br />
             
