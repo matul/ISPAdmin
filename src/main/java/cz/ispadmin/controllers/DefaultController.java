@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,15 +65,15 @@ public class DefaultController {
     
     modelAndView.setViewName("index");
     return modelAndView;
-  } 
-  
+  }
+   
   @RequestMapping(value="/user/add")
-   public ModelAndView addUser(@Valid Users user, BindingResult result, Model m, HttpServletRequest request) {
-    if (request.getMethod().equals("POST")) {
+   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
+     String method = request.getMethod();
+     if (request.getMethod().equals("POST")) {
       if(!result.hasErrors())
         this.userDAO.insertOrUpdateUser(user);
     }
-    m.addAttribute("user", user);
     
     modelAndView.setViewName("addUser");
     return modelAndView;
