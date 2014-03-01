@@ -8,11 +8,11 @@
         <link href="resources/media/site.css" rel="stylesheet" type="text/css" />
         <link href="resources/media/images.css" rel="stylesheet" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ISP Admin - Přidání klienta</title>
+        <title>ISP Admin - Přidání/úprava klienta</title>
     </head>
     <body>
-        <h1>Přidání klienta</h1>
-        <form:form method="POST" action="/ispadmin/user/add" modelattribute="user" commandName="user">
+        <h1>Přidání/úprava klienta</h1>
+        <form:form method="POST" action="${action}" modelattribute="user" commandName="user">
             <label>Username: </label>
             <form:input path="username"></form:input>
             <form:errors path="username" cssclass="error"></form:errors>
