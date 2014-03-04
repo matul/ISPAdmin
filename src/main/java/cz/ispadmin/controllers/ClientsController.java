@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -72,29 +71,4 @@ public class ClientsController {
     this.modelAndView.setViewName("addUser");
     return this.modelAndView;
   }
-
-//  @RequestMapping(value = "/user/edit/{id}", method=RequestMethod.GET)
-//  public ModelAndView editUserForm(@PathVariable Integer id) {
-//    Users user = this.userDAO.getUserById(id);
-//    this.modelAndView.addObject("user", user);
-//    
-//    this.modelAndView.addObject("action", "/ispadmin/user/edit/" + id);
-//    this.modelAndView.setViewName("addUser");
-//    return this.modelAndView;
-//  }
-  
-//  @RequestMapping(value = "/user/edit/{id}", method=RequestMethod.POST)
-//  public ModelAndView editUserPost(@Valid @ModelAttribute Users user, BindingResult result, @PathVariable Integer id) {     
-//    if (!result.hasErrors()) {
-//      user.setId(id);
-//      this.userDAO.insertOrUpdateUser(user);
-//    }
-//    
-//    this.modelAndView.setViewName("addUser");
-//    user.setSurname("bububu");
-//    this.modelAndView.addObject("user", user);
-//    this.modelAndView.addObject("action", "/ispadmin/user/edit/" + id);
-//    return this.modelAndView;
-//  }
-
 }

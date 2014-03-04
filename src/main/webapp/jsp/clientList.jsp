@@ -1,12 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <base href="http://localhost:8080/ispadmin/" />
-    <title>ISP Admin - Seznam klientů</title>
-
-
+    <title>Seznam klientů</title>
     <link href="resources/media/dataTables/demo_table.css" rel="stylesheet" type="text/css" />
     <link href="resources/media/dataTables/demo_table_jui.css" rel="stylesheet" type="text/css" />
     <link href="resources/media/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
