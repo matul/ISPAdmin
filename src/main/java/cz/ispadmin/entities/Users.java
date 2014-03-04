@@ -48,6 +48,13 @@ public class Users implements java.io.Serializable {
     this.surname = surname;
     this.description = description;
   }
+  
+  public void setData(Users user) {
+    this.username = user.getUsername();
+    this.firstname = user.getFirstname();
+    this.surname = user.getSurname();
+    this.description = user.getDescription();
+  }
 
   public Integer getId() {
     return this.id;
