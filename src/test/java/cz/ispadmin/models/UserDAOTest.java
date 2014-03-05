@@ -36,6 +36,9 @@ public class UserDAOTest {
     this.testUser.setFirstname("test");
     this.testUser.setSurname("test");
     this.testUser.setDescription("test");
+    this.testUser.setAddress("test");
+    this.testUser.setEmail("test");
+    this.testUser.setPhone_number("+420 777 777 777");
   }
   
   @Before

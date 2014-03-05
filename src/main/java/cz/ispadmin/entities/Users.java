@@ -1,12 +1,15 @@
 package cz.ispadmin.entities;
 // Generated Nov 10, 2013 2:28:45 PM by Hibernate Tools 3.6.0
 
+import cz.ispadmin.models.Phone;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 
 /**
@@ -22,7 +25,7 @@ public class Users implements java.io.Serializable {
   @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
   private Integer id;
 
-  @Size(min = 2, max = 30)
+  @Size(min = 2, max = 20)
   private String username;
 
   @Size(min = 2, max = 30)
@@ -33,6 +36,15 @@ public class Users implements java.io.Serializable {
 
   @Size(min = 2, max = 30)
   private String description;
+  
+  @Size(min = 2, max = 30)
+  private String address;
+
+  @Size(min = 2, max = 30)
+  private String email;
+  
+  @Phone(message = "Špatné číslo!")
+  private String phone_number;
 
   public Users() {
 
@@ -42,20 +54,23 @@ public class Users implements java.io.Serializable {
     this.username = username;
   }
 
-  public Users(String username, String firstname, String surname, String description) {
-    this.username = username;
-    this.firstname = firstname;
-    this.surname = surname;
-    this.description = description;
-  }
-  
+    public Users(String username, String firstname, String surname, String description, String address, String email, String phone_number) {
+        this.username = username;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.description = description;
+        this.address = address;
+        this.email = email;
+        this.phone_number = phone_number;
+    }
+
   public void setData(Users user) {
     this.username = user.getUsername();
     this.firstname = user.getFirstname();
     this.surname = user.getSurname();
     this.description = user.getDescription();
   }
-
+  
   public Integer getId() {
     return this.id;
   }
@@ -99,5 +114,30 @@ public class Users implements java.io.Serializable {
   public void setDescription(String description) {
     this.description = description;
   }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
 
 }

@@ -49,8 +49,11 @@ public class ClientsController {
   @RequestMapping(value = "/user/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
     if (request.getMethod().equals("POST")) {
-      if (!result.hasErrors())
+      if (!result.hasErrors()){
         this.userDAO.insertOrUpdateUser(user);
+        modelAndView.setViewName("redirect:/users/clients");
+        return this.modelAndView;
+      }
     }
 
     this.modelAndView.addObject("action", "/ispadmin/user/add/");

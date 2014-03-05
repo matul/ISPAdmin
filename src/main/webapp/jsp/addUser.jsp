@@ -25,10 +25,22 @@
       <form:input path="surname"></form:input>
       <form:errors path="surname" cssclass="error"></form:errors>
 
+      <label>Adresa</label>
+      <form:input path="address"></form:input>
+      <form:errors path="address" cssclass="error"></form:errors>
+
+      <label>Email</label>
+      <form:input path="email"></form:input>
+      <form:errors path="email" cssclass="error"></form:errors>
+      
+      <label>Telefon</label>
+      <form:input path="phone_number"></form:input>
+      <form:errors path="phone_number" cssclass="error"></form:errors>
+      
       <label>Popis</label>
       <form:textarea path="description"></form:textarea>
       <form:errors path="description" cssclass="error"></form:errors>
-
+      
       <input type="submit" name="submit" value="Uložit změny" />
     </form:form>
   </body>

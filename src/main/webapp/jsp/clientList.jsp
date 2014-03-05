@@ -98,6 +98,9 @@
                             <th>Uživatelské jméno</th>
                             <th>Jméno</th>
                             <th>Příjmení</th>
+                            <th>Adresa</th>
+                            <th>Email</th>
+                            <th>Telefon</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -109,6 +112,9 @@
                                   <td>${u.getUsername()}</td>
                                   <td>${u.getFirstname()}</td>
                                   <td>${u.getSurname()}</td>
+                                  <td>${u.getAddress()}</td>
+                                  <td>${u.getEmail()}</td>
+                                  <td>${u.getPhone_number()}</td>
                                 </tr>
                               </c:forEach>
                             </c:when>
