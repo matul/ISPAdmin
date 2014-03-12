@@ -1,13 +1,11 @@
-package cz.ispadmin.models;
+package cz.ispadmin.models.dao;
 
 import cz.ispadmin.entities.*;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,19 +14,7 @@ import org.springframework.stereotype.Service;
  * @author Roman
  */
 @Service
-public class UserDAO {
-  
-  private SessionFactory sessionFactory;
-
-  /**
-   * Injects a SessionFactory object
-   *
-   * @param sessionFactory
-   */
-  @Autowired
-  public void setSessionFactory(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+public class UserDAO extends DAO {
 
   /**
    * Returns a user by ID
@@ -37,7 +23,7 @@ public class UserDAO {
    * @return Users
    */
   public Users getUserById(int userId) {
-    Session s = sessionFactory.openSession();
+    Session s = this.sessionFactory.openSession();
     try {
       return (Users) s.get(Users.class, userId);
     } catch (HibernateException e) {
@@ -48,7 +34,7 @@ public class UserDAO {
   }
 
   public Users getUserByUsername(String username) {
-    Session s = sessionFactory.openSession();
+    Session s = this.sessionFactory.openSession();
     try {
       Query query = s.createQuery("from Users where username = :username");
       query.setParameter("username", username);
@@ -60,22 +46,8 @@ public class UserDAO {
     }
   }
   
-  public List<Users> getLastTwentyUsers() {
-    Session s = sessionFactory.openSession();
-    try {
-      Query query = s.createQuery("from Users");
-      query.setMaxResults(20);
-      List<Users> users = query.list();
-      return users;
-    } catch (HibernateException e) {
-      return null;
-    } finally {
-      s.close();
-    }
-  }
-
   public List<Users> getAllUsers() {
-    Session s = sessionFactory.openSession();
+    Session s = this.sessionFactory.openSession();
     try {
       Query query = s.createQuery("from Users");
       List<Users> users = query.list();
@@ -94,7 +66,7 @@ public class UserDAO {
    * @return boolean TRUE on success otherwise FALSE
    */
   public boolean insertOrUpdateUser(Users user) {
-    Session s = sessionFactory.openSession();
+    Session s = this.sessionFactory.openSession();
     Transaction tx = s.beginTransaction();
     try {
       s.saveOrUpdate(user);
@@ -115,7 +87,7 @@ public class UserDAO {
    * @return boolean TRUE on success otherwise FALSE
    */
   public boolean deleteUser(Users user) {
-    Session s = sessionFactory.openSession();
+    Session s = this.sessionFactory.openSession();
     Transaction tx = s.beginTransaction();
     try {
       s.delete(user);

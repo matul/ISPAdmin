@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package cz.ispadmin.models;
+package cz.ispadmin.models.validators;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

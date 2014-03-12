@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.ispadmin.models;
+
+package cz.ispadmin.models.validators;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,19 +15,20 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = PhoneValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = BirthValidator.class)
+@Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 
 /**
  *
  * @author Marki
  */
-public @interface Phone {
-
-    String message() default "{Phone}";
-
+public @interface  Birth {
+    
+     
+    String message() default "{Birth}";
+     
     Class<?>[] groups() default {};
-
+     
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,5 +1,6 @@
 package cz.ispadmin.controllers;
 
+import cz.ispadmin.models.dao.UserDAO;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.models.*;
 import java.util.List;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/")
-public class ClientsController {
+public class ClientsController extends BaseController {
 
   private final UserDAO userDAO;
   private final ModelAndView modelAndView;

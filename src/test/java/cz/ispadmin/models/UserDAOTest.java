@@ -1,6 +1,7 @@
 package cz.ispadmin.models;
 
 import cz.ispadmin.entities.Users;
+import cz.ispadmin.models.dao.UserDAO;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- *
  * @author Roman
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -63,7 +63,6 @@ public class UserDAOTest {
     System.out.println("UserDAO.getUserById");
     Users user = this.userDao.getUserById(this.testUser.getId());
     assertNotNull("Unable to get a user by the given ID.", user);
-    //assertEquals("Unable to get a user by the given ID.", user, this.testUser);
   }
 
   @Test

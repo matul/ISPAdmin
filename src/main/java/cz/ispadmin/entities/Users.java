@@ -1,9 +1,6 @@
 package cz.ispadmin.entities;
-// Generated Nov 10, 2013 2:28:45 PM by Hibernate Tools 3.6.0
 
-import cz.ispadmin.models.Birth;
-import cz.ispadmin.models.Email;
-import cz.ispadmin.models.Phone;
+import cz.ispadmin.models.validators.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,161 +18,161 @@ import org.springframework.format.annotation.DateTimeFormat;
 )
 public class Users implements java.io.Serializable {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
+  private Integer id;
 
-    @Size(min = 2, max = 20)
-    private String username;
+  @Size(min = 2, max = 20)
+  private String username;
 
-    @Size(min = 3, max = 10)
-    private String firstname;
+  @Size(min = 3, max = 10)
+  private String firstname;
 
-    @Size(min = 3, max = 15)
-    private String surname;
+  @Size(min = 3, max = 15)
+  private String surname;
 
-    @Size(min = 2, max = 30)
-    private String description;
+  @Size(min = 2, max = 30)
+  private String description;
 
-    @Size(min = 2, max = 15)
-    private String city;
+  @Size(min = 2, max = 15)
+  private String city;
 
-    @Size(min = 2, max = 15)
-    private String street;
+  @Size(min = 2, max = 15)
+  private String street;
 
-    @Size(min = 2, max = 6) //????????????????????
-    private String post_code;
+  @Size(min = 2, max = 6)
+  private String post_code;
 
-    @Size(min = 8, max = 30)
-    @Email(message = "Špatný mail!")
-    private String email;
+  @Size(min = 8, max = 30)
+  @Email(message = "Špatný mail!")
+  private String email;
 
-    @Phone(message = "Špatné číslo!")
-    private String phone_number;
+  @Phone(message = "Špatné číslo!")
+  private String phone_number;
 
-    @DateTimeFormat(pattern = "d.m.rrrr")
-    @Birth(message = "Špatné datum narození!")
-    private String birthDate;
+  @DateTimeFormat(pattern = "d.m.rrrr")
+  @Birth(message = "Špatné datum narození!")
+  private String birthDate;
 
-    public Users() {
+  public Users() {
 
-    }
+  }
 
-    public Users(String username) {
-        this.username = username;
-    }
+  public Users(String username) {
+    this.username = username;
+  }
 
-    public Users(String username, String firstname, String surname, String description, String city, 
-            String street, String post_code, String email, String phone_number, String birthDate) {
-        this.username = username;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.description = description;
-        this.city = city;
-        this.street = street;
-        this.post_code = post_code;
-        this.email = email;
-        this.phone_number = phone_number;
-        this.birthDate = birthDate;
-    }
+  public Users(String username, String firstname, String surname, String description, String city,
+          String street, String post_code, String email, String phone_number, String birthDate) {
+    this.username = username;
+    this.firstname = firstname;
+    this.surname = surname;
+    this.description = description;
+    this.city = city;
+    this.street = street;
+    this.post_code = post_code;
+    this.email = email;
+    this.phone_number = phone_number;
+    this.birthDate = birthDate;
+  }
 
-    public void setData(Users user) {
-        this.username = user.getUsername();
-        this.firstname = user.getFirstname();
-        this.surname = user.getSurname();
-        this.description = user.getDescription();
-    }
+  public void setData(Users user) {
+    this.username = user.getUsername();
+    this.firstname = user.getFirstname();
+    this.surname = user.getSurname();
+    this.description = user.getDescription();
+  }
 
-    public Integer getId() {
-        return this.id;
-    }
+  public Integer getId() {
+    return this.id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    //@Column(name = "username", nullable = false, length = 30)
-    public String getUsername() {
-        return this.username;
-    }
+  //@Column(name = "username", nullable = false, length = 30)
+  public String getUsername() {
+    return this.username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    //@Column(name = "firstname", length = 30)
-    public String getFirstname() {
-        return this.firstname;
-    }
+  //@Column(name = "firstname", length = 30)
+  public String getFirstname() {
+    return this.firstname;
+  }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
 
-    //@Column(name = "surname", length = 30)
-    public String getSurname() {
-        return this.surname;
-    }
+  //@Column(name = "surname", length = 30)
+  public String getSurname() {
+    return this.surname;
+  }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+  public void setSurname(String surname) {
+    this.surname = surname;
+  }
 
-    //@Column(name = "description")
-    public String getDescription() {
-        return this.description;
-    }
+  //@Column(name = "description")
+  public String getDescription() {
+    return this.description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public String getStreet() {
-        return street;
-    }
+  public String getStreet() {
+    return street;
+  }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+  public void setStreet(String street) {
+    this.street = street;
+  }
 
-    public String getPost_code() {
-        return post_code;
-    }
+  public String getPost_code() {
+    return post_code;
+  }
 
-    public void setPost_code(String post_code) {
-        this.post_code = post_code;
-    }
+  public void setPost_code(String post_code) {
+    this.post_code = post_code;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
+  public String getPhone_number() {
+    return phone_number;
+  }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
+  public void setPhone_number(String phone_number) {
+    this.phone_number = phone_number;
+  }
 
-    public String getBirthDate() {
-        return birthDate;
-    }
+  public String getBirthDate() {
+    return birthDate;
+  }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
+  public void setBirthDate(String birthDate) {
+    this.birthDate = birthDate;
+  }
 }

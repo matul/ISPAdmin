@@ -1,17 +1,13 @@
-package cz.ispadmin.models;
+package cz.ispadmin.models.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
- * Base model class for operations with data sources
  * @author Roman
  */
-@Service
-public class Model {
-
-  private SessionFactory sessionFactory;
+public class DAO { 
+  protected SessionFactory sessionFactory;
 
   /**
    * Injects a SessionFactory object
