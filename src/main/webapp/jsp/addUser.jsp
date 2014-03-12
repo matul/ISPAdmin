@@ -25,10 +25,22 @@
       <form:input path="surname"></form:input>
       <form:errors path="surname" cssclass="error"></form:errors>
 
-      <label>Adresa</label>
-      <form:input path="address"></form:input>
-      <form:errors path="address" cssclass="error"></form:errors>
+      <label>Město</label>
+      <form:input path="city"></form:input>
+      <form:errors path="city" cssclass="error"></form:errors>
+      
+      <label>Ulice</label>
+      <form:input path="street"></form:input>
+      <form:errors path="street" cssclass="error"></form:errors>
 
+      <label>PSČ</label>
+      <form:input path="post_code"></form:input>
+      <form:errors path="post_code" cssclass="error"></form:errors>
+      
+      <label>Datum narození</label>
+      <form:input path="birthDate"></form:input>
+      <form:errors path="birthDate" cssclass="error"></form:errors>
+      
       <label>Email</label>
       <form:input path="email"></form:input>
       <form:errors path="email" cssclass="error"></form:errors>

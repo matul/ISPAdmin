@@ -36,9 +36,12 @@ public class UserDAOTest {
     this.testUser.setFirstname("test");
     this.testUser.setSurname("test");
     this.testUser.setDescription("test");
-    this.testUser.setAddress("test");
-    this.testUser.setEmail("test");
+    this.testUser.setCity("test");
+    this.testUser.setStreet("test");
+    this.testUser.setPost_code("test");
+    this.testUser.setEmail("sameone@something.cz");
     this.testUser.setPhone_number("+420 777 777 777");
+    this.testUser.setBirthDate("12.12.1988");
   }
   
   @Before

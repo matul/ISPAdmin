@@ -98,9 +98,12 @@
                             <th>Uživatelské jméno</th>
                             <th>Jméno</th>
                             <th>Příjmení</th>
-                            <th>Adresa</th>
+                            <th>Město</th>
+                            <th>Ulice</th>
+                            <th>Poštovní číslo</th>
                             <th>Email</th>
                             <th>Telefon</th>
+                            <th>Datum narození</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -112,9 +115,12 @@
                                   <td>${u.getUsername()}</td>
                                   <td>${u.getFirstname()}</td>
                                   <td>${u.getSurname()}</td>
-                                  <td>${u.getAddress()}</td>
+                                  <td>${u.getCity()}</td>
+                                  <td>${u.getStreet()}</td>
+                                  <td>${u.getPost_code()}</td>
                                   <td>${u.getEmail()}</td>
                                   <td>${u.getPhone_number()}</td>
+                                  <td>${u.getBirthDate()}</td>
                                 </tr>
                               </c:forEach>
                             </c:when>
