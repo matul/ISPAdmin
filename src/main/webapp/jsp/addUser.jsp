@@ -33,12 +33,12 @@
       <form:input path="street"></form:input>
       <form:errors path="street" cssclass="error"></form:errors>
 
-      <label>PSČ</label>
+      <label>Číslo popisné</label>
       <form:input path="post_code"></form:input>
       <form:errors path="post_code" cssclass="error"></form:errors>
       
       <label>Datum narození</label>
-      <form:input path="birthDate"></form:input>
+      <form:input path="birthDate" placeholder="d.m.rrrr"></form:input>
       <form:errors path="birthDate" cssclass="error"></form:errors>
       
       <label>Email</label>
@@ -46,7 +46,7 @@
       <form:errors path="email" cssclass="error"></form:errors>
       
       <label>Telefon</label>
-      <form:input path="phone_number"></form:input>
+      <form:input path="phone_number" placeholder="+420"></form:input>
       <form:errors path="phone_number" cssclass="error"></form:errors>
       
       <label>Popis</label>
