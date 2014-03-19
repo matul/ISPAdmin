@@ -21,22 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Roman
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/users")
 public class ClientsController extends BaseController {
 
   private final UserDAO userDAO;
   private final ModelAndView modelAndView;
+  private final String actionEdit = "/ispadmin/users";
 
   @Autowired
   public ClientsController(UserDAO model) {
     this.userDAO = model;
     this.modelAndView = new ModelAndView();
-  }
-
-  @RequestMapping("/")
-  public ModelAndView StartPage(HttpServletRequest request, HttpServletResponse response) {
-    modelAndView.setViewName("index");
-    return modelAndView;
   }
 
   @RequestMapping("/list")
@@ -52,26 +47,28 @@ public class ClientsController extends BaseController {
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()){
         this.userDAO.insertOrUpdateUser(user);
-        modelAndView.setViewName("redirect:/users/clients");
+        modelAndView.setViewName("redirect:/list");
         return this.modelAndView;
       }
     }
 
-    this.modelAndView.addObject("action", "/ispadmin/user/add/");
+    this.modelAndView.addObject("action", "/ispadmin/users/add/");
     this.modelAndView.setViewName("addUser");
     return this.modelAndView;
   }
   
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    if (request.getMethod().equals("GET"))
-      user.setData(this.userDAO.getUserById(id));
-    
+    if (request.getMethod().equals("GET")) {
+      Users u = this.userDAO.getUserById(id);
+      user.setData(u);
+    }
+      
     if (request.getMethod().equals("POST"))
       if (!result.hasErrors())
         this.userDAO.insertOrUpdateUser(user);
 
-    this.modelAndView.addObject("action", "/ispadmin/user/edit/" + id);
+    this.modelAndView.addObject("action", "/ispadmin/users/edit/" + id);
     this.modelAndView.setViewName("addUser");
     return this.modelAndView;
   }

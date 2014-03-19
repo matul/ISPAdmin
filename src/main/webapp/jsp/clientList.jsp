@@ -104,6 +104,7 @@
                             <th>Email</th>
                             <th>Telefon</th>
                             <th>Datum narození</th>
+                            <th>Akce<th>
                           </tr>
                         </thead>
                         <tbody>
@@ -121,6 +122,7 @@
                                   <td>${u.getEmail()}</td>
                                   <td>${u.getPhone_number()}</td>
                                   <td>${u.getBirthDate()}</td>
+                                  <td><a href="/ispadmin/users/edit/${u.getId()}">Upravit</a></td>
                                 </tr>
                               </c:forEach>
                             </c:when>

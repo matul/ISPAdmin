@@ -1,5 +1,6 @@
 package cz.ispadmin.controllers;
 
+import cz.ispadmin.entities.IncidentStates;
 import cz.ispadmin.entities.Incidents;
 import cz.ispadmin.models.dao.IncidentsDAO;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ServiceDeskController extends BaseController {
      modelAndView.setViewName("index");
      return modelAndView;
      }*/
-    @RequestMapping("/incidents")
+    @RequestMapping("/list")
     public ModelAndView listIncidents() {
         List<Incidents> incidents = incidentsDAO.getAllIncidents();
         modelAndView.addObject("incidents", incidents);
@@ -42,11 +43,14 @@ public class ServiceDeskController extends BaseController {
     }
 
     @RequestMapping(value = "/reportBug")
-    public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, BindingResult result, HttpServletRequest request) {
+    public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
         if (request.getMethod().equals("POST")) {
             if (!result.hasErrors()) {
+                //incident.setUser(null);
+                incidentS.setState("Nahlášeno");
+                incident.setState(incidentS);
                 this.incidentsDAO.insertOrUpdateIncident(incident);
-                modelAndView.setViewName("redirect:/serviceDesk/incidents");
+                modelAndView.setViewName("redirect:/serviceDesk/list");
                 return this.modelAndView;
             }
         }

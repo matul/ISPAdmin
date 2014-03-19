@@ -38,7 +38,7 @@
       <form:errors path="post_code" cssclass="error"></form:errors>
       
       <label>Datum narození</label>
-      <form:input path="birthDate" placeholder="d.m.rrrr"></form:input>
+      <form:input path="birthDate" placeholder="formát d.m.rrrr např. 1.2.1990"></form:input>
       <form:errors path="birthDate" cssclass="error"></form:errors>
       
       <label>Email</label>
@@ -46,7 +46,7 @@
       <form:errors path="email" cssclass="error"></form:errors>
       
       <label>Telefon</label>
-      <form:input path="phone_number" placeholder="+420"></form:input>
+      <form:input path="phone_number" placeholder="číslo musí začínat +420 nebo +421"></form:input>
       <form:errors path="phone_number" cssclass="error"></form:errors>
       
       <label>Popis</label>
