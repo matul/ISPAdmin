@@ -41,6 +41,9 @@
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.hbm2ddl.auto">create</prop>
+        <prop key="hibernate.connection.useUnicode" value="true" />
+        <prop key="hibernate.connection.characterEncoding" value="UTF-8" />
+        <prop key="hibernate.connection.charSet" value="UTF-8" />    
       </props>
     </property>
   </bean>	
