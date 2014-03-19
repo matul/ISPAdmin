@@ -1,93 +1,93 @@
 /*#region IMAGES*/
 .image {display: block; padding-left: 20px;}
 
-.image.info {background: url('../../images/icons/info16.png') no-repeat;}
-.image.view {background: url('../../images/icons/view16.png') no-repeat;}
-.image.add {background: url('../../images/icons/add16.png') no-repeat;}
-.image.edit {background: url('../../images/icons/edit16.png') no-repeat;}
-.image.move {background: url('../../images/icons/move16.png') no-repeat;}
-.image.delete {background: url('../../images/icons/delete16.png') no-repeat;}
-.image.login {background: url('../../images/icons/user16.png') no-repeat;}
-.image.users {background: url('../../images/icons/users16.png') no-repeat;}
-.image.user {background: url('../../images/icons/user16.png') no-repeat;}
-.image.owner {background: url('../../images/icons/owner16.png') no-repeat;}
-.image.setting {background: url('../../images/icons/setting16.png') no-repeat;}
-.image.changepass {background: url('../../images/icons/key16.png') no-repeat;}
-.image.passrecovery {background: url('../../images/icons/passrecovery16.png') no-repeat;}
-.image.logout {background: url('../../images/icons/logout16.png') no-repeat;}
+.image.info {background: url('../images/icons/info16.png') no-repeat;}
+.image.view {background: url('../images/icons/view16.png') no-repeat;}
+.image.add {background: url('../images/icons/add16.png') no-repeat;}
+.image.edit {background: url('../images/icons/edit16.png') no-repeat;}
+.image.move {background: url('../images/icons/move16.png') no-repeat;}
+.image.delete {background: url('../images/icons/delete16.png') no-repeat;}
+.image.login {background: url('../images/icons/user16.png') no-repeat;}
+.image.users {background: url('../images/icons/users16.png') no-repeat;}
+.image.user {background: url('../images/icons/user16.png') no-repeat;}
+.image.owner {background: url('../images/icons/owner16.png') no-repeat;}
+.image.setting {background: url('../images/icons/setting16.png') no-repeat;}
+.image.changepass {background: url('../images/icons/key16.png') no-repeat;}
+.image.passrecovery {background: url('../images/icons/passrecovery16.png') no-repeat;}
+.image.logout {background: url('../images/icons/logout16.png') no-repeat;}
 
-.image.loading {background: url('../../images/icons/loading16.gif') no-repeat;}
-.image.clock {background: url('../../images/icons/clock14.gif') no-repeat;}
+.image.loading {background: url('../images/icons/loading16.gif') no-repeat;}
+.image.clock {background: url('../images/icons/clock14.gif') no-repeat;}
 
-.image.yes {background: url('../../images/icons/ok16.png') no-repeat;}
-.image.no {background: url('../../images/icons/delete16.png') no-repeat;}
-.image.warning {background: url('../../images/icons/warning16.png') no-repeat;}
-.image.question {background: url('../../images/icons/question16.png') no-repeat;}
-.image.stop {background: url('../../images/icons/stop16.png') no-repeat;}
-.image.star {background: url('../../images/icons/star16.png') no-repeat;}
-.image.stats {background: url('../../images/icons/stats16.png') no-repeat;}
+.image.yes {background: url('../images/icons/ok16.png') no-repeat;}
+.image.no {background: url('../images/icons/delete16.png') no-repeat;}
+.image.warning {background: url('../images/icons/warning16.png') no-repeat;}
+.image.question {background: url('../images/icons/question16.png') no-repeat;}
+.image.stop {background: url('../images/icons/stop16.png') no-repeat;}
+.image.star {background: url('../images/icons/star16.png') no-repeat;}
+.image.stats {background: url('../images/icons/stats16.png') no-repeat;}
 
-.image.reject {background: url('../../images/icons/reject16.png') no-repeat;}
-.image.money {background: url('../../images/icons/money16.png') no-repeat;}
+.image.reject {background: url('../images/icons/reject16.png') no-repeat;}
+.image.money {background: url('../images/icons/money16.png') no-repeat;}
 
-.image.simple {background: url('../../images/icons/simple16.png') no-repeat;}
-.image.extended {background: url('../../images/icons/extended16.png') no-repeat;}
+.image.simple {background: url('../images/icons/simple16.png') no-repeat;}
+.image.extended {background: url('../images/icons/extended16.png') no-repeat;}
 
-.image.enablelog {background: url('../../images/icons/enablelog16.png') no-repeat;}
-.image.disablelog {background: url('../../images/icons/disablelog16.png') no-repeat;}
-.image.forbidden {background: url('../../images/icons/forbidden16.png') no-repeat;}
+.image.enablelog {background: url('../images/icons/enablelog16.png') no-repeat;}
+.image.disablelog {background: url('../images/icons/disablelog16.png') no-repeat;}
+.image.forbidden {background: url('../images/icons/forbidden16.png') no-repeat;}
 
-.image.addphoto {background: url('../../images/icons/addphoto16.png') no-repeat;}
-.image.photos {background: url('../../images/icons/photos16.png') no-repeat;}
+.image.addphoto {background: url('../images/icons/addphoto16.png') no-repeat;}
+.image.photos {background: url('../images/icons/photos16.png') no-repeat;}
 
-.image.calendar {background: url('../../images/icons/calendar16.png') no-repeat;}
-.image.unknown {background: url('../../images/icons/unknown16.png') no-repeat;}
+.image.calendar {background: url('../images/icons/calendar16.png') no-repeat;}
+.image.unknown {background: url('../images/icons/unknown16.png') no-repeat;}
 
-.image.category {background: url('../../images/icons/category16.png') no-repeat;}
-.image.articles {background: url('../../images/icons/articles16.png') no-repeat;}
+.image.category {background: url('../images/icons/category16.png') no-repeat;}
+.image.articles {background: url('../images/icons/articles16.png') no-repeat;}
 
-.image.magnifier {background: url('../../images/icons/magnifier16.png') no-repeat;}
-.image.addtag {background: url('../../images/icons/addtag16.png') no-repeat;}
-.image.box {background: url('../../images/icons/box16.png') no-repeat;}
-.image.sendemail {background: url('../../images/icons/sendemail16.png') no-repeat;}
-.image.globe {background: url('../../images/icons/globe16.png') no-repeat;}
-.image.package {background: url('../../images/icons/package16.png') no-repeat;}
+.image.magnifier {background: url('../images/icons/magnifier16.png') no-repeat;}
+.image.addtag {background: url('../images/icons/addtag16.png') no-repeat;}
+.image.box {background: url('../images/icons/box16.png') no-repeat;}
+.image.sendemail {background: url('../images/icons/sendemail16.png') no-repeat;}
+.image.globe {background: url('../images/icons/globe16.png') no-repeat;}
+.image.package {background: url('../images/icons/package16.png') no-repeat;}
 /*#endregion IMAGES*/
 
 /*#region ICONS*/
 .icon {display: block; float: left; width: 18px; height: 16px;}
 
-.icon.view {background: url('../../images/icons/view16.png') no-repeat;}
-.icon.add {background: url('../../images/icons/add16.png') no-repeat;}
-.icon.edit {background: url('../../images/icons/edit16.png') no-repeat;}
+.icon.view {background: url('../images/icons/view16.png') no-repeat;}
+.icon.add {background: url('../images/icons/add16.png') no-repeat;}
+.icon.edit {background: url('../images/icons/edit16.png') no-repeat;}
 .icon.edit.right {float: right; width: 18px;}
-.icon.delete {background: url('../../images/icons/delete16.png') no-repeat;}
+.icon.delete {background: url('../images/icons/delete16.png') no-repeat;}
 .icon.delete.right {float: right; width: 18px;}
-.icon.lock {background: url('../../images/icons/lock16.png') no-repeat;}
+.icon.lock {background: url('../images/icons/lock16.png') no-repeat;}
 
-.icon.ok {background: url('../../images/icons/ok16.png') no-repeat;}
-.icon.info {background: url('../../images/icons/info16.png') no-repeat;}
-.icon.warning {background: url('../../images/icons/warning16.png') no-repeat;}
+.icon.ok {background: url('../images/icons/ok16.png') no-repeat;}
+.icon.info {background: url('../images/icons/info16.png') no-repeat;}
+.icon.warning {background: url('../images/icons/warning16.png') no-repeat;}
 
-.icon.simple {background: url('../../images/icons/simple16.png') no-repeat;}
-.icon.extended {background: url('../../images/icons/extended16.png') no-repeat;}
+.icon.simple {background: url('../images/icons/simple16.png') no-repeat;}
+.icon.extended {background: url('../images/icons/extended16.png') no-repeat;}
 
-.icon.visible {background: url('../../images/icons/visible16.png') no-repeat;}
-.icon.invisible {background: url('../../images/icons/invisible16.png') no-repeat;}
+.icon.visible {background: url('../images/icons/visible16.png') no-repeat;}
+.icon.invisible {background: url('../images/icons/invisible16.png') no-repeat;}
 
-.icon.addphoto {background: url('../../images/icons/addphoto16.png') no-repeat;}
-.icon.photos {background: url('../../images/icons/photos16.png') no-repeat;}
+.icon.addphoto {background: url('../images/icons/addphoto16.png') no-repeat;}
+.icon.photos {background: url('../images/icons/photos16.png') no-repeat;}
 
-.icon.star {background: url('../../images/icons/star16.png') no-repeat;}
-.icon.download {background: url('../../images/icons/download16.png') no-repeat;}
+.icon.star {background: url('../images/icons/star16.png') no-repeat;}
+.icon.download {background: url('../images/icons/download16.png') no-repeat;}
 
-.icon.category {background: url('../../images/icons/category16.png') no-repeat;}
-.icon.articles {background: url('../../images/icons/articles16.png') no-repeat;}
+.icon.category {background: url('../images/icons/category16.png') no-repeat;}
+.icon.articles {background: url('../images/icons/articles16.png') no-repeat;}
 
-.icon.magnifier {background: url('../../images/icons/magnifier16.png') no-repeat;}
-.icon.loading {background: url('../../images/icons/loading16.gif') no-repeat;}
+.icon.magnifier {background: url('../images/icons/magnifier16.png') no-repeat;}
+.icon.loading {background: url('../images/icons/loading16.gif') no-repeat;}
 
-.icon.box {background: url('../../images/icons/box16.png') no-repeat;}
+.icon.box {background: url('../images/icons/box16.png') no-repeat;}
 /*#endregion ICONS*/
 
 /*#region BIG-ICONS*/

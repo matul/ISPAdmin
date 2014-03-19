@@ -37,10 +37,7 @@
               <ul>      
                 <li>
                   <a href="#" target="_blank" class="preview" title="Zobrazí náhled webu v novém panelu prohlížeče">Náhled stránek</a>
-                </li>            
-                <li>
-                  <a href="#" class="websetting">Nastavení webu</a>
-                </li>                  
+                </li>              
                 <li>
                   <a href="#" class="user">Můj profil</a>
                 </li>            
@@ -58,7 +55,7 @@
           <div class="menu">                
             <ul class="left">                          
               <li>
-                <a href="#">Správa klientů</a>
+                <a href="/ispadmin/users/list">Správa klientů</a>
               </li>  
               <li>
                 <a href="#">Fakturace</a>
@@ -70,7 +67,7 @@
                 <a href="#">Správa zařízení</a>
               </li>  
               <li>
-                <a href="#">Service desk</a>
+                <a href="/ispadmin/serviceDesk/list">Service desk</a>
               </li>  
               <li>
                 <a href="#">Autentizace</a>

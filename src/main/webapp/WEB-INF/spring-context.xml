@@ -24,10 +24,13 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
                cache-period="10000" />
   
   
-  <bean
-    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/jsp/" />
     <property name="suffix" value=".jsp" />
+  </bean>
+  
+  <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basename" value="messages"/>
   </bean>
 
 </beans>

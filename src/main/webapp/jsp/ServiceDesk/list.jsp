@@ -1,9 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 <h2>Seznam problémů</h2>  
-
+<%@ include file="submenu.jsp" %>
 <div id="demo_jui">
   <table id="companies" class="display">
     <thead>
@@ -34,4 +34,4 @@
     </tbody>
   </table>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>

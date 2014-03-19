@@ -2,13 +2,11 @@ package cz.ispadmin.controllers;
 
 import cz.ispadmin.models.dao.UserDAO;
 import cz.ispadmin.entities.Users;
-import cz.ispadmin.models.*;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -22,38 +20,36 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping("/users")
-public class ClientsController extends BaseController {
+public class UsersController extends BaseController {
 
   private final UserDAO userDAO;
-  private final ModelAndView modelAndView;
-  private final String actionEdit = "/ispadmin/users";
+  private final String ACTION_PREFIX = "/ispadmin/users";
 
   @Autowired
-  public ClientsController(UserDAO model) {
+  public UsersController(UserDAO model) {
     this.userDAO = model;
-    this.modelAndView = new ModelAndView();
   }
 
   @RequestMapping("/list")
   public ModelAndView listClients() {
     List<Users> users = userDAO.getAllUsers();
-    modelAndView.addObject("users", users);
-    modelAndView.setViewName("clientList");
+    this.modelAndView.addObject("users", users);
+    this.modelAndView.setViewName("Users/list");
     return modelAndView;
   }
 
   @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
+    this.modelAndView.setViewName("Users/add");
+    
     if (request.getMethod().equals("POST")) {
-      if (!result.hasErrors()){
+      if (!result.hasErrors()) {
         this.userDAO.insertOrUpdateUser(user);
-        modelAndView.setViewName("redirect:/list");
-        return this.modelAndView;
+        this.modelAndView.setViewName("redirect:/users/list");
       }
     }
 
-    this.modelAndView.addObject("action", "/ispadmin/users/add/");
-    this.modelAndView.setViewName("addUser");
+    this.modelAndView.addObject("action", ACTION_PREFIX + "/add/");
     return this.modelAndView;
   }
   
@@ -64,12 +60,15 @@ public class ClientsController extends BaseController {
       user.setData(u);
     }
       
-    if (request.getMethod().equals("POST"))
-      if (!result.hasErrors())
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
         this.userDAO.insertOrUpdateUser(user);
-
-    this.modelAndView.addObject("action", "/ispadmin/users/edit/" + id);
-    this.modelAndView.setViewName("addUser");
+        this.modelAndView.setViewName("redirect:/users/list");
+      }
+    }
+    
+    this.modelAndView.addObject("action", ACTION_PREFIX + "/edit/" + id);
+    this.modelAndView.setViewName("Users/add");
     return this.modelAndView;
   }
 }

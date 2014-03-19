@@ -20,43 +20,37 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/serviceDesk")
 public class ServiceDeskController extends BaseController {
 
-    private final IncidentsDAO incidentsDAO;
-    private final ModelAndView modelAndView;
+  private final IncidentsDAO incidentsDAO;
 
-    @Autowired
-    public ServiceDeskController(IncidentsDAO model) {
-        this.incidentsDAO = model;
-        this.modelAndView = new ModelAndView();
+  @Autowired
+  public ServiceDeskController(IncidentsDAO model) {
+    this.incidentsDAO = model;
+  }
+
+  @RequestMapping("/list")
+  public ModelAndView listIncidents() {
+    List<Incidents> incidents = incidentsDAO.getAllIncidents();
+    this.modelAndView.addObject("incidents", incidents);
+    this.modelAndView.setViewName("ServiceDesk/list");
+    return this.modelAndView;
+  }
+
+  @RequestMapping(value = "/reportBug")
+  public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
+    this.modelAndView.setViewName("reportBug");
+    
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        //incident.setUser(null);
+        incidentS.setState("Nahlášeno");
+        incident.setState(incidentS);
+
+        this.incidentsDAO.insertOrUpdateIncident(incident);
+        this.modelAndView.setViewName("redirect:/ServiceDesk/list");
+      }
     }
 
-    /*@RequestMapping("/")
-     public ModelAndView StartPage(HttpServletRequest request, HttpServletResponse response) {
-     modelAndView.setViewName("index");
-     return modelAndView;
-     }*/
-    @RequestMapping("/list")
-    public ModelAndView listIncidents() {
-        List<Incidents> incidents = incidentsDAO.getAllIncidents();
-        modelAndView.addObject("incidents", incidents);
-        modelAndView.setViewName("incidentsList");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/reportBug")
-    public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
-        if (request.getMethod().equals("POST")) {
-            if (!result.hasErrors()) {
-                //incident.setUser(null);
-                incidentS.setState("Nahlášeno");
-                incident.setState(incidentS);
-                this.incidentsDAO.insertOrUpdateIncident(incident);
-                modelAndView.setViewName("redirect:/serviceDesk/list");
-                return this.modelAndView;
-            }
-        }
-        
-        this.modelAndView.addObject("action", "/ispadmin/serviceDesk/reportBug/");
-        this.modelAndView.setViewName("reportBug");
-        return this.modelAndView;
-    }
+    this.modelAndView.addObject("action", "/ispadmin/serviceDesk/reportBug/");
+    return this.modelAndView;
+  }
 }

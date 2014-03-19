@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="header.jsp" %>
-    <h1>Přidání/úprava klienta</h1>
+<%@ include file="../header.jsp" %>
+    <h2>Přidání/úprava klienta</h2>
+    <%@ include file="submenu.jsp" %>
     <form:form method="POST" action="${action}" modelattribute="user" commandName="user">
       <label>Uživatelské jméno</label>
       <form:input path="username"></form:input>
@@ -45,4 +46,4 @@
       
       <input type="submit" name="submit" value="Uložit změny" />
     </form:form>
-<%@ include file="foot.jsp" %>
+<%@ include file="../footer.jsp" %>
