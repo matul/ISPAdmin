@@ -39,7 +39,7 @@ public class ClientsController extends BaseController {
     return modelAndView;
   }
 
-  @RequestMapping("/users/clients")
+  @RequestMapping("/list")
   public ModelAndView listClients() {
     List<Users> users = userDAO.getAllUsers();
     modelAndView.addObject("users", users);
@@ -47,7 +47,7 @@ public class ClientsController extends BaseController {
     return modelAndView;
   }
 
-  @RequestMapping(value = "/user/add")
+  @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()){
@@ -62,7 +62,7 @@ public class ClientsController extends BaseController {
     return this.modelAndView;
   }
   
-  @RequestMapping(value = "/user/edit/{id}")
+  @RequestMapping(value = "/edit/{id}")
   public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
     if (request.getMethod().equals("GET"))
       user.setData(this.userDAO.getUserById(id));

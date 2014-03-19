@@ -18,7 +18,7 @@
       <form:errors path="subject" cssclass="error"></form:errors>
 
       <label>Popis</label>
-      <form:input path="dmessage"></form:input>
+      <form:input path="message"></form:input>
       <form:errors path="message" cssclass="error"></form:errors>
       
       <input type="submit" name="submit" value="Odeslat" />

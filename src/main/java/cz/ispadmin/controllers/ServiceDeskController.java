@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @author Roman
  */
-//@Controller
-//@RequestMapping("/")
+@Controller
+@RequestMapping("/serviceDesk")
 public class ServiceDeskController extends BaseController {
 
     private final IncidentsDAO incidentsDAO;
@@ -32,7 +33,7 @@ public class ServiceDeskController extends BaseController {
      modelAndView.setViewName("index");
      return modelAndView;
      }*/
-    @RequestMapping("/users/incidents")
+    @RequestMapping("/incidents")
     public ModelAndView listIncidents() {
         List<Incidents> incidents = incidentsDAO.getAllIncidents();
         modelAndView.addObject("incidents", incidents);
@@ -40,17 +41,17 @@ public class ServiceDeskController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/user/reportBug")
+    @RequestMapping(value = "/reportBug")
     public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, BindingResult result, HttpServletRequest request) {
         if (request.getMethod().equals("POST")) {
             if (!result.hasErrors()) {
                 this.incidentsDAO.insertOrUpdateIncident(incident);
-                modelAndView.setViewName("redirect:/users/incidents");
+                modelAndView.setViewName("redirect:/serviceDesk/incidents");
                 return this.modelAndView;
             }
         }
         
-        this.modelAndView.addObject("action", "/ispadmin/user/reportBug/");
+        this.modelAndView.addObject("action", "/ispadmin/serviceDesk/reportBug/");
         this.modelAndView.setViewName("reportBug");
         return this.modelAndView;
     }
