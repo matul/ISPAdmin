@@ -41,15 +41,10 @@
         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.show_sql">true</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.connection.useUnicode">true</prop>
+        <prop key="hibernate.connection.characterEncoding">utf-8</prop>   
       </props>
     </property>
-  </bean>
-  
-  <!--
-  <bean id="transactionManager"
-        class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
-        p:sessionFactory-ref="sessionFactory">
-  </bean>
-  -->			
+  </bean>	
 
 </beans>
