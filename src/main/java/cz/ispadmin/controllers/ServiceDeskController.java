@@ -37,7 +37,7 @@ public class ServiceDeskController extends BaseController {
 
   @RequestMapping(value = "/reportBug")
   public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
-    this.modelAndView.setViewName("reportBug");
+    this.modelAndView.setViewName("ServiceDesk/reportBug");
     
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
@@ -46,7 +46,7 @@ public class ServiceDeskController extends BaseController {
         incident.setState(incidentS);
 
         this.incidentsDAO.insertOrUpdateIncident(incident);
-        this.modelAndView.setViewName("redirect:/ServiceDesk/list");
+        this.modelAndView.setViewName("redirect:/serviceDesk/list");
       }
     }
 
