@@ -7,8 +7,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
-        <h1>Ahoj světe!</h1>
-        testík
+    <body>fuck my life
     </body>
 </html>
