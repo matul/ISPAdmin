@@ -8,7 +8,7 @@
   <form:input path="subject"></form:input>
   <form:errors path="subject" cssclass="error"></form:errors>
 
-    <label>Popis</label>
+  <label>Popis</label>
   <form:input path="message"></form:input>
   <form:errors path="message" cssclass="error"></form:errors>
 

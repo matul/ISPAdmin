@@ -33,24 +33,24 @@ public class UsersController extends BaseController {
   @RequestMapping("/list")
   public ModelAndView listClients() {
     List<Users> users = userDAO.getAllUsers();
-    this.modelAndView.addObject("users", users);
-    this.modelAndView.setViewName("Users/list");
-    return modelAndView;
+    this.template.addObject("users", users);
+    this.template.setViewName("Users/list");
+    return template;
   }
 
   @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
-    this.modelAndView.setViewName("Users/add");
+    this.template.setViewName("Users/add");
     
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.userDAO.insertOrUpdateUser(user);
-        this.modelAndView.setViewName("redirect:/users/list");
+        this.template.setViewName("redirect:/users/list");
       }
     }
 
-    this.modelAndView.addObject("action", ACTION_PREFIX + "/add/");
-    return this.modelAndView;
+    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    return this.template;
   }
   
   @RequestMapping(value = "/edit/{id}")
@@ -63,12 +63,12 @@ public class UsersController extends BaseController {
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.userDAO.insertOrUpdateUser(user);
-        this.modelAndView.setViewName("redirect:/users/list");
+        this.template.setViewName("redirect:/users/list");
       }
     }
     
-    this.modelAndView.addObject("action", ACTION_PREFIX + "/edit/" + id);
-    this.modelAndView.setViewName("Users/add");
-    return this.modelAndView;
+    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
+    this.template.setViewName("Users/add");
+    return this.template;
   }
 }

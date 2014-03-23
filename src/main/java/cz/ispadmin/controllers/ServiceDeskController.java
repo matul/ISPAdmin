@@ -29,28 +29,28 @@ public class ServiceDeskController extends BaseController {
 
   @RequestMapping("/list")
   public ModelAndView listIncidents() {
-    List<Incidents> incidents = incidentsDAO.getAllIncidents();
-    this.modelAndView.addObject("incidents", incidents);
-    this.modelAndView.setViewName("ServiceDesk/list");
-    return this.modelAndView;
+    List<Incidents> incidents = this.incidentsDAO.getAllIncidents();
+    this.template.addObject("incidents", incidents);
+    this.template.setViewName("ServiceDesk/list");
+    return this.template;
   }
 
   @RequestMapping(value = "/reportBug")
   public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
-    this.modelAndView.setViewName("ServiceDesk/reportBug");
+    this.template.setViewName("ServiceDesk/reportBug");
     
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        //incident.setUser(null);
+        incident.setUser(null);
         incidentS.setState("Nahlášeno");
         incident.setState(incidentS);
 
         this.incidentsDAO.insertOrUpdateIncident(incident);
-        this.modelAndView.setViewName("redirect:/serviceDesk/list");
+        this.template.setViewName("redirect:/serviceDesk/list");
       }
     }
 
-    this.modelAndView.addObject("action", "/ispadmin/serviceDesk/reportBug/");
-    return this.modelAndView;
+    this.template.addObject("action", "/ispadmin/serviceDesk/reportBug/");
+    return this.template;
   }
 }

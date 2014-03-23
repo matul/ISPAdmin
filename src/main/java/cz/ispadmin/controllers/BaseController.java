@@ -15,16 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BaseController {
   
-  protected ModelAndView modelAndView;
+  protected ModelAndView template;
 
   public BaseController() {
-    this.modelAndView = new ModelAndView();
+    this.template = new ModelAndView();
   }
   
   @RequestMapping("")
   public ModelAndView StartPage(HttpServletRequest request, HttpServletResponse response) {
-    this.modelAndView.setViewName("index");
-    return this.modelAndView;
+    this.template.setViewName("index");
+    return this.template;
   }
   
 }
