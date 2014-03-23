@@ -4,13 +4,27 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
  
   <display-name>Spring Hello World</display-name>
+  
   <welcome-file-list>
-    <welcome-file>/users/clients</welcome-file>
+    <welcome-file>/users/list</welcome-file>
   </welcome-file-list>
- 
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      /WEB-INF/spring-context.xml
+      /WEB-INF/spring-data-source.xml
+    </param-value>
+  </context-param>
+  
   <servlet>
-    <servlet-name>springDispatcher</servlet-name>
+    <servlet-name>spring</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>
@@ -18,13 +32,18 @@
         /WEB-INF/spring-data-source.xml
       </param-value>
     </init-param>
+    -->
     <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>springDispatcher</servlet-name>
+    <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
   
   <filter>
     <filter-name>SetCharacterEncodingFilter</filter-name>
@@ -43,4 +62,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
    
+  <!-- Spring Security -->
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

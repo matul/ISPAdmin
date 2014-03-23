@@ -8,23 +8,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Roman
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-  locations = {
-    "file:src/main/webapp/WEB-INF/spring-servlet.xml",
-    "file:src/main/webapp/WEB-INF/spring-context.xml",
-    "file:src/main/webapp/WEB-INF/spring-data-source-test.xml",
-  }
-)
-public class UserDAOTest {
- 
-  @Autowired
+public class UserDAOTest extends ModelTest {
   private UserDAO userDao;
   
   private final Users testUser;
@@ -33,6 +21,7 @@ public class UserDAOTest {
   public UserDAOTest() {
     this.testUser = new Users();
     this.testUser.setUsername(DEFAULT_USER_NAME);
+    this.testUser.setPassword("test");
     this.testUser.setFirstname("test");
     this.testUser.setSurname("test");
     this.testUser.setDescription("test");
@@ -43,9 +32,11 @@ public class UserDAOTest {
     this.testUser.setPhone_number("+420 777 777 777");
     this.testUser.setBirthDate("12.12.1988");
   }
-  
-  @Before
-  public void setUp() {
+
+  @Autowired
+  public void setUserDao(UserDAO userDao) {
+    this.userDao = userDao;
+    
     System.out.println("UserDAO.testInsertOrUpdateUser");
     boolean insertResult = this.userDao.insertOrUpdateUser(testUser);
     assertTrue("Unable to add a user.", insertResult);
