@@ -2,6 +2,7 @@ package cz.ispadmin.controllers;
 
 import cz.ispadmin.entities.IncidentStates;
 import cz.ispadmin.entities.Incidents;
+import cz.ispadmin.models.dao.IncidentStatesDAO;
 import cz.ispadmin.models.dao.IncidentsDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,10 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ServiceDeskController extends BaseController {
 
   private final IncidentsDAO incidentsDAO;
+  private final IncidentStatesDAO statesDAO;
+  private final String ACTION_PREFIX = "/ispadmin/serviceDesk/";
 
   @Autowired
-  public ServiceDeskController(IncidentsDAO model) {
-    this.incidentsDAO = model;
+  public ServiceDeskController(IncidentsDAO incidentsDAO, IncidentStatesDAO statesDAO) {
+    this.incidentsDAO = incidentsDAO;
+    this.statesDAO = statesDAO;
   }
 
   @RequestMapping("/list")
@@ -50,7 +55,33 @@ public class ServiceDeskController extends BaseController {
       }
     }
 
-    this.template.addObject("action", "/ispadmin/serviceDesk/reportBug/");
+    this.template.addObject("action", ACTION_PREFIX + "/reportBug/");
+    return this.template;
+  }
+  
+   @RequestMapping(value = "/edit/{id}")
+  public ModelAndView editIncident(@Valid @ModelAttribute("incident") Incidents incident, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    List<IncidentStates> states = this.statesDAO.getAllStates();
+    this.template.addObject("states", states);
+    this.template.setViewName("ServiceDesk/changeState");
+    
+    Incidents originalIncident = this.incidentsDAO.getIncidentById(id);
+    if(incident.getState() != null) {
+        int stateId = incident.getState().getId();
+        incident.setData(originalIncident);
+        IncidentStates newState = this.statesDAO.getStateById(stateId);
+        incident.setState(newState);
+    } else
+        incident.setData(originalIncident);        
+
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        this.incidentsDAO.insertOrUpdateIncident(incident);
+        this.template.setViewName("redirect:/serviceDesk/list");
+      }
+    }
+    
+    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
     return this.template;
   }
 }

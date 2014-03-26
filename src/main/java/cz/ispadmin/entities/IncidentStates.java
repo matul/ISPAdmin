@@ -30,6 +30,14 @@ public class IncidentStates {
     @Size(min = 2, max = 15)
     private String state;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public String getState() {
         return state;
     }

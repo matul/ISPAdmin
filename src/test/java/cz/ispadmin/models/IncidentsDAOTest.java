@@ -1,6 +1,7 @@
 package cz.ispadmin.models;
 
 import cz.ispadmin.entities.Incidents;
+import cz.ispadmin.models.dao.IncidentStatesDAO;
 import cz.ispadmin.models.dao.IncidentsDAO;
 import java.util.List;
 import org.junit.BeforeClass;
@@ -19,13 +20,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class IncidentsDAOTest extends ModelTest {
   
   private IncidentsDAO incidentDao;  
+  private IncidentStatesDAO statesDao;
   private final Incidents testIncident;
 
   public IncidentsDAOTest() {
     this.testIncident = new Incidents();
     this.testIncident.setSubject("Technické problémy");
     this.testIncident.setMessage("Something about problem.");
-    //this.testIncident.setState("");
   }
   
   @Autowired
@@ -35,6 +36,12 @@ public class IncidentsDAOTest extends ModelTest {
     System.out.println("IncidentsDAO.testInsertOrUpdateIncident");
     boolean insertResult = this.incidentDao.insertOrUpdateIncident(testIncident);
     assertTrue("Unable to add a user.", insertResult);
+  }
+  
+  @Autowired
+  public void setIncidentStatesDao(IncidentStatesDAO statesDao) {
+    this.statesDao = statesDao;
+    this.testIncident.setState(this.statesDao.getStateById(1));
   }
 
   /**

@@ -20,6 +20,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class IncidentsDAO extends DAO {
 
+    /**
+   * Returns a user by ID
+   *
+   * @param incidentId
+   * @return Incidents
+   */
+  public Incidents getIncidentById(int incidentId) {
+    Session s = this.sessionFactory.openSession();
+    try {
+      return (Incidents) s.get(Incidents.class, incidentId);
+    } catch (HibernateException e) {
+      return null;
+    } finally {
+      s.close();
+    }
+  }
+  
     public List<Incidents> getAllIncidents() {
         Session s = this.sessionFactory.openSession();
         try {

@@ -51,6 +51,7 @@ public class Incidents implements java.io.Serializable {
   public void setData(Incidents incident) {
     this.message = incident.getMessage();
     this.subject = incident.getSubject();
+    this.state = incident.getState();
   }
 
   public Integer getId() {

@@ -45,5 +45,6 @@
       <form:errors path="description" cssclass="error"></form:errors>
       
       <input type="submit" name="submit" value="Uložit změny" />
+       
     </form:form>
 <%@ include file="../footer.jsp" %>
