@@ -17,6 +17,7 @@
         <th>Telefon</th>
         <th>Datum narození</th>
         <th>Akce</th>
+        <th>Reset hesla</th>
       </tr>
     </thead>
     <tbody>
@@ -35,6 +36,9 @@
               <td>${u.getBirthDate()}</td>
               <td>
                 <a class="image edit" href="/ispadmin/users/edit/${u.getId()}" title="upravit">upravit</a>
+              </td>
+              <td>
+                <a class="image passrecovery" href="/ispadmin/users/editPassword/${u.getId()}" title="reset hesla">reset</a>
               </td> 
             </tr>
           </c:forEach>
