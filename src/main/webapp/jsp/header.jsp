@@ -45,7 +45,7 @@
                   <a href="#" class="password">Změnit heslo</a>
                 </li>      
                 <li>
-                  <a href="#" class="logoff">Odhlásit se</a>
+                  <a href="/ispadmin/authentication/logout" class="logoff">Odhlásit se</a>
                 </li>    
               </ul>                 
             </div>          
