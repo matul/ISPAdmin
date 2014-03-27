@@ -69,7 +69,9 @@ public class ServiceDeskController extends BaseController {
     if(incident.getState() != null) {
         int stateId = incident.getState().getId();
         incident.setData(originalIncident);
+
         IncidentStates newState = this.statesDAO.getStateById(stateId);
+        originalIncident.setAnswer(incident.getAnswer());
         incident.setState(newState);
     } else
         incident.setData(originalIncident);        

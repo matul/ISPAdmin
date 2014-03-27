@@ -38,6 +38,8 @@ public class Incidents implements java.io.Serializable {
   @Size(min = 2, max = 1000)
   private String message;
   
+  @Size(min = 2, max = 1000)
+  private String answer;
   
 
   public Incidents() {
@@ -93,5 +95,13 @@ public class Incidents implements java.io.Serializable {
   public void setMessage(String message) {
     this.message = message;
   }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
 }

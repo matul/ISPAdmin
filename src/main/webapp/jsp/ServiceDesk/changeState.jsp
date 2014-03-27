@@ -16,6 +16,10 @@
     </form:select>
     <form:errors path="state.id" cssclass="error"></form:errors>
 
+    <label>Odpověď</label>
+    <form:input path="answer"></form:input>
+    <form:errors path="answer" cssclass="error"></form:errors>
+
         <input type="submit" name="submit" value="Odeslat" />
 </form:form>
 <%@ include file="../footer.jsp" %>

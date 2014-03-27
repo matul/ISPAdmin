@@ -27,6 +27,7 @@ public class IncidentsDAOTest extends ModelTest {
     this.testIncident = new Incidents();
     this.testIncident.setSubject("Technické problémy");
     this.testIncident.setMessage("Something about problem.");
+    this.testIncident.setAnswer("Zatím žádná odpověď.");
   }
   
   @Autowired

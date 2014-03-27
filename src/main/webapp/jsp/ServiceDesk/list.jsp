@@ -14,6 +14,7 @@
         <th>Jméno</th>
         <th>Příjmení</th>
         <th>Stav</th>
+        <th>Odpověď</th>
         <th>Akce</th>
       </tr>
     </thead>
@@ -28,6 +29,7 @@
               <td>${i.getUser().getFirstname()}</td>
               <td>${i.getUser().getSurname()}</td>
               <td>${i.getState().getState()}</td>
+              <td>${i.getAnswer()}</td>
               <td>
                 <a class="image edit" href="/ispadmin/serviceDesk/edit/${i.getId()}" title="upravit">upravit</a>
               </td> 
