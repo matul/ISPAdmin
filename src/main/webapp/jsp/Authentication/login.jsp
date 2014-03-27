@@ -4,34 +4,31 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
+    <link href="resources/media/images.css" rel="stylesheet" type="text/css" />
     <title>Přihlášení</title>
   </head>
-  <body>
-    <h1>Přihlášení</h1>
-    ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
+  <body id="login">
+    <div class="all">        
+      <div class="loginheader">          
+        <div class="logindiv">            
+          <div class="in"><h2>Přihlášení</h2>
+               ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
     
-    <form name='f' action='/ispadmin/j_spring_security_check' method='POST'>
-      <table>  
-        <tr>  
-          <td>User:</td>  
-          <td><input type='text' name='j_username' >  
-          </td>  
-        </tr>  
-        <tr>  
-          <td>Password:</td>  
-          <td><input type='password' name='j_password' />  
-          </td>  
-        </tr>  
-        <tr>  
-          <td colspan='2'><input name="submit" type="submit"  
-                                 value="submit" />  
-          </td>  
-        </tr>  
-        <tr>  
-          <td colspan='2'><input name="reset" type="reset" />  
-          </td>  
-        </tr>  
-      </table>  
-    </form>  
+                <form name='f' action='/ispadmin/j_spring_security_check' method='POST' class="loginform">
+                    <label>Přihlašovací jméno:</label>  
+
+                    <input type='text' name='j_username' >  
+                    <label>Heslo:</label>
+
+                    <input type='password' name='j_password' />  
+
+                    <input name="submit" type="submit" value="Přihlásit" class="submit" />  
+                    <input name="reset" type="reset" value="Smazat" class="submit" />  
+                </form> 
+            </div>          
+        </div>        
+      </div>      
+    </div>
   </body>
 </html>
