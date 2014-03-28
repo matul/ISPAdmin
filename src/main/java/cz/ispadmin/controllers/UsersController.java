@@ -104,13 +104,12 @@ public class UsersController extends BaseController {
         return this.template;
     }
 
-    @RequestMapping(value = "/changePassword/6")
-    public ModelAndView changePassword(@PathVariable Integer id, HttpServletRequest request) {
+    @RequestMapping(value = "/changePassword")
+    public ModelAndView changePassword(HttpServletRequest request) {
         HashMap<String, String> errors = new HashMap<String, String>();
         this.template.setViewName("Users/changePassword");
-
         if (request.getMethod().equals("POST")) {
-            Users user = this.userDAO.getUserById(id);
+            Users user = this.userDAO.getUserById(6);
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String passwordVerification = request.getParameter("passwordVerification");
@@ -132,7 +131,7 @@ public class UsersController extends BaseController {
             }
         }
         this.template.addObject("errors", errors);
-        this.template.addObject("action", "/ispadmin/users/changePassword/" + id);
+        this.template.addObject("action", "/ispadmin/users/changePassword");
 
         return this.template;
     }

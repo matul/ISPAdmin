@@ -7,7 +7,7 @@
     <p>${errors.password}</p>
     <p>${errors.passwordVerification}</p>
 
-    Zadejte staré heslo: <input path="oldPassword" />
+    Zadejte staré heslo: <input type="text" name="oldPassword"/>
     Nové heslo: <input type="text" name="newPassword"/>
     Potvrzení hesla: <input type="text" name="passwordVerification"/>
     <input type="submit" value="odeslat" /> 

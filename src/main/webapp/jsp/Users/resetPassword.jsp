@@ -10,8 +10,6 @@
     Potvrzení hesla: <input type="text" name="passwordVerification"/>
     <input type="submit" value="odeslat" />
     
-</form>
-      
-      
+</form>   
       
 <%@ include file="../footer.jsp" %>
