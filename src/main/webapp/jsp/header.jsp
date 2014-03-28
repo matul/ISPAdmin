@@ -42,7 +42,7 @@
                   <a href="#" class="user">Můj profil</a>
                 </li>            
                 <li>
-                  <a href="#" class="password">Změnit heslo</a>
+                  <a href="/ispadmin/users/changePassword" class="password">Změnit heslo</a>
                 </li>      
                 <li>
                   <a href="/ispadmin/authentication/logout" class="logoff">Odhlásit se</a>
