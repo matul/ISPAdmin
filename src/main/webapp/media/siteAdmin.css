@@ -36,7 +36,7 @@ img {border: none;}
 .all .allin .footer a {text-decoration: none;}
 
 .all .loginheader {background: url('images/login_header.png') no-repeat; padding-top: 46px;}
-.all .loginheader .logindiv {background: url('images/login_logo.png') no-repeat center top; width: 415px; margin-top: 64px; text-align: left;}
+.all .loginheader .logindiv {background: url('images/brs.png') no-repeat center top; width: 415px; margin-top: 64px; text-align: left;}
 .all .loginheader .logindiv .in {width: 280px; padding-top: 160px;}
 .all .loginheader .logindiv .in h2 {font-size: 16px; text-align: center; color: #0C3052; margin-bottom: 26px;}
 .all .loginheader .logindiv .in label {font-weight: bold;}
@@ -211,7 +211,7 @@ form select, form input, form textarea {margin: 2px 0 8px 0; border-radius: 5px;
 form select {width: 284px;}
 form input {width: 275px;}
 form input:hover {border: 1px solid #BBB;}
-form input.submit {width: 100px; height: 26px; display: inline; color: #EEE; border: none; background: url('form_submit.png') no-repeat; display: block; float: right; }
+form input.submit {width: 100px; height: 26px; display: inline; color: #EEE; border: none; background: url('images/form_submit.png') no-repeat; display: block; float: right; }
 form input.submit.left {float: left; margin-right: 6px;}
 form input.submit.red {background: url('images/form_submit_red.png') no-repeat;}
 

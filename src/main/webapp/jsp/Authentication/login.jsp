@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
-    <link href="resources/media/images.css" rel="stylesheet" type="text/css" />
+    <link href="../resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
+    <link href="../resources/media/images.css" rel="stylesheet" type="text/css" />
     <title>Přihlášení</title>
   </head>
   <body id="login">
