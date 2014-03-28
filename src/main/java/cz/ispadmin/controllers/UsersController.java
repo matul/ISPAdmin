@@ -77,30 +77,63 @@ public class UsersController extends BaseController {
 
     @RequestMapping(value = "/editPassword/{id}")
     public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request) {
-        HashMap<String,String> errors = new HashMap<String,String>();
+        HashMap<String, String> errors = new HashMap<String, String>();
         this.template.setViewName("Users/resetPassword");
-        
+
         if (request.getMethod().equals("POST")) {
             Users user = this.userDAO.getUserById(id);
             String password = request.getParameter("password");
             String passwordVerification = request.getParameter("passwordVerification");
-            
+
             if (password.length() <= 6) {
                 errors.put("password", "Zadané heslo není dost silné (minimálně 7 znaků).");
             }
             if (!password.equals(passwordVerification)) {
                 errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
             }
-            
-            if (errors.isEmpty()){
+
+            if (errors.isEmpty()) {
                 user.setPassword(password);
                 this.userDAO.insertOrUpdateUser(user);
                 this.template.setViewName("redirect:/users/list");
-            }  
+            }
         }
         this.template.addObject("errors", errors);
         this.template.addObject("action", "/ispadmin/users/editPassword/" + id);
-        
+
+        return this.template;
+    }
+
+    @RequestMapping(value = "/changePassword/6")
+    public ModelAndView changePassword(@PathVariable Integer id, HttpServletRequest request) {
+        HashMap<String, String> errors = new HashMap<String, String>();
+        this.template.setViewName("Users/changePassword");
+
+        if (request.getMethod().equals("POST")) {
+            Users user = this.userDAO.getUserById(id);
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String passwordVerification = request.getParameter("passwordVerification");
+
+            if (oldPassword.equals(user.getPassword())) {
+
+                if (newPassword.length() <= 6) {
+                    errors.put("newPassword", "Zadané heslo není dost silné (minimálně 7 znaků).");
+                }
+                if (!newPassword.equals(passwordVerification)) {
+                    errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
+                }
+
+                if (errors.isEmpty()) {
+                    user.setPassword(newPassword);
+                    this.userDAO.insertOrUpdateUser(user);
+                    this.template.setViewName("redirect:/users/list");
+                }
+            }
+        }
+        this.template.addObject("errors", errors);
+        this.template.addObject("action", "/ispadmin/users/changePassword/" + id);
+
         return this.template;
     }
 
