@@ -23,8 +23,7 @@
 
                     <input type='password' name='j_password' />  
 
-                    <input name="submit" type="submit" value="Přihlásit" class="submit" />  
-                    <input name="reset" type="reset" value="Smazat" class="submit" />  
+                    <input name="submit" type="submit" value="Přihlásit" class="submit" />
                 </form> 
             </div>          
         </div>        
