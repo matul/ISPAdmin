@@ -51,7 +51,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
     </security:filter-chain-map>
   </bean>
   
-  <bean id="AuthenticationDAO" class="cz.ispadmin.models.dao.AuthenticationDAO" />
+  <bean id="AuthenticationDAO" class="cz.ispadmin.services.authentication.Authenticator" />
 
   <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
     <property name="providers">
@@ -61,10 +61,13 @@ xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springf
     </property>
   </bean>
 
+  <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+  <!-- <beans:bean id="saltSource" class="org.springframework.security.providers.dao.salt.ReflectionSaltSource" p:userPropertyToUse="id" /> -->
   <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-    <property name="userDetailsService" ref="AuthenticationDAO"/>
+    <property name="userDetailsService" ref="AuthenticationDAO" />
+    <property name="passwordEncoder" ref="passwordEncoder" />
   </bean>
-
+  
   <bean id="formLoginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
     <property name="authenticationManager" ref="authenticationManager" />
     <property name="filterProcessesUrl" value="/j_spring_security_check" />

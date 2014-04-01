@@ -1,12 +1,12 @@
-package cz.ispadmin.models.dao;
+package cz.ispadmin.services.authentication;
 
 import cz.ispadmin.entities.Users;
+import cz.ispadmin.models.dao.DAO;
+import cz.ispadmin.models.dao.UserDAO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Matul
  */
 @Service
-public class AuthenticationDAO extends DAO implements UserDetailsService {
+public class Authenticator extends DAO implements UserDetailsService {
   
   private UserDAO userDao;
   
@@ -28,11 +28,6 @@ public class AuthenticationDAO extends DAO implements UserDetailsService {
   
   public final String ROLE_USER = "user";
   public final String ROLE_ADMIN = "admin";
-
-  //  @Autowired
-  //  public AuthenticationDAO(UserDAO userDao) {
-  //    this.userDao = userDao;
-  //  }
   
   @Autowired
   public void setUserDao(UserDAO userDao) {
@@ -49,7 +44,8 @@ public class AuthenticationDAO extends DAO implements UserDetailsService {
     List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
     authorities.add(new SimpleGrantedAuthority(ROLE_USER));
     
-    User userDetail = new User(
+    SignedInUser userDetail = new SignedInUser (
+      user.getId(),      
       user.getUsername(),
       user.getPassword(),
       this.accountEnabled,

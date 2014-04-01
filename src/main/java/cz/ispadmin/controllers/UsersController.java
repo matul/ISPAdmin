@@ -2,7 +2,7 @@ package cz.ispadmin.controllers;
 
 import cz.ispadmin.models.dao.UserDAO;
 import cz.ispadmin.entities.Users;
-import java.util.ArrayList;
+import cz.ispadmin.services.authentication.SignedInUser;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,9 +84,10 @@ public class UsersController extends BaseController {
             Users user = this.userDAO.getUserById(id);
             String password = request.getParameter("password");
             String passwordVerification = request.getParameter("passwordVerification");
-
-            if (password.length() <= 6) {
-                errors.put("password", "Zadané heslo není dost silné (minimálně 7 znaků).");
+            
+            //TODO: udělat validator
+            if (password.length() < 6) {
+                errors.put("password", "Zadané heslo není dost silné (minimálně 6 znaků).");
             }
             if (!password.equals(passwordVerification)) {
                 errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
@@ -105,19 +106,21 @@ public class UsersController extends BaseController {
     }
 
     @RequestMapping(value = "/changePassword")
-    public ModelAndView changePassword(HttpServletRequest request) {
+    public ModelAndView changePassword(HttpServletRequest request, Authentication auth) {
+        SignedInUser signedInUser = (SignedInUser)auth.getPrincipal();
+
         HashMap<String, String> errors = new HashMap<String, String>();
         this.template.setViewName("Users/changePassword");
         if (request.getMethod().equals("POST")) {
-            Users user = this.userDAO.getUserById(6);
+            Users user = this.userDAO.getUserById(signedInUser.getUserID());
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String passwordVerification = request.getParameter("passwordVerification");
 
             if (oldPassword.equals(user.getPassword())) {
 
-                if (newPassword.length() <= 6) {
-                    errors.put("newPassword", "Zadané heslo není dost silné (minimálně 7 znaků).");
+                if (newPassword.length() < 6) {
+                    errors.put("newPassword", "Zadané heslo není dost silné (minimálně 6 znaků).");
                 }
                 if (!newPassword.equals(passwordVerification)) {
                     errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
