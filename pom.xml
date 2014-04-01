@@ -77,6 +77,14 @@
       <version>${javax.jstl-taglibs.version}</version>
     </dependency>
     
+    <!-- Mail -->
+    <dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4</version>
+        <type>jar</type>
+    </dependency>
+    
     <!-- Testing -->
     <dependency>
       <groupId>junit</groupId>

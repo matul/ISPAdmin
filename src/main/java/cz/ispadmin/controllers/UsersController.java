@@ -135,5 +135,32 @@ public class UsersController extends BaseController {
 
         return this.template;
     }
+    
+    @RequestMapping(value = "/sendPassword")
+    public ModelAndView editPassword( HttpServletRequest request) {
+        HashMap<String, String> errors = new HashMap<String, String>();
+        this.template.setViewName("Users/sendPassword");
+
+        if (request.getMethod().equals("POST")) {
+            String username = request.getParameter("username");
+            Users user = this.userDAO.getUserByUsername(username);
+            String email = request.getParameter("email");
+            String emailVarification = user.getEmail();
+            
+            if (!email.equals(emailVarification)) {
+                errors.put("passwordVerification", "Email a uživatel spolu nesouhlasí.");
+            }
+
+            if (errors.isEmpty()) {
+                
+                SendMailTLS.sendMail(email, username, user.getPassword());
+                this.template.setViewName("redirect:/authentication/login");
+            }
+        }
+        this.template.addObject("errors", errors);
+        this.template.addObject("action", "/ispadmin/users/sendPassword/");
+
+        return this.template;
+    }
 
 }
