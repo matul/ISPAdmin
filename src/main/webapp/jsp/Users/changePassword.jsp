@@ -4,12 +4,13 @@
 <h2>Změna hesla</h2>
 <%@ include file="submenu.jsp" %>
 <form action="${action}" method="post" name="changePassword">
-    <p>${errors.password}</p>
+    <p>${errors.oldPassword}</p>
+    <p>${errors.newPassword}</p>
     <p>${errors.passwordVerification}</p>
 
-    Zadejte staré heslo: <input type="password" name="oldPassword"/>
-    Nové heslo: <input type="password" name="newPassword"/>
-    Potvrzení hesla: <input type="password" name="passwordVerification"/>
+    <label>Zadejte staré heslo:</label> <input type="password" name="oldPassword"/>
+    <label>Nové heslo:</label> <input type="password" name="newPassword"/>
+    <label>Potvrzení hesla:</label> <input type="password" name="passwordVerification"/>
     <input type="submit" value="odeslat" /> 
 </form>
 

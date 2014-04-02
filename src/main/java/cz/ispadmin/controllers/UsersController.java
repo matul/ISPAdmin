@@ -126,12 +126,14 @@ public class UsersController extends BaseController {
         if (!newPassword.equals(passwordVerification)) {
           errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
         }
+      } else {
+        errors.put("oldPassword", "Zadané heslo nodpovídá!");
+      }
 
-        if (errors.isEmpty()) {
-          user.setPassword(newPassword);
-          this.userDAO.insertOrUpdateUser(user);
-          this.template.setViewName("redirect:/users/list");
-        }
+      if (errors.isEmpty()) {
+        user.setPassword(newPassword);
+        this.userDAO.insertOrUpdateUser(user);
+        this.template.setViewName("redirect:/users/list");
       }
     }
     this.template.addObject("errors", errors);
@@ -157,7 +159,10 @@ public class UsersController extends BaseController {
       }
 
       if (errors.isEmpty()) {
-        mailer.sendMail(email, username, user.getPassword());
+        String subject = "Obnova hesla z portálu teranet.cz";
+        String message = "Dobrý den,\n "
+                + "pro obnovu hesla na portále teranet.cz prosím použijte tento link:\n";
+        mailer.sendMail(email, subject, message);
         this.template.setViewName("redirect:/authentication/login");
       }
     }
