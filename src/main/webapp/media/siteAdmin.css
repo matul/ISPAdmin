@@ -41,7 +41,6 @@ img {border: none;}
 .all .loginheader .logindiv .in h2 {font-size: 16px; text-align: center; color: #0C3052; margin-bottom: 26px;}
 .all .loginheader .logindiv .in label {font-weight: bold;}
 .all .loginheader .logindiv .in input.submit { float: left; margin-left: 90px; margin-top: 15px; padding: 0;}
-.all .loginheader .logindiv .in a.submit { float: left; margin-left: 90px; margin-top: 15px; padding: 0;}
 p {}
 
 span.arrows {font-size: 24px;}
@@ -214,11 +213,6 @@ form input:hover {border: 1px solid #BBB;}
 form input.submit {width: 100px; height: 26px; display: inline; color: #EEE; border: none; background: url('images/form_submit.png') no-repeat; display: block; float: right; }
 form input.submit.left {float: left; margin-right: 6px;}
 form input.submit.red {background: url('images/form_submit_red.png') no-repeat;}
-
-form a.submit {width: 100px; height: 26px; display: inline; color: #EEE; border: none; background: url('images/form_submit.png') no-repeat; display: block; float: right; }
-form a.submit.left {float: left; margin-right: 6px;}
-form a.submit.red {background: url('images/form_submit_red.png') no-repeat;}
-form a.submit:hover {-webkit-box-shadow: 0px 0px 10px #999; -moz-box-shadow: 0px 0px 10px #999; box-shadow: 0px 0px 10px #999;}
 
 form input.submit:hover {-webkit-box-shadow: 0px 0px 10px #999; -moz-box-shadow: 0px 0px 10px #999; box-shadow: 0px 0px 10px #999;}
 form input.reset {width: 100px; display: inline;}

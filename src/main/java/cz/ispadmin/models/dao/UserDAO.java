@@ -38,6 +38,9 @@ public class UserDAO extends DAO {
     try {
       Query query = s.createQuery("from Users where username = :username");
       query.setParameter("username", username);
+      if (query.list().isEmpty()) {
+        return null;
+      }
       return (Users)query.list().get(0);
     } catch (HibernateException e) {
       return null;
