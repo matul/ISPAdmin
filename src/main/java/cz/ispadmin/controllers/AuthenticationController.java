@@ -88,9 +88,16 @@ public class AuthenticationController extends BaseController {
   public ModelAndView recoverPassword(@PathVariable String hash, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Authentication/recoverPassword");
+    
+    Users user = this.userDAO.getUserByForgottenPassHash(hash);
+      
+    if (user == null) {
+      errors.put("invalidLink", "Odkaz pro obnovu hesla je neplatný.");
+      this.template.addObject("errors", errors);
+      return this.template;
+    }
 
     if (request.getMethod().equals("POST")) {
-      Users user = this.userDAO.getUserByForgottenPassHash(hash);
       String password = request.getParameter("password");
       String passwordVerification = request.getParameter("passwordVerification");
 

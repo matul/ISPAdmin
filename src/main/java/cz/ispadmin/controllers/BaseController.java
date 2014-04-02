@@ -19,6 +19,7 @@ public class BaseController {
 
   public BaseController() {
     this.template = new ModelAndView();
+    this.template.clear();
   }
   
   @RequestMapping("")
