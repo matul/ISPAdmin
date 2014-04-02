@@ -143,7 +143,7 @@ public class UsersController extends BaseController {
   }
 
   @RequestMapping(value = "/sendPassword")
-  public ModelAndView editPassword(HttpServletRequest request, Mailer mailer) {
+  public ModelAndView sendPassword(HttpServletRequest request, Mailer mailer) {
 
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Users/sendPassword");
@@ -152,12 +152,15 @@ public class UsersController extends BaseController {
       String username = request.getParameter("username");
       Users user = this.userDAO.getUserByUsername(username);
       String email = request.getParameter("email");
-      String emailVarification = user.getEmail();
 
-      if (!email.equals(emailVarification)) {
-        errors.put("passwordVerification", "Email a uživatel spolu nesouhlasí.");
-      }
-
+      if (user == null){   
+        errors.put("userNotFound", "Zadané uživatelské jméno nebylo nalezeno!");
+      } else {
+        String emailVarification = user.getEmail();
+        if (!email.equals(emailVarification)) {
+          errors.put("emailVerification", "Zadaný email neodpovídá!");
+        } 
+      }          
       if (errors.isEmpty()) {
         String subject = "Obnova hesla z portálu teranet.cz";
         String message = "Dobrý den,\n "
@@ -167,7 +170,7 @@ public class UsersController extends BaseController {
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/sendPassword/");
+    this.template.addObject("action", "/ispadmin/users/sendPassword");
 
     return this.template;
   }

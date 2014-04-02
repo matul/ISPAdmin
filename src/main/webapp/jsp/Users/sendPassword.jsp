@@ -6,19 +6,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
         <link href="../resources/media/images.css" rel="stylesheet" type="text/css" />
-        <title>Zaslání hesla</title>
+        <title>Zaslání obnovy hesla</title>
     </head>
     <body id="login">
         <div class="all">        
             <div class="loginheader">          
                 <div class="logindiv">            
                     <div class="in"><h2>Obnova hesla</h2>
-                        ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
-
+                        <c:if test="${not empty errors.userNotFound}">
+                            <div class="msg error">
+                                <p>${errors.userNotFound}</p>                 
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty errors.emailVerification}">
+                            <div class="msg error">
+                                <p>${errors.emailVerification}</p>
+                            </div>
+                        </c:if>
                         <form action="${action}" method="post" property="userame" name="sendPassword">
+                            
                             <label>Uživatelské jméno</label>
                             <input type="text" name="username"/>
-
+                            
                             <label>Email</label>
                             <input type="text" name="email"/>
 
