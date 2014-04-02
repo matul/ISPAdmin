@@ -38,7 +38,7 @@
                 <a class="image edit" href="/ispadmin/users/edit/${u.getId()}" title="upravit">upravit</a>
               </td>
               <td>
-                <a class="image passrecovery" href="/ispadmin/users/editPassword/${u.getId()}" title="reset hesla">reset</a>
+                <a class="image passrecovery" href="/ispadmin/users/resetPassword/${u.getId()}" title="reset hesla">reset</a>
               </td> 
             </tr>
           </c:forEach>
