@@ -49,6 +49,22 @@ public class UserDAO extends DAO {
     }
   }
   
+  public Users getUserByForgottenPassHash(String forgottenPassHash) {
+    Session s = this.sessionFactory.openSession();
+    try {
+      Query query = s.createQuery("from Users where forgotten_pass_hash = :forgottenPassHash");
+      query.setParameter("forgottenPassHash", forgottenPassHash);
+      if (query.list().isEmpty()) {
+        return null;
+      }
+      return (Users)query.list().get(0);
+    } catch (HibernateException e) {
+      return null;
+    } finally {
+      s.close();
+    }
+  }
+  
   public List<Users> getAllUsers() {
     Session s = this.sessionFactory.openSession();
     try {

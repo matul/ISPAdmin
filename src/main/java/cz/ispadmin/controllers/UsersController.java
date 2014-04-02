@@ -1,16 +1,14 @@
 package cz.ispadmin.controllers;
 
-import cz.ispadmin.services.mail.Mailer;
 import cz.ispadmin.models.dao.UserDAO;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.services.authentication.SignedInUser;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.encoding.*;
@@ -77,9 +75,8 @@ public class UsersController extends BaseController {
     return this.template;
   }
 
-  @RequestMapping(value = "/editPassword/{id}")
-  public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request,
-                                   Md5PasswordEncoder passEncoder) {
+  @RequestMapping(value = "/resetPassword/{id}")
+  public ModelAndView resetPassword(@PathVariable Integer id, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Users/resetPassword");
 
@@ -105,14 +102,13 @@ public class UsersController extends BaseController {
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/editPassword/" + id);
+    this.template.addObject("action", "/ispadmin/users/resetPassword/" + id);
 
     return this.template;
   }
 
   @RequestMapping(value = "/changePassword")
-  public ModelAndView changePassword(HttpServletRequest request, Authentication auth, 
-                                     Md5PasswordEncoder passEncoder) {
+  public ModelAndView changePassword(HttpServletRequest request, Authentication auth, Md5PasswordEncoder passEncoder) {
     
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
 
@@ -149,38 +145,6 @@ public class UsersController extends BaseController {
     
     this.template.addObject("errors", errors);
     this.template.addObject("action", "/ispadmin/users/changePassword");
-
-    return this.template;
-  }
-
-  @RequestMapping(value = "/sendPassword")
-  public ModelAndView sendPassword(HttpServletRequest request, Mailer mailer) {
-
-    HashMap<String, String> errors = new HashMap<String, String>();
-    this.template.setViewName("Users/sendPassword");
-
-    if (request.getMethod().equals("POST")) {
-      String username = request.getParameter("username");
-      Users user = this.userDAO.getUserByUsername(username);
-      String email = request.getParameter("email");
-
-      if (user == null){   
-        errors.put("userNotFound", "Zadané uživatelské jméno nebylo nalezeno!");
-      } else {
-        String emailVarification = user.getEmail();
-        if (!email.equals(emailVarification)) {
-          errors.put("emailVerification", "Zadaný email neodpovídá!");
-        } 
-      }          
-      if (errors.isEmpty()) {
-        String subject = "Obnova hesla z portálu teranet.cz";
-        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link:\n";
-        mailer.sendMail(email, subject, message);
-        this.template.setViewName("redirect:/authentication/login");
-      }
-    }
-    this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/sendPassword");
 
     return this.template;
   }

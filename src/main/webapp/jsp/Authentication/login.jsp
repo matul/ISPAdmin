@@ -20,7 +20,7 @@
                         </c:if>
                         
                         <div class="msg question">
-                            <a name="recovery" href="/ispadmin/users/sendPassword" >Zapomněli jste heslo?</a>  
+                            <a name="recovery" href="/ispadmin/authentication/sendForgottenPasswordLink">Zapomněli jste heslo?</a>  
                         </div>
                         <form name='f' action='/ispadmin/j_spring_security_check' method='POST' class="loginform">                    
                             <label>Přihlašovací jméno:</label>  

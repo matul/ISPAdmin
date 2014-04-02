@@ -52,17 +52,13 @@ public class Users implements java.io.Serializable {
 
   @Birth(message = "Špatné datum narození!")
   private String birthDate;
+  
+  private String forgotten_pass_hash;
 
-  public Users() {
-
-  }
-
-  public Users(String username) {
-    this.username = username;
-  }
+  public Users() {}
 
   public Users(String username, String password, String firstname, String surname, String description, String city,
-               String street, String post_code, String email, String phone_number, String birthDate) {
+               String street, String post_code, String email, String phone_number, String birthDate, String forgottenPassHash) {
     this.username = username;
     this.password = password;
     this.firstname = firstname;
@@ -74,6 +70,7 @@ public class Users implements java.io.Serializable {
     this.email = email;
     this.phone_number = phone_number;
     this.birthDate = birthDate;
+    this.forgotten_pass_hash = forgottenPassHash;
   }
 
   public void setData(Users user) {
@@ -88,6 +85,7 @@ public class Users implements java.io.Serializable {
     this.email = user.getEmail();
     this.phone_number = user.getPhone_number();
     this.birthDate = user.getBirthDate();
+    this.forgotten_pass_hash = user.getForgottenPassHash();
   }
 
   public Integer getId() {
@@ -185,5 +183,13 @@ public class Users implements java.io.Serializable {
 
   public void setBirthDate(String birthDate) {
     this.birthDate = birthDate;
+  }
+
+  public String getForgottenPassHash() {
+    return forgotten_pass_hash;
+  }
+
+  public void setForgottenPassHash(String forgottenPassHash) {
+    this.forgotten_pass_hash = forgottenPassHash;
   }
 }
