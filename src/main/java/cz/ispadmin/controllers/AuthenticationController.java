@@ -105,7 +105,7 @@ public class AuthenticationController extends BaseController {
       if (errors.isEmpty()) {
         String passwordHash = passEncoder.encodePassword(password, null);
         user.setPassword(passwordHash);
-        
+        user.setForgottenPassHash("");
         this.userDAO.insertOrUpdateUser(user);
         this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
       }

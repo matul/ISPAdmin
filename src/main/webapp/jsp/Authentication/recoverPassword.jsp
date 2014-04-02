@@ -3,36 +3,32 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <base href="http://localhost:8080/ispadmin/" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
-        <link href="../resources/media/images.css" rel="stylesheet" type="text/css" />
-        <title>Zaslání odkazu pro obnovu hesla</title>
+        <link href="resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
+        <link href="resources/media/images.css" rel="stylesheet" type="text/css" />
+        <title>Zadání nového hesla</title>
     </head>
     <body id="login">
         <div class="all">        
             <div class="loginheader">          
                 <div class="logindiv">            
-                    <div class="in"><h2>Zaslání odkazu pro obnovu hesla</h2>
-                        <c:if test="${not empty errors.userNotFound}">
-                            <div class="msg error">
-                                <p>${errors.userNotFound}</p>                 
+                    <div class="in">
+                        <h2>Zadání nového hesla</h2>
+                        <c:if test="${not empty success}">
+                            <div class="msg ok">
+                                <p>${success}</p>
                             </div>
                         </c:if>
-                        <c:if test="${not empty errors.emailVerification}">
-                            <div class="msg error">
-                                <p>${errors.emailVerification}</p>
-                            </div>
-                        </c:if>
-                        <form action="${action}" method="post" property="userame" name="sendPassword">
+                        
+                        <form action="${action}" method="post" name="resetPassword">
+                            <p>${errors.password}</p>
+                            <p>${errors.passwordVerification}</p>
+                            Nové heslo: <input type="text" name="password"/>
+                            Potvrzení hesla: <input type="text" name="passwordVerification"/>
+                            <input type="submit" value="odeslat" />
                             
-                            <label>Uživatelské jméno</label>
-                            <input type="text" name="username"/>
-                            
-                            <label>Email</label>
-                            <input type="text" name="email"/>
-
-                            <input name="submit" type="submit" value="Odeslat" class="submit" />   
-                        </form> 
+                        </form>
                     </div>          
                 </div>        
             </div>      
