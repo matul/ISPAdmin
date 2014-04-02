@@ -9,6 +9,7 @@
     Nové heslo: <input type="text" name="password"/>
     Potvrzení hesla: <input type="text" name="passwordVerification"/>
     <input type="submit" value="odeslat" />
+    <p>${success}</p>
     
 </form>   
       

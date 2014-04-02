@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.encoding.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,7 +78,8 @@ public class UsersController extends BaseController {
   }
 
   @RequestMapping(value = "/editPassword/{id}")
-  public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request) {
+  public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request,
+                                   Md5PasswordEncoder passEncoder) {
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Users/resetPassword");
 
@@ -95,9 +97,11 @@ public class UsersController extends BaseController {
       }
 
       if (errors.isEmpty()) {
-        user.setPassword(password);
+        String passwordHash = passEncoder.encodePassword(password, null);
+        user.setPassword(passwordHash);
+        
         this.userDAO.insertOrUpdateUser(user);
-        this.template.setViewName("redirect:/users/list");
+        this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
       }
     }
     this.template.addObject("errors", errors);
@@ -107,35 +111,42 @@ public class UsersController extends BaseController {
   }
 
   @RequestMapping(value = "/changePassword")
-  public ModelAndView changePassword(HttpServletRequest request, Authentication auth) {
+  public ModelAndView changePassword(HttpServletRequest request, Authentication auth, 
+                                     Md5PasswordEncoder passEncoder) {
+    
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
 
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Users/changePassword");
+    
     if (request.getMethod().equals("POST")) {
       Users user = this.userDAO.getUserById(signedInUser.getUserID());
+      
       String oldPassword = request.getParameter("oldPassword");
       String newPassword = request.getParameter("newPassword");
       String passwordVerification = request.getParameter("passwordVerification");
 
-      if (oldPassword.equals(user.getPassword())) {
-
+      String encodedOldPassword = passEncoder.encodePassword(oldPassword, null);
+      if (encodedOldPassword.equals(user.getPassword())) {
         if (newPassword.length() < 6) {
           errors.put("newPassword", "Zadané heslo není dost silné (minimálně 6 znaků).");
         }
+        
         if (!newPassword.equals(passwordVerification)) {
-          errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
+          errors.put("passwordVerification", "Ověření nového hesla nesouhlasí.");
         }
       } else {
-        errors.put("oldPassword", "Zadané heslo nodpovídá!");
+        errors.put("oldPassword", "Původní heslo bylo zadáno chybně.");
       }
 
       if (errors.isEmpty()) {
-        user.setPassword(newPassword);
+        String newPasswordHash = passEncoder.encodePassword(newPassword,null);
+        user.setPassword(newPasswordHash);
         this.userDAO.insertOrUpdateUser(user);
-        this.template.setViewName("redirect:/users/list");
+        this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
       }
     }
+    
     this.template.addObject("errors", errors);
     this.template.addObject("action", "/ispadmin/users/changePassword");
 
@@ -160,8 +171,7 @@ public class UsersController extends BaseController {
 
       if (errors.isEmpty()) {
         String subject = "Obnova hesla z portálu teranet.cz";
-        String message = "Dobrý den,\n "
-                + "pro obnovu hesla na portále teranet.cz prosím použijte tento link:\n";
+        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link:\n";
         mailer.sendMail(email, subject, message);
         this.template.setViewName("redirect:/authentication/login");
       }
