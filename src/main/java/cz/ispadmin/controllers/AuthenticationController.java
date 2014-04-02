@@ -50,6 +50,7 @@ public class AuthenticationController extends BaseController {
   public ModelAndView sendForgottenPasswordLink(HttpServletRequest request, Mailer mailer, Md5PasswordEncoder passEncoder) {
 
     HashMap<String, String> errors = new HashMap<String, String>();
+    HashMap<String, String> success = new HashMap<String, String>();
     this.template.setViewName("Authentication/sendForgottenPasswordLink");
 
     if (request.getMethod().equals("POST")) {
@@ -62,7 +63,7 @@ public class AuthenticationController extends BaseController {
       } else {
         String emailVarification = user.getEmail();
         if (!email.equals(emailVarification)) {
-          errors.put("emailVerification", "Zadaný email se neshoduje s emailem pro daný účet.");
+          errors.put("emailVerification", "Zadaný email se neshoduje s účetem.");
         } 
       }          
       if (errors.isEmpty()) {
@@ -75,7 +76,8 @@ public class AuthenticationController extends BaseController {
         user.setForgottenPassHash(forgottenPasswordHash);
         this.userDAO.insertOrUpdateUser(user);
         
-        this.template.addObject("success", "Email byl úspěšně odeslán.");
+        success.put("sendPassword", "Email byl úspěšně odeslán.");
+        this.template.addObject("success", success);
       }
     }
     this.template.addObject("errors", errors);
@@ -87,6 +89,7 @@ public class AuthenticationController extends BaseController {
   @RequestMapping(value = "/recoverPassword/{hash}")
   public ModelAndView recoverPassword(@PathVariable String hash, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
     HashMap<String, String> errors = new HashMap<String, String>();
+    HashMap<String, String> success = new HashMap<String, String>();
     this.template.setViewName("Authentication/recoverPassword");
     
     Users user = this.userDAO.getUserByForgottenPassHash(hash);
@@ -114,7 +117,8 @@ public class AuthenticationController extends BaseController {
         user.setPassword(passwordHash);
         user.setForgottenPassHash("");
         this.userDAO.insertOrUpdateUser(user);
-        this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
+        success.put("recover", "Vaše heslo bylo úspěšně změneno.");
+        this.template.addObject("success", success);
       }
     }
     this.template.addObject("errors", errors);

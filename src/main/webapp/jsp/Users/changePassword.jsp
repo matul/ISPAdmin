@@ -16,7 +16,7 @@
     <label>Potvrzení hesla:</label> <input type="password" name="passwordVerification"/>
     
     <input type="submit" value="odeslat" /> 
-    <p>${success}</p>
+    <p>${success.change}</p>
 </form>
 
 <%@ include file="../footer.jsp" %>

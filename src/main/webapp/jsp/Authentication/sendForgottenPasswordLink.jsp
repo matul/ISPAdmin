@@ -14,9 +14,9 @@
     </div>
 </c:if>
 
-<c:if test="${not empty success}">
+<c:if test="${not empty success.sendPassword}">
     <div class="msg ok">
-        <p>${success}</p>
+        <p>${success.sendPassword}</p>
     </div>
 </c:if>
 

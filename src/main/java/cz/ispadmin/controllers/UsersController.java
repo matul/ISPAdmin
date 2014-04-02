@@ -78,6 +78,7 @@ public class UsersController extends BaseController {
   @RequestMapping(value = "/resetPassword/{id}")
   public ModelAndView resetPassword(@PathVariable Integer id, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
     HashMap<String, String> errors = new HashMap<String, String>();
+    HashMap<String, String> success = new HashMap<String, String>();
     this.template.setViewName("Users/resetPassword");
 
     if (request.getMethod().equals("POST")) {
@@ -98,7 +99,8 @@ public class UsersController extends BaseController {
         user.setPassword(passwordHash);
         
         this.userDAO.insertOrUpdateUser(user);
-        this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
+        success.put("reset", "Vaše heslo bylo úspěšně změneno.");
+        this.template.addObject("success", success);
       }
     }
     this.template.addObject("errors", errors);
@@ -111,8 +113,8 @@ public class UsersController extends BaseController {
   public ModelAndView changePassword(HttpServletRequest request, Authentication auth, Md5PasswordEncoder passEncoder) {
     
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
-
     HashMap<String, String> errors = new HashMap<String, String>();
+    HashMap<String, String> success = new HashMap<String, String>();
     this.template.setViewName("Users/changePassword");
     
     if (request.getMethod().equals("POST")) {
@@ -139,7 +141,8 @@ public class UsersController extends BaseController {
         String newPasswordHash = passEncoder.encodePassword(newPassword,null);
         user.setPassword(newPasswordHash);
         this.userDAO.insertOrUpdateUser(user);
-        this.template.addObject("success", "Vaše heslo bylo úspěšně změneno.");
+        success.put("change", "Vaše heslo bylo úspěšně změneno.");
+        this.template.addObject("success", success);
       }
     }
     
