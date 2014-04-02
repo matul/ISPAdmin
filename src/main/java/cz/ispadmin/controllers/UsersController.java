@@ -1,5 +1,6 @@
 package cz.ispadmin.controllers;
 
+import cz.ispadmin.services.mail.Mailer;
 import cz.ispadmin.models.dao.UserDAO;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.services.authentication.SignedInUser;
@@ -25,145 +26,144 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/users")
 public class UsersController extends BaseController {
 
-    private final UserDAO userDAO;
-    private final String ACTION_PREFIX = "/ispadmin/users";
+  private final UserDAO userDAO;
+  private final String ACTION_PREFIX = "/ispadmin/users";
 
-    @Autowired
-    public UsersController(UserDAO model) {
-        this.userDAO = model;
+  @Autowired
+  public UsersController(UserDAO model) {
+    this.userDAO = model;
+  }
+
+  @RequestMapping("/list")
+  public ModelAndView listClients() {
+    List<Users> users = userDAO.getAllUsers();
+    this.template.addObject("users", users);
+    this.template.setViewName("Users/list");
+    return template;
+  }
+
+  @RequestMapping(value = "/add")
+  public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
+    this.template.setViewName("Users/add");
+
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        this.userDAO.insertOrUpdateUser(user);
+        this.template.setViewName("redirect:/users/list");
+      }
     }
 
-    @RequestMapping("/list")
-    public ModelAndView listClients() {
-        List<Users> users = userDAO.getAllUsers();
-        this.template.addObject("users", users);
-        this.template.setViewName("Users/list");
-        return template;
+    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    return this.template;
+  }
+
+  @RequestMapping(value = "/edit/{id}")
+  public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    if (request.getMethod().equals("GET")) {
+      Users u = this.userDAO.getUserById(id);
+      user.setData(u);
     }
 
-    @RequestMapping(value = "/add")
-    public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
-        this.template.setViewName("Users/add");
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        this.userDAO.insertOrUpdateUser(user);
+        this.template.setViewName("redirect:/users/list");
+      }
+    }
 
-        if (request.getMethod().equals("POST")) {
-            if (!result.hasErrors()) {
-                this.userDAO.insertOrUpdateUser(user);
-                this.template.setViewName("redirect:/users/list");
-            }
+    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
+    this.template.setViewName("Users/add");
+    return this.template;
+  }
+
+  @RequestMapping(value = "/editPassword/{id}")
+  public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request) {
+    HashMap<String, String> errors = new HashMap<String, String>();
+    this.template.setViewName("Users/resetPassword");
+
+    if (request.getMethod().equals("POST")) {
+      Users user = this.userDAO.getUserById(id);
+      String password = request.getParameter("password");
+      String passwordVerification = request.getParameter("passwordVerification");
+
+      //TODO: udělat validator
+      if (password.length() < 6) {
+        errors.put("password", "Zadané heslo není dost silné (minimálně 6 znaků).");
+      }
+      if (!password.equals(passwordVerification)) {
+        errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
+      }
+
+      if (errors.isEmpty()) {
+        user.setPassword(password);
+        this.userDAO.insertOrUpdateUser(user);
+        this.template.setViewName("redirect:/users/list");
+      }
+    }
+    this.template.addObject("errors", errors);
+    this.template.addObject("action", "/ispadmin/users/editPassword/" + id);
+
+    return this.template;
+  }
+
+  @RequestMapping(value = "/changePassword")
+  public ModelAndView changePassword(HttpServletRequest request, Authentication auth) {
+    SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
+
+    HashMap<String, String> errors = new HashMap<String, String>();
+    this.template.setViewName("Users/changePassword");
+    if (request.getMethod().equals("POST")) {
+      Users user = this.userDAO.getUserById(signedInUser.getUserID());
+      String oldPassword = request.getParameter("oldPassword");
+      String newPassword = request.getParameter("newPassword");
+      String passwordVerification = request.getParameter("passwordVerification");
+
+      if (oldPassword.equals(user.getPassword())) {
+
+        if (newPassword.length() < 6) {
+          errors.put("newPassword", "Zadané heslo není dost silné (minimálně 6 znaků).");
+        }
+        if (!newPassword.equals(passwordVerification)) {
+          errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
         }
 
-        this.template.addObject("action", ACTION_PREFIX + "/add/");
-        return this.template;
-    }
-
-    @RequestMapping(value = "/edit/{id}")
-    public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-        if (request.getMethod().equals("GET")) {
-            Users u = this.userDAO.getUserById(id);
-            user.setData(u);
+        if (errors.isEmpty()) {
+          user.setPassword(newPassword);
+          this.userDAO.insertOrUpdateUser(user);
+          this.template.setViewName("redirect:/users/list");
         }
-
-        if (request.getMethod().equals("POST")) {
-            if (!result.hasErrors()) {
-                this.userDAO.insertOrUpdateUser(user);
-                this.template.setViewName("redirect:/users/list");
-            }
-        }
-
-        this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
-        this.template.setViewName("Users/add");
-        return this.template;
+      }
     }
+    this.template.addObject("errors", errors);
+    this.template.addObject("action", "/ispadmin/users/changePassword");
 
-    @RequestMapping(value = "/editPassword/{id}")
-    public ModelAndView editPassword(@PathVariable Integer id, HttpServletRequest request) {
-        HashMap<String, String> errors = new HashMap<String, String>();
-        this.template.setViewName("Users/resetPassword");
+    return this.template;
+  }
 
-        if (request.getMethod().equals("POST")) {
-            Users user = this.userDAO.getUserById(id);
-            String password = request.getParameter("password");
-            String passwordVerification = request.getParameter("passwordVerification");
-            
-            //TODO: udělat validator
-            if (password.length() < 6) {
-                errors.put("password", "Zadané heslo není dost silné (minimálně 6 znaků).");
-            }
-            if (!password.equals(passwordVerification)) {
-                errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
-            }
+  @RequestMapping(value = "/sendPassword")
+  public ModelAndView editPassword(HttpServletRequest request, Mailer mailer) {
 
-            if (errors.isEmpty()) {
-                user.setPassword(password);
-                this.userDAO.insertOrUpdateUser(user);
-                this.template.setViewName("redirect:/users/list");
-            }
-        }
-        this.template.addObject("errors", errors);
-        this.template.addObject("action", "/ispadmin/users/editPassword/" + id);
+    HashMap<String, String> errors = new HashMap<String, String>();
+    this.template.setViewName("Users/sendPassword");
 
-        return this.template;
+    if (request.getMethod().equals("POST")) {
+      String username = request.getParameter("username");
+      Users user = this.userDAO.getUserByUsername(username);
+      String email = request.getParameter("email");
+      String emailVarification = user.getEmail();
+
+      if (!email.equals(emailVarification)) {
+        errors.put("passwordVerification", "Email a uživatel spolu nesouhlasí.");
+      }
+
+      if (errors.isEmpty()) {
+        mailer.sendMail(email, username, user.getPassword());
+        this.template.setViewName("redirect:/authentication/login");
+      }
     }
+    this.template.addObject("errors", errors);
+    this.template.addObject("action", "/ispadmin/users/sendPassword/");
 
-    @RequestMapping(value = "/changePassword")
-    public ModelAndView changePassword(HttpServletRequest request, Authentication auth) {
-        SignedInUser signedInUser = (SignedInUser)auth.getPrincipal();
-
-        HashMap<String, String> errors = new HashMap<String, String>();
-        this.template.setViewName("Users/changePassword");
-        if (request.getMethod().equals("POST")) {
-            Users user = this.userDAO.getUserById(signedInUser.getUserID());
-            String oldPassword = request.getParameter("oldPassword");
-            String newPassword = request.getParameter("newPassword");
-            String passwordVerification = request.getParameter("passwordVerification");
-
-            if (oldPassword.equals(user.getPassword())) {
-
-                if (newPassword.length() < 6) {
-                    errors.put("newPassword", "Zadané heslo není dost silné (minimálně 6 znaků).");
-                }
-                if (!newPassword.equals(passwordVerification)) {
-                    errors.put("passwordVerification", "Zadaná hesla nesouhlasí.");
-                }
-
-                if (errors.isEmpty()) {
-                    user.setPassword(newPassword);
-                    this.userDAO.insertOrUpdateUser(user);
-                    this.template.setViewName("redirect:/users/list");
-                }
-            }
-        }
-        this.template.addObject("errors", errors);
-        this.template.addObject("action", "/ispadmin/users/changePassword");
-
-        return this.template;
-    }
-    
-    @RequestMapping(value = "/sendPassword")
-    public ModelAndView editPassword( HttpServletRequest request) {
-        HashMap<String, String> errors = new HashMap<String, String>();
-        this.template.setViewName("Users/sendPassword");
-
-        if (request.getMethod().equals("POST")) {
-            String username = request.getParameter("username");
-            Users user = this.userDAO.getUserByUsername(username);
-            String email = request.getParameter("email");
-            String emailVarification = user.getEmail();
-            
-            if (!email.equals(emailVarification)) {
-                errors.put("passwordVerification", "Email a uživatel spolu nesouhlasí.");
-            }
-
-            if (errors.isEmpty()) {
-                
-                SendMailTLS.sendMail(email, username, user.getPassword());
-                this.template.setViewName("redirect:/authentication/login");
-            }
-        }
-        this.template.addObject("errors", errors);
-        this.template.addObject("action", "/ispadmin/users/sendPassword/");
-
-        return this.template;
-    }
-
+    return this.template;
+  }
 }
