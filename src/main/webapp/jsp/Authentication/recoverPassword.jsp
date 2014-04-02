@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <base href="http://localhost:8080/ispadmin/" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="../resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
-        <link href="../resources/media/images.css" rel="stylesheet" type="text/css" />
+        <link href="resources/media/siteAdmin.css" rel="stylesheet" type="text/css" /> 
+        <link href="resources/media/images.css" rel="stylesheet" type="text/css" />
         <title>Zaslání odkazu pro obnovu hesla</title>
     </head>
     <body id="login">
