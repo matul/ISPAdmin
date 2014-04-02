@@ -23,6 +23,12 @@
                                 <p>${errors.emailVerification}</p>
                             </div>
                         </c:if>
+                      
+                        <c:if test="${not empty success}">
+                            <div class="msg ok">
+                                <p>${success}</p>
+                            </div>
+                        </c:if>
                         <form action="${action}" method="post" property="userame" name="sendPassword">
                             
                             <label>Uživatelské jméno</label>

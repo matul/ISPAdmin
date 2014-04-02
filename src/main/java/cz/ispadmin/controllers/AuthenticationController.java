@@ -75,7 +75,7 @@ public class AuthenticationController extends BaseController {
         user.setForgottenPassHash(forgottenPasswordHash);
         this.userDAO.insertOrUpdateUser(user);
         
-        this.template.addObject("success", "Vaše heslo bylo úspěšně změněno.");
+        this.template.addObject("success", "Email byl úspěšně odeslán.");
       }
     }
     this.template.addObject("errors", errors);
