@@ -21,6 +21,8 @@ public class AuthenticationController extends BaseController {
   
   private final UserDAO userDAO;
   
+  final String SECURITY_SALT = "fljsadlfkjas";
+  
   @Autowired
   public AuthenticationController(UserDAO userDao) {
     this.userDAO = userDao;
@@ -45,7 +47,7 @@ public class AuthenticationController extends BaseController {
   }
   
   @RequestMapping(value = "/sendForgottenPasswordLink")
-  public ModelAndView sendForgottenPasswordLink(HttpServletRequest request, Mailer mailer) {
+  public ModelAndView sendForgottenPasswordLink(HttpServletRequest request, Mailer mailer, Md5PasswordEncoder passEncoder) {
 
     HashMap<String, String> errors = new HashMap<String, String>();
     this.template.setViewName("Authentication/sendForgottenPasswordLink");
@@ -60,14 +62,20 @@ public class AuthenticationController extends BaseController {
       } else {
         String emailVarification = user.getEmail();
         if (!email.equals(emailVarification)) {
-          errors.put("emailVerification", "Zadaný email neodpovídá!");
+          errors.put("emailVerification", "Zadaný email se neshoduje s emailem pro daný účet.");
         } 
       }          
       if (errors.isEmpty()) {
+        //TODO: Pořešit link
+        String forgottenPasswordHash = passEncoder.encodePassword(user.getId().toString(), SECURITY_SALT);
         String subject = "Obnova hesla z portálu teranet.cz";
-        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link:\n";
+        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link: \n" +
+                         "http://localhost:8080/ispadmin/authentication/recoverPassword/" + forgottenPasswordHash;
         mailer.sendMail(email, subject, message);
-        this.template.setViewName("redirect:/authentication/login");
+        user.setForgottenPassHash(forgottenPasswordHash);
+        this.userDAO.insertOrUpdateUser(user);
+        
+        this.template.addObject("success", "Vaše heslo bylo úspěšně změněno.");
       }
     }
     this.template.addObject("errors", errors);
