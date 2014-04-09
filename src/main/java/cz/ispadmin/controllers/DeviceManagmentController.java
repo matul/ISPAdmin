@@ -19,22 +19,55 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/DeviceManagment")
 public class DeviceManagmentController extends BaseController {
-  
-  private final DevicesDAO devicesDAO;
-  private final String ACTION_PREFIX = "/ispadmin/DeviceManagment/";
 
-  @Autowired
-  public DeviceManagmentController(DevicesDAO devicesDAO){
-    this.devicesDAO = devicesDAO;
-  }
+    private final DevicesDAO devicesDAO;
+    private final String ACTION_PREFIX = "/ispadmin/DeviceManagment/";
 
-  @RequestMapping("/list")
-  public ModelAndView listDevices() {
-    List<Devices> devices = this.devicesDAO.getAllDevices();
-    this.template.addObject("devices", devices);
-    this.template.setViewName("DeviceManagment/list");
-    return this.template;
-  }
-  
-  
+    @Autowired
+    public DeviceManagmentController(DevicesDAO devicesDAO) {
+        this.devicesDAO = devicesDAO;
+    }
+
+    @RequestMapping("/list")
+    public ModelAndView listDevices() {
+        List<Devices> devices = this.devicesDAO.getAllDevices();
+        this.template.addObject("devices", devices);
+        this.template.setViewName("DeviceManagment/list");
+        return this.template;
+    }
+
+    @RequestMapping(value = "/add")
+    public ModelAndView addDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, HttpServletRequest request) {
+        this.template.setViewName("DeviceManagment/add");
+
+        if (request.getMethod().equals("POST")) {
+            if (!result.hasErrors()) {
+                this.devicesDAO.insertOrUpdateDevice(device);
+                this.template.setViewName("redirect:/DeviceManagment/list");
+            }
+        }
+
+        this.template.addObject("action", ACTION_PREFIX + "/add/");
+        return this.template;
+    }
+
+    @RequestMapping(value = "/edit/{id}")
+    public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+        this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
+        this.template.setViewName("DeviceManagment/add");
+        
+        if (request.getMethod().equals("GET")) {
+            Devices d = this.devicesDAO.getDevicesById(id);
+            device.setData(d);
+        }
+
+        if (request.getMethod().equals("POST")) {
+            if (!result.hasErrors()) {
+                this.devicesDAO.insertOrUpdateDevice(device);
+                this.template.setViewName("redirect:/DeviceManagment/list");
+            }
+        }
+        return this.template;
+    }
+
 }

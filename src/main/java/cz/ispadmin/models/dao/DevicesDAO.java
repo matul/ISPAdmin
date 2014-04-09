@@ -48,4 +48,26 @@ public class DevicesDAO extends DAO {
   
   }
   
+  /**
+   * Creates or updates a device
+   *
+   * @param device
+   * @return boolean TRUE on success otherwise FALSE
+   */
+  public boolean insertOrUpdateDevice(Devices device) {
+    Session s = this.sessionFactory.openSession();
+    Transaction tx = s.beginTransaction();
+    try {
+      s.saveOrUpdate(device);
+      tx.commit();
+      return true;
+    } catch (HibernateException e) {
+      tx.rollback();
+      return false;
+    } finally {
+      s.close();
+    }
+  }
+
+  
 }
