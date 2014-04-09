@@ -64,7 +64,7 @@
                 <a href="#">Služby ISP</a>
               </li>  
               <li>
-                <a href="#">Správa zařízení</a>
+                <a href="/ispadmin/DeviceManagment/list">Správa zařízení</a>
               </li>  
               <li>
                 <a href="/ispadmin/serviceDesk/list">Service desk</a>
