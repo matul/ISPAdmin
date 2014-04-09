@@ -18,6 +18,7 @@
         <th>Výrobce</th>
         <th>Model</th>
         <th>edit</th>
+        <th>Smazání</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +37,9 @@
               <td>${d.getModel()}</td>
               <td>
                 <a class="image edit" href="/ispadmin/DeviceManegment/edit/${d.getId()}" title="upravit">upravit</a>
+              </td>
+              <td>
+                <a class="image delete" href="/ispadmin/DeviceManagment/delete/${d.getId()}" title="upravit">smazat</a>
               </td>
             </tr>
           </c:forEach>

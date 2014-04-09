@@ -45,7 +45,26 @@ public class DevicesDAO extends DAO {
     } finally {
         s.close();
     }
-  
+  }
+
+  /**
+   * Deletes a user by ID
+   * @param device
+   * @return boolean TRUE on success otherwise FALSE
+   */
+  public boolean deleteDevice(Devices device) {
+    Session s = this.sessionFactory.openSession();
+    Transaction tx = s.beginTransaction();
+    try {
+      s.delete(device);
+      tx.commit();
+      return true;
+    } catch (HibernateException e) {
+      tx.rollback();
+      return false;
+    } finally {
+      s.close();
+    }
   }
   
 }

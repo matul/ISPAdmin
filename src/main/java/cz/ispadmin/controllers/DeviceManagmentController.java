@@ -36,5 +36,20 @@ public class DeviceManagmentController extends BaseController {
     return this.template;
   }
   
+  @RequestMapping("/delete/{id}")
+  public ModelAndView Delete(HttpServletRequest request,@PathVariable Integer id) {
+    this.template.setViewName("DeviceManagment/delete");
+    if (request.getMethod().equals("POST")) {
+      String sent = request.getParameter("submitYes");
+      
+      if (sent!=null){
+        Devices device = this.devicesDAO.getDevicesById(id);
+        if (device != null)
+        this.devicesDAO.deleteDevice(device);
+      }
+      this.template.setViewName("redirect:/DeviceManagment/list");
+    }
+    return this.template;
+  }
   
 }
