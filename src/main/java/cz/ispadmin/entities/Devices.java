@@ -1,5 +1,6 @@
 package cz.ispadmin.entities;
 
+import cz.ispadmin.models.validators.IPAdress;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ public class Devices implements java.io.Serializable {
   private Users user;
 
   @Size(min = 2, max = 30)
+  @IPAdress(message = "Špatná ip adresa!")
   private String ipAdress;
 
   @Size(min = 2, max = 100)
