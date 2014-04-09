@@ -36,7 +36,7 @@
               <td>${d.getManufacturer()}</td>
               <td>${d.getModel()}</td>
               <td>
-                <a class="image edit" href="/ispadmin/DeviceManegment/edit/${d.getId()}" title="upravit">upravit</a>
+                <a class="image edit" href="/ispadmin/DeviceManagment/edit/${d.getId()}" title="upravit">upravit</a>
               </td>
               <td>
                 <a class="image delete" href="/ispadmin/DeviceManagment/delete/${d.getId()}" title="upravit">smazat</a>

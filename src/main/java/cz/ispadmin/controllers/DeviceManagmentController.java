@@ -19,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/DeviceManagment")
 public class DeviceManagmentController extends BaseController {
-  
+
   private final DevicesDAO devicesDAO;
   private final String ACTION_PREFIX = "/ispadmin/DeviceManagment/";
 
   @Autowired
-  public DeviceManagmentController(DevicesDAO devicesDAO){
+  public DeviceManagmentController(DevicesDAO devicesDAO) {
     this.devicesDAO = devicesDAO;
   }
 
@@ -35,21 +35,56 @@ public class DeviceManagmentController extends BaseController {
     this.template.setViewName("DeviceManagment/list");
     return this.template;
   }
-  
+
+  @RequestMapping(value = "/add")
+  public ModelAndView addDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, HttpServletRequest request) {
+    this.template.setViewName("DeviceManagment/add");
+
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        this.devicesDAO.insertOrUpdateDevice(device);
+        this.template.setViewName("redirect:/DeviceManagment/list");
+      }
+    }
+
+    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    return this.template;
+  }
+
+  @RequestMapping(value = "/edit/{id}")
+  public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
+    this.template.setViewName("DeviceManagment/add");
+
+    if (request.getMethod().equals("GET")) {
+      Devices d = this.devicesDAO.getDevicesById(id);
+      device.setData(d);
+    }
+
+    if (request.getMethod().equals("POST")) {
+      if (!result.hasErrors()) {
+        this.devicesDAO.insertOrUpdateDevice(device);
+        this.template.setViewName("redirect:/DeviceManagment/list");
+      }
+    }
+    return this.template;
+  }
+
   @RequestMapping("/delete/{id}")
-  public ModelAndView Delete(HttpServletRequest request,@PathVariable Integer id) {
+  public ModelAndView Delete(HttpServletRequest request, @PathVariable Integer id) {
     this.template.setViewName("DeviceManagment/delete");
     if (request.getMethod().equals("POST")) {
       String sent = request.getParameter("submitYes");
-      
-      if (sent!=null){
+
+      if (sent != null) {
         Devices device = this.devicesDAO.getDevicesById(id);
-        if (device != null)
-        this.devicesDAO.deleteDevice(device);
+        if (device != null) {
+          this.devicesDAO.deleteDevice(device);
+        }
       }
       this.template.setViewName("redirect:/DeviceManagment/list");
     }
     return this.template;
   }
-  
+
 }
