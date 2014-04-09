@@ -30,7 +30,7 @@
               <td>${d.getUser().getFirstname()}</td>
               <td>${d.getUser().getSurname()}</td>
               <td>${d.getName()}</td>
-              <td>${d.getIpAdress()}</td>
+              <td><a href="http://${d.getIpAdress()}">${d.getIpAdress()}</a></td>
               <td>${d.getMacAdress()}</td>
               <td>${d.getLocalization()}</td>
               <td>${d.getManufacturer()}</td>
