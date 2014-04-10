@@ -18,6 +18,6 @@
     <label>${i.getUser().getSurname()}</label>
 
     <input type="submit" name="submit" value="Odeslat" class="submit left" />
-    <a href="../ispadmin/DeviceManagment/list" class="submit left">Zrušit</a>
+    <a href="${leaveLink}" class="submit left">Zrušit</a>
 </form:form>
 <%@ include file="../footer.jsp" %>

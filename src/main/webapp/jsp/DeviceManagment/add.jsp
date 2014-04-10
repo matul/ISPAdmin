@@ -29,7 +29,7 @@
         <form:errors path="name" class="error"></form:errors>
 
         <input type="submit" name="submit" value="Uložit změny" class="submit left" />
-        <a href="../ispadmin/DeviceManagment/list" class="submit left">Zrušit</a>
+        <a href="${leaveLink}" class="submit left">Zrušit</a>
        
     </form:form>
 <%@ include file="../footer.jsp" %>

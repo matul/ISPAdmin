@@ -13,6 +13,6 @@
     <form:errors path="message" class="error"></form:errors>
 
     <input type="submit" name="submit" value="Odeslat" class="submit left" />
-    <a href="../ispadmin/serviceDesk/list" class="submit left">Zrušit</a>
+    <a href="${leaveLink}" class="submit left">Zrušit</a>
 </form:form>
 <%@ include file="../footer.jsp" %>

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeviceManagmentController extends BaseController {
 
   private final DevicesDAO devicesDAO;
-  private final String ACTION_PREFIX = "/deviceManagment/";
+  private final String CONTROLLER_PREFIX = "/deviceManagment";
 
   @Autowired
   public DeviceManagmentController(DevicesDAO devicesDAO) {
@@ -29,8 +29,10 @@ public class DeviceManagmentController extends BaseController {
   }
 
   @RequestMapping("/list")
-  public ModelAndView listDevices() {
+  public ModelAndView listDevices(HttpServletRequest request) {
     this.initView("DeviceManagment/list");
+    this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
+    this.template.addObject("deleteLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/delete");
     List<Devices> devices = this.devicesDAO.getAllDevices();
     this.template.addObject("devices", devices);
     return this.template;
@@ -47,14 +49,16 @@ public class DeviceManagmentController extends BaseController {
       }
     }
 
-    this.template.addObject("action", this.getBaseUrl(request, ACTION_PREFIX) + "/add/");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/add/");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
     return this.template;
   }
 
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    this.initView("DeviceManagment/add");
-    this.template.addObject("action", this.getBaseUrl(request, ACTION_PREFIX) + "/edit/" + id);
+    this.initView("DeviceManagment/edit");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
    
     if (request.getMethod().equals("GET")) {
       Devices d = this.devicesDAO.getDevicesById(id);

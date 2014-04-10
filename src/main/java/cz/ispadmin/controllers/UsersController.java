@@ -34,8 +34,10 @@ public class UsersController extends BaseController {
   }
 
   @RequestMapping("/list")
-  public ModelAndView listClients() {
+  public ModelAndView listClients(HttpServletRequest request) {
     this.initView("Users/list");
+    this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
+    this.template.addObject("resetPasswordLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/resetPassword");
     List<Users> users = userDAO.getAllUsers();
     this.template.addObject("users", users);
     return template;
@@ -44,7 +46,8 @@ public class UsersController extends BaseController {
   @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
     this.initView("Users/add");
-
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
+        
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.userDAO.insertOrUpdateUser(user);
@@ -79,7 +82,8 @@ public class UsersController extends BaseController {
   @RequestMapping(value = "/resetPassword/{id}")
   public ModelAndView resetPassword(@PathVariable Integer id, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
     this.initView("Users/resetPassword");
-     
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
+
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
    
@@ -114,6 +118,7 @@ public class UsersController extends BaseController {
   @RequestMapping(value = "/changePassword")
   public ModelAndView changePassword(HttpServletRequest request, Authentication auth, Md5PasswordEncoder passEncoder) {
     this.initView("Users/changePassword");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
     
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
     HashMap<String, String> errors = new HashMap<String, String>();

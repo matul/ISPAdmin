@@ -36,10 +36,10 @@
               <td>${d.getManufacturer()}</td>
               <td>${d.getModel()}</td>
               <td>
-                <a class="image editUsers" href="/ispadmin/DeviceManagment/edit/${d.getId()}" title="upravit"></a>
+                <a class="image editUsers" href="${editLink}/${d.getId()}" title="upravit"></a>
               </td>
               <td>
-                <a class="image deleteUsers" href="/ispadmin/DeviceManagment/delete/${d.getId()}" title="odstranit"></a>
+                <a class="image deleteUsers" href="${deleteLink}/${d.getId()}" title="odstranit"></a>
               </td>
             </tr>
           </c:forEach>
