@@ -7,7 +7,7 @@
 
   <label>Opravdu si přejete smazat toto zařízení?</label>
 
-  <input type="submit" name="submitYes" value="Ano" />
-  <input type="submit" name="submitNo" value="Ne" />
+  <input type="submit" name="submitYes" value="Ano" class="submit left" />
+  <input type="submit" name="submitNo" value="Ne" class="submit left" />
 </form:form>
 <%@ include file="../footer.jsp" %>

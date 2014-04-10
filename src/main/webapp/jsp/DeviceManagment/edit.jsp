@@ -4,19 +4,20 @@
 <h2>Editace zařízení</h2>
 <%@ include file="submenu.jsp" %>
 <form:form method="POST" action="${action}" modelattribute="device" commandName="device">
-  
-  <form:input path="ipAdress"></form:input>
-  <form:errors path="ipAdress" cssclass="error"></form:errors>
+    <label>IP adresa:</label>
+    <form:input path="ipAdress"></form:input>
+    <form:errors path="ipAdress" class="error"></form:errors>
 
-  <label>kde</label>
-  <form:input path="localization"></form:input>
-  <form:errors path="localization" cssclass="error"></form:errors>
-    
-  <label>kdo</label>
-              <td>${i.getUser().getUsername()}</td>
-              <td>${i.getUser().getFirstname()}</td>
-              <td>${i.getUser().getSurname()}</td>
+    <label>Lokalizace:</label>
+    <form:input path="localization"></form:input>
+    <form:errors path="localization" class="error"></form:errors>
 
-  <input type="submit" name="submit" value="Odeslat" />
+    <label>Uživatel:</label>
+    <label>${i.getUser().getUsername()}</label>
+    <label>${i.getUser().getFirstname()}</label>
+    <label>${i.getUser().getSurname()}</label>
+
+    <input type="submit" name="submit" value="Odeslat" class="submit left" />
+    <a href="../ispadmin/DeviceManagment/list" class="submit left">Zrušit</a>
 </form:form>
 <%@ include file="../footer.jsp" %>

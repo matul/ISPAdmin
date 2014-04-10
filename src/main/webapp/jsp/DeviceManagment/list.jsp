@@ -17,8 +17,8 @@
         <th>Lokalizace</th>
         <th>Výrobce</th>
         <th>Model</th>
-        <th>edit</th>
-        <th>Smazání</th>
+        <th>Úprava</th>
+        <th>Odstranit</th>
       </tr>
     </thead>
     <tbody>
@@ -36,10 +36,10 @@
               <td>${d.getManufacturer()}</td>
               <td>${d.getModel()}</td>
               <td>
-                <a class="image edit" href="/ispadmin/DeviceManagment/edit/${d.getId()}" title="upravit">upravit</a>
+                <a class="image editUsers" href="/ispadmin/DeviceManagment/edit/${d.getId()}" title="upravit"></a>
               </td>
               <td>
-                <a class="image delete" href="/ispadmin/DeviceManagment/delete/${d.getId()}" title="upravit">smazat</a>
+                <a class="image deleteUsers" href="/ispadmin/DeviceManagment/delete/${d.getId()}" title="odstranit"></a>
               </td>
             </tr>
           </c:forEach>

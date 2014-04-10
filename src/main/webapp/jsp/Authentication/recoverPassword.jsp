@@ -7,7 +7,7 @@
         <p>${success.recover}</p>
     </div>
     <div class="msg none">
-        <a href="/authentication/login">Přejít na login</a>
+        <a href="../ispadmin/authentication/login">Přejít na login</a>
     </div>
 </c:if>
 <c:if test="${not empty errors.password}">
@@ -28,10 +28,10 @@
     </c:if>
     
     <label>Nové heslo:</label> 
-    <input type="text" name="password"/>
+    <input type="password" name="password"/>
     
     <label>Potvrzení hesla:</label> 
-    <input type="text" name="passwordVerification"/>
+    <input type="password" name="passwordVerification"/>
     
     <input type="submit" value="odeslat" class="submit"/>
 </form>
