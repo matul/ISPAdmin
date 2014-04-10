@@ -17,11 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Honza
  */
 @Controller
-@RequestMapping("/DeviceManagment")
+@RequestMapping("/deviceManagment")
 public class DeviceManagmentController extends BaseController {
 
   private final DevicesDAO devicesDAO;
-  private final String ACTION_PREFIX = "/ispadmin/DeviceManagment/";
+  private final String ACTION_PREFIX = "/deviceManagment/";
 
   @Autowired
   public DeviceManagmentController(DevicesDAO devicesDAO) {
@@ -30,15 +30,15 @@ public class DeviceManagmentController extends BaseController {
 
   @RequestMapping("/list")
   public ModelAndView listDevices() {
+    this.initView("DeviceManagment/list");
     List<Devices> devices = this.devicesDAO.getAllDevices();
     this.template.addObject("devices", devices);
-    this.template.setViewName("DeviceManagment/list");
     return this.template;
   }
 
   @RequestMapping(value = "/add")
   public ModelAndView addDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, HttpServletRequest request) {
-    this.template.setViewName("DeviceManagment/add");
+    this.initView("DeviceManagment/add");
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
@@ -47,15 +47,15 @@ public class DeviceManagmentController extends BaseController {
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    this.template.addObject("action", this.getBaseUrl(request, ACTION_PREFIX) + "/add/");
     return this.template;
   }
 
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
-    this.template.setViewName("DeviceManagment/add");
-
+    this.initView("DeviceManagment/add");
+    this.template.addObject("action", this.getBaseUrl(request, ACTION_PREFIX) + "/edit/" + id);
+   
     if (request.getMethod().equals("GET")) {
       Devices d = this.devicesDAO.getDevicesById(id);
       device.setData(d);
@@ -71,8 +71,8 @@ public class DeviceManagmentController extends BaseController {
   }
 
   @RequestMapping("/delete/{id}")
-  public ModelAndView Delete(HttpServletRequest request, @PathVariable Integer id) {
-    this.template.setViewName("DeviceManagment/delete");
+  public ModelAndView delete(HttpServletRequest request, @PathVariable Integer id) {
+    this.initView("DeviceManagment/delete");
     if (request.getMethod().equals("POST")) {
       String sent = request.getParameter("submitYes");
 
