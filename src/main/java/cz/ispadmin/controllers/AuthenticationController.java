@@ -29,7 +29,9 @@ public class AuthenticationController extends BaseController {
   }
 
   @RequestMapping("/login")
-  public ModelAndView logIn() {
+  public ModelAndView logIn(HttpServletRequest request) {
+    this.template.addObject("sendForgottenPasswordLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/sendForgottenPasswordLink");
+    this.template.addObject("action", this.getBaseUrl(request) + "/j_spring_security_check");
     this.template.setViewName("Authentication/login");
     return template;
   }
