@@ -5,8 +5,10 @@
 .image.view {background: url('images/icons/view16.png') no-repeat;}
 .image.add {background: url('images/icons/add16.png') no-repeat;}
 .image.edit {background: url('images/icons/edit16.png') no-repeat;}
+.image.editUsers {background: url('images/icons/edit16.png') no-repeat; padding: 0; margin: 0 auto; width: 16px; height: 16px;}
 .image.move {background: url('images/icons/move16.png') no-repeat;}
 .image.delete {background: url('images/icons/delete16.png') no-repeat;}
+.image.deleteUsers {background: url('images/icons/delete16.png') no-repeat; padding: 0; margin: 0 auto; width: 16px; height: 16px;}
 .image.login {background: url('images/icons/user16.png') no-repeat;}
 .image.users {background: url('images/icons/users16.png') no-repeat;}
 .image.user {background: url('images/icons/user16.png') no-repeat;}
