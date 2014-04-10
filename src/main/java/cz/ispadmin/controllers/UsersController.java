@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UsersController extends BaseController {
 
   private final UserDAO userDAO;
-  private final String ACTION_PREFIX = "/ispadmin/users";
+  private final String CONTROLLER_PREFIX = "/users";
 
   @Autowired
   public UsersController(UserDAO model) {
@@ -35,15 +35,15 @@ public class UsersController extends BaseController {
 
   @RequestMapping("/list")
   public ModelAndView listClients() {
+    this.initView("Users/list");
     List<Users> users = userDAO.getAllUsers();
     this.template.addObject("users", users);
-    this.template.setViewName("Users/list");
     return template;
   }
 
   @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
-    this.template.setViewName("Users/add");
+    this.initView("Users/add");
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
@@ -52,12 +52,14 @@ public class UsersController extends BaseController {
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/add");
     return this.template;
   }
 
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.initView("Users/add");
+    
     if (request.getMethod().equals("GET")) {
       Users u = this.userDAO.getUserById(id);
       user.setData(u);
@@ -70,17 +72,17 @@ public class UsersController extends BaseController {
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
-    this.template.setViewName("Users/add");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     return this.template;
   }
 
   @RequestMapping(value = "/resetPassword/{id}")
   public ModelAndView resetPassword(@PathVariable Integer id, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
+    this.initView("Users/resetPassword");
+     
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Users/resetPassword");
-
+   
     if (request.getMethod().equals("POST")) {
       Users user = this.userDAO.getUserById(id);
       String password = request.getParameter("password");
@@ -104,18 +106,18 @@ public class UsersController extends BaseController {
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/resetPassword/" + id);
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/resetPassword/" + id);
 
     return this.template;
   }
 
   @RequestMapping(value = "/changePassword")
   public ModelAndView changePassword(HttpServletRequest request, Authentication auth, Md5PasswordEncoder passEncoder) {
+    this.initView("Users/changePassword");
     
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Users/changePassword");
     
     if (request.getMethod().equals("POST")) {
       Users user = this.userDAO.getUserById(signedInUser.getUserID());
@@ -147,7 +149,7 @@ public class UsersController extends BaseController {
     }
     
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/changePassword");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/changePassword");
 
     return this.template;
   }

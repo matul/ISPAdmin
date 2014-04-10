@@ -24,66 +24,83 @@ public class ServiceDeskController extends BaseController {
 
   private final IncidentsDAO incidentsDAO;
   private final IncidentStatesDAO statesDAO;
-  private final String ACTION_PREFIX = "/ispadmin/serviceDesk/";
+  private final String CONTROLLER_PREFIX = "/serviceDesk";
 
   @Autowired
   public ServiceDeskController(IncidentsDAO incidentsDAO, IncidentStatesDAO statesDAO) {
-    this.incidentsDAO = incidentsDAO;
-    this.statesDAO = statesDAO;
-  }
-
-  @RequestMapping("/list")
-  public ModelAndView listIncidents() {
-    List<Incidents> incidents = this.incidentsDAO.getAllIncidents();
-    this.template.addObject("incidents", incidents);
-    this.template.setViewName("ServiceDesk/list");
-    return this.template;
-  }
-
-  @RequestMapping(value = "/reportBug")
-  public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
-    this.template.setViewName("ServiceDesk/reportBug");
-    
-    if (request.getMethod().equals("POST")) {
-      if (!result.hasErrors()) {
-        incident.setUser(null);
-        incidentS.setState("Nahlášeno");
-        incident.setState(incidentS);
-
-        this.incidentsDAO.insertOrUpdateIncident(incident);
-        this.template.setViewName("redirect:/serviceDesk/list");
-      }
+      this.incidentsDAO = incidentsDAO;
+      this.statesDAO = statesDAO;
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/reportBug/");
-    return this.template;
-  }
-  
-   @RequestMapping(value = "/edit/{id}")
-  public ModelAndView editIncident(@Valid @ModelAttribute("incident") Incidents incident, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    List<IncidentStates> states = this.statesDAO.getAllStates();
-    this.template.addObject("states", states);
-    this.template.setViewName("ServiceDesk/changeState");
+    @RequestMapping("/list")
+    public ModelAndView listIncidents
     
-    Incidents originalIncident = this.incidentsDAO.getIncidentById(id);
-    if(incident.getState() != null) {
+      () {
+    this.initView("ServiceDesk/list");
+      List<Incidents> incidents = this.incidentsDAO.getAllIncidents();
+      this.template.addObject("incidents", incidents);
+      return this.template;
+    }
+
+    @RequestMapping(value = "/reportBug")
+    public ModelAndView reportBug
+    (@Valid
+    @ModelAttribute("incident")
+    Incidents incident, IncidentStates incidentS
+    , BindingResult result, HttpServletRequest request
+    
+      ) {
+    this.initView("ServiceDesk/reportBug");
+
+      if (request.getMethod().equals("POST")) {
+        if (!result.hasErrors()) {
+          incident.setUser(null);
+          incidentS.setState("Nahlášeno");
+          incident.setState(incidentS);
+
+          this.incidentsDAO.insertOrUpdateIncident(incident);
+          this.template.setViewName("redirect:/serviceDesk/list");
+        }
+      }
+
+      this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/reportBug");
+      return this.template;
+    }
+
+    @RequestMapping(value = "/edit/{id}")
+    public ModelAndView editIncident
+    (@Valid
+    @ModelAttribute("incident")
+    Incidents incident, BindingResult result
+    , @PathVariable
+    Integer id, HttpServletRequest request
+    
+      ) {
+    this.initView("ServiceDesk/changeState");
+
+      List<IncidentStates> states = this.statesDAO.getAllStates();
+      this.template.addObject("states", states);
+
+      Incidents originalIncident = this.incidentsDAO.getIncidentById(id);
+      if (incident.getState() != null) {
         int stateId = incident.getState().getId();
         incident.setData(originalIncident);
 
         IncidentStates newState = this.statesDAO.getStateById(stateId);
         originalIncident.setAnswer(incident.getAnswer());
         incident.setState(newState);
-    } else
-        incident.setData(originalIncident);        
-
-    if (request.getMethod().equals("POST")) {
-      if (!result.hasErrors()) {
-        this.incidentsDAO.insertOrUpdateIncident(incident);
-        this.template.setViewName("redirect:/serviceDesk/list");
+      } else {
+        incident.setData(originalIncident);
       }
+
+      if (request.getMethod().equals("POST")) {
+        if (!result.hasErrors()) {
+          this.incidentsDAO.insertOrUpdateIncident(incident);
+          this.template.setViewName("redirect:/serviceDesk/list");
+        }
+      }
+
+      this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
+      return this.template;
     }
-    
-    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
-    return this.template;
   }
-}
