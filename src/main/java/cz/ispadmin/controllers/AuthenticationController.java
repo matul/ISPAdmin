@@ -1,7 +1,7 @@
 package cz.ispadmin.controllers;
 
 import cz.ispadmin.entities.Users;
-import cz.ispadmin.models.dao.UserDAO;
+import cz.ispadmin.models.dao.UsersDAO;
 import cz.ispadmin.services.mail.Mailer;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/authentication")
 public class AuthenticationController extends BaseController {
 
-  private final UserDAO userDAO;
+  private final UsersDAO usersDAO;
   private final String SECURITY_SALT = "fljsadlfkjas";
   private final String CONTROLLER_PREFIX = "/authentication";
 
   @Autowired
-  public AuthenticationController(UserDAO userDao) {
-    this.userDAO = userDao;
+  public AuthenticationController(UsersDAO usersDao) {
+    this.usersDAO = usersDao;
   }
 
   @RequestMapping("/login")
@@ -57,7 +57,7 @@ public class AuthenticationController extends BaseController {
 
     if (request.getMethod().equals("POST")) {
       String username = request.getParameter("username");
-      Users user = this.userDAO.getUserByUsername(username);
+      Users user = this.usersDAO.getUserByUsername(username);
       String email = request.getParameter("email");
 
       if (user == null) {
@@ -76,7 +76,7 @@ public class AuthenticationController extends BaseController {
                 + this.getBaseUrl(request, CONTROLLER_PREFIX) + "/recoverPassword/" + forgottenPasswordHash;
         mailer.sendMail(email, subject, message);
         user.setForgottenPassHash(forgottenPasswordHash);
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
 
         success.put("sendPassword", "Email byl úspěšně odeslán.");
         this.template.addObject("success", success);
@@ -95,7 +95,7 @@ public class AuthenticationController extends BaseController {
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
 
-    Users user = this.userDAO.getUserByForgottenPassHash(hash);
+    Users user = this.usersDAO.getUserByForgottenPassHash(hash);
     if (user == null) {
       errors.put("invalidLink", "Odkaz pro obnovu hesla je neplatný.");
       this.template.addObject("errors", errors);
@@ -118,7 +118,7 @@ public class AuthenticationController extends BaseController {
         String passwordHash = passEncoder.encodePassword(password, null);
         user.setPassword(passwordHash);
         user.setForgottenPassHash("");
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         success.put("recover", "Vaše heslo bylo úspěšně změneno.");
         this.template.addObject("success", success);
       }

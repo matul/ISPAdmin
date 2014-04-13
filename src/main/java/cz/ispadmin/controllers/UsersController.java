@@ -1,6 +1,6 @@
 package cz.ispadmin.controllers;
 
-import cz.ispadmin.models.dao.UserDAO;
+import cz.ispadmin.models.dao.UsersDAO;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.services.authentication.SignedInUser;
 import java.util.HashMap;
@@ -25,12 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/users")
 public class UsersController extends BaseController {
 
-  private final UserDAO userDAO;
+  private final UsersDAO usersDAO;
   private final String CONTROLLER_PREFIX = "/users";
 
   @Autowired
-  public UsersController(UserDAO model) {
-    this.userDAO = model;
+  public UsersController(UsersDAO model) {
+    this.usersDAO = model;
   }
 
   @RequestMapping("/list")
@@ -38,7 +38,7 @@ public class UsersController extends BaseController {
     this.initView("Users/list");
     this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
     this.template.addObject("resetPasswordLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/resetPassword");
-    List<Users> users = userDAO.getAllUsers();
+    List<Users> users = usersDAO.getAllUsers();
     this.template.addObject("users", users);
     return template;
   }
@@ -50,7 +50,7 @@ public class UsersController extends BaseController {
         
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         this.template.setViewName("redirect:/users/list");
       }
     }
@@ -64,13 +64,13 @@ public class UsersController extends BaseController {
     this.initView("Users/add");
     
     if (request.getMethod().equals("GET")) {
-      Users u = this.userDAO.getUserById(id);
+      Users u = this.usersDAO.getUserById(id);
       user.setData(u);
     }
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         this.template.setViewName("redirect:/users/list");
       }
     }
@@ -88,7 +88,7 @@ public class UsersController extends BaseController {
     HashMap<String, String> success = new HashMap<String, String>();
    
     if (request.getMethod().equals("POST")) {
-      Users user = this.userDAO.getUserById(id);
+      Users user = this.usersDAO.getUserById(id);
       String password = request.getParameter("password");
       String passwordVerification = request.getParameter("passwordVerification");
 
@@ -104,7 +104,7 @@ public class UsersController extends BaseController {
         String passwordHash = passEncoder.encodePassword(password, null);
         user.setPassword(passwordHash);
         
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         success.put("reset", "Vaše heslo bylo úspěšně změneno.");
         this.template.addObject("success", success);
       }
@@ -125,7 +125,7 @@ public class UsersController extends BaseController {
     HashMap<String, String> success = new HashMap<String, String>();
     
     if (request.getMethod().equals("POST")) {
-      Users user = this.userDAO.getUserById(signedInUser.getUserID());
+      Users user = this.usersDAO.getUserById(signedInUser.getUserID());
       
       String oldPassword = request.getParameter("oldPassword");
       String newPassword = request.getParameter("newPassword");
@@ -147,7 +147,7 @@ public class UsersController extends BaseController {
       if (errors.isEmpty()) {
         String newPasswordHash = passEncoder.encodePassword(newPassword,null);
         user.setPassword(newPasswordHash);
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         success.put("change", "Vaše heslo bylo úspěšně změneno.");
         this.template.addObject("success", success);
       }

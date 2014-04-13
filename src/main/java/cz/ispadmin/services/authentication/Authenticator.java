@@ -2,7 +2,7 @@ package cz.ispadmin.services.authentication;
 
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.models.dao.DAO;
-import cz.ispadmin.models.dao.UserDAO;
+import cz.ispadmin.models.dao.UsersDAO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Authenticator extends DAO implements UserDetailsService {
   
-  private UserDAO userDao;
+  private UsersDAO usersDao;
   
   // Temporary usage (TODO: remove)
   private boolean accountNonExpired = true;
@@ -30,13 +30,13 @@ public class Authenticator extends DAO implements UserDetailsService {
   public final String ROLE_ADMIN = "admin";
   
   @Autowired
-  public void setUserDao(UserDAO userDao) {
-    this.userDao = userDao;
+  public void setUsersDao(UsersDAO usersDao) {
+    this.usersDao = usersDao;
   }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Users user = this.userDao.getUserByUsername(username);
+    Users user = this.usersDao.getUserByUsername(username);
     if (user == null) {
       throw new UsernameNotFoundException(username);
     }

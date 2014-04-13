@@ -45,7 +45,7 @@ public class DeviceManagmentController extends BaseController {
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.devicesDAO.insertOrUpdateDevice(device);
-        this.template.setViewName("redirect:/DeviceManagment/list");
+        this.template.setViewName("redirect:/deviceManagment/list");
       }
     }
 
@@ -56,7 +56,7 @@ public class DeviceManagmentController extends BaseController {
 
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    this.initView("DeviceManagment/edit");
+    this.initView("DeviceManagment/add");
     this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
    
@@ -68,7 +68,7 @@ public class DeviceManagmentController extends BaseController {
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.devicesDAO.insertOrUpdateDevice(device);
-        this.template.setViewName("redirect:/DeviceManagment/list");
+        this.template.setViewName("redirect:/deviceManagment/list");
       }
     }
     return this.template;
@@ -86,7 +86,7 @@ public class DeviceManagmentController extends BaseController {
           this.devicesDAO.deleteDevice(device);
         }
       }
-      this.template.setViewName("redirect:/DeviceManagment/list");
+      this.template.setViewName("redirect:/deviceManagment/list");
     }
     return this.template;
   }

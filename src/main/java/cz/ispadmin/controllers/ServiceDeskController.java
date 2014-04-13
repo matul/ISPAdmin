@@ -35,12 +35,13 @@ public class ServiceDeskController extends BaseController {
   @RequestMapping("/list")
   public ModelAndView listIncidents(HttpServletRequest request) {
     this.initView("ServiceDesk/list");
-    this.template.addObject("edit", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/");
+    this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
     List<Incidents> incidents = this.incidentsDAO.getAllIncidents();
     this.template.addObject("incidents", incidents);
     return this.template;
   }
 
+  //Přidává do stavů stav nahlášeno ------------ CHYBA!!!!
   @RequestMapping(value = "/reportBug")
   public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
     this.initView("ServiceDesk/reportBug");
