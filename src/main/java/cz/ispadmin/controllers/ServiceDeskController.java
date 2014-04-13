@@ -24,7 +24,7 @@ public class ServiceDeskController extends BaseController {
 
   private final IncidentsDAO incidentsDAO;
   private final IncidentStatesDAO statesDAO;
-  private final String ACTION_PREFIX = "/ispadmin/serviceDesk/";
+  private final String CONTROLLER_PREFIX = "/serviceDesk";
 
   @Autowired
   public ServiceDeskController(IncidentsDAO incidentsDAO, IncidentStatesDAO statesDAO) {
@@ -33,17 +33,19 @@ public class ServiceDeskController extends BaseController {
   }
 
   @RequestMapping("/list")
-  public ModelAndView listIncidents() {
+  public ModelAndView listIncidents(HttpServletRequest request) {
+    this.initView("ServiceDesk/list");
+    this.template.addObject("edit", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/");
     List<Incidents> incidents = this.incidentsDAO.getAllIncidents();
     this.template.addObject("incidents", incidents);
-    this.template.setViewName("ServiceDesk/list");
     return this.template;
   }
 
   @RequestMapping(value = "/reportBug")
   public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
-    this.template.setViewName("ServiceDesk/reportBug");
-    
+    this.initView("ServiceDesk/reportBug");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
+
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         incident.setUser(null);
@@ -55,26 +57,29 @@ public class ServiceDeskController extends BaseController {
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/reportBug/");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/reportBug");
     return this.template;
   }
-  
-   @RequestMapping(value = "/edit/{id}")
+
+  @RequestMapping(value = "/edit/{id}")
   public ModelAndView editIncident(@Valid @ModelAttribute("incident") Incidents incident, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.initView("ServiceDesk/changeState");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
+    
     List<IncidentStates> states = this.statesDAO.getAllStates();
     this.template.addObject("states", states);
-    this.template.setViewName("ServiceDesk/changeState");
-    
-    Incidents originalIncident = this.incidentsDAO.getIncidentById(id);
-    if(incident.getState() != null) {
-        int stateId = incident.getState().getId();
-        incident.setData(originalIncident);
 
-        IncidentStates newState = this.statesDAO.getStateById(stateId);
-        originalIncident.setAnswer(incident.getAnswer());
-        incident.setState(newState);
-    } else
-        incident.setData(originalIncident);        
+    Incidents originalIncident = this.incidentsDAO.getIncidentById(id);
+    if (incident.getState() != null) {
+      int stateId = incident.getState().getId();
+      incident.setData(originalIncident);
+
+      IncidentStates newState = this.statesDAO.getStateById(stateId);
+      originalIncident.setAnswer(incident.getAnswer());
+      incident.setState(newState);
+    } else {
+      incident.setData(originalIncident);
+    }
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
@@ -82,8 +87,8 @@ public class ServiceDeskController extends BaseController {
         this.template.setViewName("redirect:/serviceDesk/list");
       }
     }
-    
-    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
+
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     return this.template;
   }
 }

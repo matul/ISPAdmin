@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DevicesDAO extends DAO {
 
-    /**
-   * Returns a user by ID
+  /**
+   * Returns a device by ID
+   * @param DevicesId
+   * @return Devices
    */
   public Devices getDevicesById(int DevicesId) {
     Session d = this.sessionFactory.openSession();
@@ -33,21 +35,40 @@ public class DevicesDAO extends DAO {
       d.close();
     }
   }
-  
+
   public List<Devices> getAllDevices() {
     Session s = this.sessionFactory.openSession();
     try {
-        Query query = s.createQuery("from Devices");
-        List<Devices> devices = query.list();
-        return devices;
+      Query query = s.createQuery("from Devices");
+      List<Devices> devices = query.list();
+      return devices;
     } catch (HibernateException e) {
-        return null;
+      return null;
     } finally {
-        s.close();
+      s.close();
     }
-  
   }
-  
+
+  /**
+   * Deletes a device by ID
+   * @param device
+   * @return boolean TRUE on success otherwise FALSE
+   */
+  public boolean deleteDevice(Devices device) {
+    Session s = this.sessionFactory.openSession();
+    Transaction tx = s.beginTransaction();
+    try {
+      s.delete(device);
+      tx.commit();
+      return true;
+    } catch (HibernateException e) {
+      tx.rollback();
+      return false;
+    } finally {
+      s.close();
+    }
+  }
+
   /**
    * Creates or updates a device
    *
@@ -69,5 +90,4 @@ public class DevicesDAO extends DAO {
     }
   }
 
-  
 }

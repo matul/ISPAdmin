@@ -18,82 +18,84 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/authentication")
 public class AuthenticationController extends BaseController {
-  
+
   private final UserDAO userDAO;
-  
-  final String SECURITY_SALT = "fljsadlfkjas";
-  
+  private final String SECURITY_SALT = "fljsadlfkjas";
+  private final String CONTROLLER_PREFIX = "/authentication";
+
   @Autowired
   public AuthenticationController(UserDAO userDao) {
     this.userDAO = userDao;
   }
 
   @RequestMapping("/login")
-  public ModelAndView logIn() {
+  public ModelAndView logIn(HttpServletRequest request) {
+    this.template.addObject("sendForgottenPasswordLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/sendForgottenPasswordLink");
+    this.template.addObject("action", this.getBaseUrl(request) + "/j_spring_security_check");
     this.template.setViewName("Authentication/login");
     return template;
   }
-  
+
   @RequestMapping("/logout")
   public ModelAndView logOut() {
     this.template.setViewName("Authentication/logout");
     return template;
   }
-  
+
   @RequestMapping("/forbidden")
   public ModelAndView forbidden() {
     this.template.setViewName("Authentication/forbidden");
     return template;
   }
-  
+
   @RequestMapping(value = "/sendForgottenPasswordLink")
   public ModelAndView sendForgottenPasswordLink(HttpServletRequest request, Mailer mailer, Md5PasswordEncoder passEncoder) {
+    this.initView("Authentication/sendForgottenPasswordLink");
 
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Authentication/sendForgottenPasswordLink");
 
     if (request.getMethod().equals("POST")) {
       String username = request.getParameter("username");
       Users user = this.userDAO.getUserByUsername(username);
       String email = request.getParameter("email");
 
-      if (user == null){   
+      if (user == null) {
         errors.put("userNotFound", "Zadané uživatelské jméno nebylo nalezeno!");
       } else {
         String emailVarification = user.getEmail();
         if (!email.equals(emailVarification)) {
           errors.put("emailVerification", "Zadaný email se neshoduje s účetem.");
-        } 
-      }          
+        }
+      }
       if (errors.isEmpty()) {
-        //TODO: Pořešit link
-        String forgottenPasswordHash = passEncoder.encodePassword(user.getId().toString(), SECURITY_SALT);
+        Integer randomNumber = ((int) (Math.random() * 100));
+        String forgottenPasswordHash = passEncoder.encodePassword(randomNumber.toString() + user.getId(), SECURITY_SALT);
         String subject = "Obnova hesla z portálu teranet.cz";
-        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link: \n" +
-                         "http://localhost:8080/ispadmin/authentication/recoverPassword/" + forgottenPasswordHash;
+        String message = "Dobrý den,\n pro obnovu hesla na portále teranet.cz prosím použijte tento link: \n"
+                + this.getBaseUrl(request, CONTROLLER_PREFIX) + "/recoverPassword/" + forgottenPasswordHash;
         mailer.sendMail(email, subject, message);
         user.setForgottenPassHash(forgottenPasswordHash);
         this.userDAO.insertOrUpdateUser(user);
-        
+
         success.put("sendPassword", "Email byl úspěšně odeslán.");
         this.template.addObject("success", success);
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/authentication/sendForgottenPasswordLink");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/sendForgottenPasswordLink");
 
     return this.template;
   }
-  
+
   @RequestMapping(value = "/recoverPassword/{hash}")
   public ModelAndView recoverPassword(@PathVariable String hash, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
+    this.initView("Authentication/recoverPassword");
+
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Authentication/recoverPassword");
-    
+
     Users user = this.userDAO.getUserByForgottenPassHash(hash);
-      
     if (user == null) {
       errors.put("invalidLink", "Odkaz pro obnovu hesla je neplatný.");
       this.template.addObject("errors", errors);
@@ -122,9 +124,9 @@ public class AuthenticationController extends BaseController {
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/authentication/recoverPassword/" + hash);
-
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/recoverPassword/" + hash);
+    this.template.addObject("loginLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/login/");
+    
     return this.template;
   }
-  
 }

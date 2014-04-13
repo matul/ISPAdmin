@@ -3,15 +3,16 @@
 <%@ include file="../header.jsp" %>
 <h2>Nový tiket</h2>
 <%@ include file="submenu.jsp" %>
-<form:form method="POST" action="${action}" modelattribute="incident" commandName="incident">
-  <label>Předmět problému</label>
-  <form:input path="subject"></form:input>
-  <form:errors path="subject" cssclass="error"></form:errors>
+<form:form method="POST" action="${action}" commandName="incident">
+    <label>Předmět problému:</label>
+    <form:input path="subject"></form:input>
+    <form:errors path="subject" class="error"></form:errors>
 
-  <label>Popis</label>
-  <form:input path="message"></form:input>
-  <form:errors path="message" cssclass="error"></form:errors>
+    <label>Popis:</label>
+    <form:textarea path="message"></form:textarea>
+    <form:errors path="message" class="error"></form:errors>
 
-    <input type="submit" name="submit" value="Odeslat" />
+    <input type="submit" name="submit" value="Odeslat" class="submit left" />
+    <a href="${leaveLink}" class="submit left">Zrušit</a>
 </form:form>
 <%@ include file="../footer.jsp" %>

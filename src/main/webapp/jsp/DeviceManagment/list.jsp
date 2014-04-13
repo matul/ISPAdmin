@@ -17,7 +17,8 @@
         <th>Lokalizace</th>
         <th>Výrobce</th>
         <th>Model</th>
-        <th>edit</th>
+        <th>Úprava</th>
+        <th>Odstranit</th>
       </tr>
     </thead>
     <tbody>
@@ -29,13 +30,16 @@
               <td>${d.getUser().getFirstname()}</td>
               <td>${d.getUser().getSurname()}</td>
               <td>${d.getName()}</td>
-              <td>${d.getIpAdress()}</td>
+              <td><a href="http://${d.getIpAdress()}">${d.getIpAdress()}</a></td>
               <td>${d.getMacAdress()}</td>
               <td>${d.getLocalization()}</td>
               <td>${d.getManufacturer()}</td>
               <td>${d.getModel()}</td>
               <td>
-                <a class="image edit" href="/ispadmin/DeviceManagment/edit/${d.getId()}" title="upravit">upravit</a>
+                <a class="image editUsers" href="${editLink}/${d.getId()}" title="upravit"></a>
+              </td>
+              <td>
+                <a class="image deleteUsers" href="${deleteLink}/${d.getId()}" title="odstranit"></a>
               </td>
             </tr>
           </c:forEach>

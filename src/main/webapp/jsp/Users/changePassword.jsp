@@ -3,20 +3,38 @@
 <%@ include file="../header.jsp" %>
 <h2>Změna hesla</h2>
 <%@ include file="submenu.jsp" %>
+<c:if test="${not empty success.change}">
+    <div class="msg ok">
+        <p>${success.change}</p>
+    </div>
+</c:if>
+<c:if test="${not empty errors.oldPassword}">
+    <div class="msg error">
+        <p>${errors.oldPassword}</p>
+    </div>
+</c:if>
+<c:if test="${not empty errors.newPassword}">
+    <div class="msg error">
+        <p>${errors.newPassword}</p>
+    </div>
+</c:if>
+<c:if test="${not empty errors.passwordVerification}">
+    <div class="msg error">
+        <p>${errors.passwordVerification}</p>
+    </div>
+</c:if>
 <form action="${action}" method="post" name="changePassword">    
-    <p>${errors.oldPassword}</p>
-    <p>${errors.newPassword}</p>
-    <p>${errors.passwordVerification}</p>
-    <label>Zadejte staré heslo:</label> <input type="password" name="oldPassword"/>
+    <label>Zadejte staré heslo:</label> 
+    <input type="password" name="oldPassword"/>
     
-    <p>${errors.newPassword}</p>
-    <label>Nové heslo:</label> <input type="password" name="newPassword"/>
+    <label>Nové heslo:</label> 
+    <input type="password" name="newPassword"/>
     
-    <p>${errors.passwordVerification}</p>
-    <label>Potvrzení hesla:</label> <input type="password" name="passwordVerification"/>
+    <label>Potvrzení hesla:</label> 
+    <input type="password" name="passwordVerification"/>
     
-    <input type="submit" value="odeslat" /> 
-    <p>${success.change}</p>
+    <input type="submit" value="Odeslat" class="submit left" /> 
+    <a href="${leaveLink}" class="submit left">Zrušit</a>
 </form>
 
 <%@ include file="../footer.jsp" %>

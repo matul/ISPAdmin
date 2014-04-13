@@ -8,11 +8,11 @@
         ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}                  
     </div>
     <div class="msg question">
-        <a name="recovery" href="/ispadmin/authentication/sendForgottenPasswordLink">Zapomněli jste heslo?</a>  
+        <a name="recovery" href="${sendForgottenPasswordLink}">Zapomněli jste heslo?</a>  
     </div>
 </c:if>
 
-<form name='f' action='/ispadmin/j_spring_security_check' method='POST' class="loginform">                    
+<form name='f' action='${action}' method='POST' class="loginform">                    
     <label>Přihlašovací jméno:</label>  
     <input type='text' name='j_username' >
 

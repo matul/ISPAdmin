@@ -12,12 +12,12 @@
         <th>Příjmení</th>
         <th>Město</th>
         <th>Ulice</th>
-        <th>Poštovní číslo</th>
+        <th>PSČ</th>
         <th>Email</th>
         <th>Telefon</th>
         <th>Datum narození</th>
-        <th>Akce</th>
-        <th>Reset hesla</th>
+        <th>Úprava</th>
+        <th>Heslo</th>
       </tr>
     </thead>
     <tbody>
@@ -35,10 +35,10 @@
               <td>${u.getPhone_number()}</td>
               <td>${u.getBirthDate()}</td>
               <td>
-                <a class="image edit" href="/ispadmin/users/edit/${u.getId()}" title="upravit">upravit</a>
+                <a class="image editUsers" href="${editLink}/${u.getId()}" title="upravit"></a>
               </td>
               <td>
-                <a class="image passrecovery" href="/ispadmin/users/resetPassword/${u.getId()}" title="reset hesla">reset</a>
+                <a class="image passrecovery" href="${resetPasswordLink}/${u.getId()}" title="reset hesla">reset</a>
               </td> 
             </tr>
           </c:forEach>

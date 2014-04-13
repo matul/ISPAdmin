@@ -58,6 +58,8 @@ span.changed.hide {display: none;}
 span.unchanged {color: #76A400; display: block; float: left; font-size: 18px; margin-top: 5px;}
 span.unchanged.orange {color: #ea6645;}
 span.unchanged.hide {display: none;}
+
+span.error {display: block; color:red; margin: 0px 0px 10px 0px;}
 /*#endregion LAYOUT*/
 
 /*#region FORMS*/
@@ -83,6 +85,10 @@ form input.submit {width: 100px; height: 26px; display: inline; color: #EEE; bor
 form input.submit.left {float: left; margin-right: 6px;}
 form input.submit.red {background: url('./images/form_submit_red.png') no-repeat;}
 
+form a.submit {width: 100px; height: 26px; display: inline; color: #EEE; text-align: center; text-decoration: none; line-height: 28px; margin: 2px 0 8px 0; border: none; background: url('./images/form_submit.png') no-repeat; display: block; float: right; }
+form a.submit.left {float: left; margin-right: 6px;}
+form a.submit.red {background: url('./images/form_submit_red.png') no-repeat;}
+form a.submit:hover {-webkit-box-shadow: 0px 0px 10px #999; -moz-box-shadow: 0px 0px 10px #999; box-shadow: 0px 0px 10px #999;}
 
 form input.submit:hover {-webkit-box-shadow: 0px 0px 10px #999; -moz-box-shadow: 0px 0px 10px #999; box-shadow: 0px 0px 10px #999;}
 form input.reset {width: 100px; display: inline;}
@@ -216,5 +222,6 @@ a#modulesdropdown {float: right; display: block;}
 .guestbook .item .text {background: #FFF; padding: 4px;}
 /*#endregion GUESTBOOK*/
 
-/*#region GUESTBOOK*/
+/*#region BUG REPORT*/
+.bugReport {margin: 0px 0px 10px 0px;}
 
