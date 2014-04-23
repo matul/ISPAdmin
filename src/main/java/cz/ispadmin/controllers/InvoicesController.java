@@ -1,7 +1,7 @@
 package cz.ispadmin.controllers;
 
-import cz.ispadmin.entities.Services;
-import cz.ispadmin.models.dao.ServicesDAO;
+import cz.ispadmin.entities.Invoices;
+import cz.ispadmin.models.dao.InvoicesDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,35 +17,35 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Maya
  */
 @Controller
-@RequestMapping("/services")
-public class ServicesController extends BaseController {
+@RequestMapping("/invoices")
+public class InvoicesController extends BaseController {
 
-  private final ServicesDAO servicesDAO;
-  private final String CONTROLLER_PREFIX = "/services";
+  private final InvoicesDAO invoicesDAO;
+  private final String CONTROLLER_PREFIX = "/invoices";
 
   @Autowired
-  public ServicesController(ServicesDAO servicesDAO) {
-    this.servicesDAO = servicesDAO;
+  public InvoicesController(InvoicesDAO invoicesDAO) {
+    this.invoicesDAO = invoicesDAO;
   }
 
   @RequestMapping("/list")
-  public ModelAndView listServices(HttpServletRequest request) {
-    this.initView("Services/list");
+  public ModelAndView listInvoices(HttpServletRequest request) {
+    this.initView("Invoices/list");
     this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
     this.template.addObject("deleteLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/delete");
-    List<Services> services = this.servicesDAO.getAllServices();
-    this.template.addObject("service", services);
+    List<Invoices> invoices = this.invoicesDAO.getAllInvoices();
+    this.template.addObject("invoices", invoices);
     return this.template;
   }
 
   @RequestMapping(value = "/add")
-  public ModelAndView addService(@Valid @ModelAttribute("service") Services service, BindingResult result, HttpServletRequest request) {
-    this.initView("Services/add");
+  public ModelAndView addInvoice(@Valid @ModelAttribute("invoice") Invoices invoice, BindingResult result, HttpServletRequest request) {
+    this.initView("Invoices/add");
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.servicesDAO.insertOrUpdateService(service);
-        this.template.setViewName("redirect:/services/list");
+        this.invoicesDAO.insertOrUpdateInvoice(invoice);
+        this.template.setViewName("redirect:/invoices/list");
       }
     }
 
@@ -55,38 +55,38 @@ public class ServicesController extends BaseController {
   }
 
   @RequestMapping(value = "/edit/{id}")
-  public ModelAndView editService(@Valid @ModelAttribute("service") Services service, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    this.initView("Services/add");
-    
+  public ModelAndView editInvoice(@Valid @ModelAttribute("invoice") Invoices invoice, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.initView("Invoices/add");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
+   
     if (request.getMethod().equals("GET")) {
-      Services s = this.servicesDAO.getServicesById(id);
-      service.setData(s);
+      Invoices d = this.invoicesDAO.getInvoicesById(id);
+      invoice.setData(d);
     }
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.servicesDAO.insertOrUpdateService(service);
-        this.template.setViewName("redirect:/services/list");
+        this.invoicesDAO.insertOrUpdateInvoice(invoice);
+        this.template.setViewName("redirect:/invoices/list");
       }
     }
-
-    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     return this.template;
   }
 
   @RequestMapping("/delete/{id}")
   public ModelAndView delete(HttpServletRequest request, @PathVariable Integer id) {
-    this.initView("Services/delete");
+    this.initView("Invoices/delete");
     if (request.getMethod().equals("POST")) {
       String sent = request.getParameter("submitYes");
 
       if (sent != null) {
-        Services service = this.servicesDAO.getServicesById(id);
-        if (service != null) {
-          this.servicesDAO.deleteServices(service);
+        Invoices invoice = this.invoicesDAO.getInvoicesById(id);
+        if (invoice != null) {
+          this.invoicesDAO.deleteInvoice(invoice);
         }
       }
-      this.template.setViewName("redirect:/services/list");
+      this.template.setViewName("redirect:/invoices/list");
     }
     return this.template;
   }

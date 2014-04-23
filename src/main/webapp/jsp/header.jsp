@@ -65,7 +65,7 @@
                 <a href="${baseUrlPrefix}users/list">Správa klientů</a>
               </li>  
               <li>
-                <a href="#">Fakturace</a>
+                <a href="${baseUrlPrefix}invoices/list">Fakturace</a>
               </li>  
               <li>
                 <a href="${baseUrlPrefix}services/list">Služby ISP</a>
@@ -76,9 +76,9 @@
               <li>
                 <a href="${baseUrlPrefix}serviceDesk/list">Service desk</a>
               </li>  
-              <li>
+              <!--<li>
                 <a href="#">Autentizace</a>
-              </li>   
+              </li>-->
             </ul>          
             <div class="clear">
               <!-- -->

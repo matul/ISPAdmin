@@ -15,7 +15,7 @@
         <th>Příjmení</th>
         <th>Stav</th>
         <th>Odpověď</th>
-        <th>Úprava</th>
+        <th>Upravit</th>
       </tr>
     </thead>
     <tbody>

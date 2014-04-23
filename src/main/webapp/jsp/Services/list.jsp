@@ -12,6 +12,8 @@
         <th>Popis</th>
         <th>Název</th>
         <th>Cena</th>
+        <th>Upravit</th>
+        <th>Smazat</th>
       </tr>
     </thead>
     <tbody>
