@@ -1,6 +1,7 @@
 package cz.ispadmin.entities;
 
 import cz.ispadmin.models.validators.IPAdress;
+import cz.ispadmin.models.validators.MacAdress;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,7 @@ public class Devices implements java.io.Serializable {
   private String localization;
 
   @Size(min = 2, max = 17)
+  @MacAdress(message = "Špatná mac adresa!")
   private String macAdress;
 
   @Size(min = 2, max = 50)

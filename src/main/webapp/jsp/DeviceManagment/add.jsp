@@ -13,7 +13,7 @@
         <form:errors path="localization" class="error"></form:errors>
 
         <label>MAC adresa:</label>
-        <form:input path="macAdress"></form:input>
+        <form:input path="macAdress" placeholder="čísla oddělovat : nebo -"></form:input>
         <form:errors path="macAdress" class="error"></form:errors>
 
         <label>Výrobce:</label>
