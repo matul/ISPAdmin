@@ -39,7 +39,7 @@ public class ServicesDAO extends DAO {
   public List<Services> getAllServices() {
     Session s = this.sessionFactory.openSession();
     try {
-      Query query = s.createQuery("from Devices");
+      Query query = s.createQuery("from Services");
       List<Services> services = query.list();
       return services;
     } catch (HibernateException e) {
@@ -51,7 +51,7 @@ public class ServicesDAO extends DAO {
 
   /**
    * Deletes a device by ID
-   * @param device
+   * @param Service
    * @return boolean TRUE on success otherwise FALSE
    */
   public boolean deleteServices(Services service) {

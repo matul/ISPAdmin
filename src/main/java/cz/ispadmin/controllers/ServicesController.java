@@ -29,7 +29,7 @@ public class ServicesController extends BaseController {
   }
 
   @RequestMapping("/list")
-  public ModelAndView listDevices(HttpServletRequest request) {
+  public ModelAndView listServices(HttpServletRequest request) {
     this.initView("Services/list");
     this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
     this.template.addObject("deleteLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/delete");
