@@ -68,7 +68,7 @@
                 <a href="#">Fakturace</a>
               </li>  
               <li>
-                <a href="#">Služby ISP</a>
+                <a href="${baseUrlPrefix}services/add">Služby ISP</a>
               </li>  
               <li>
                 <a href="${baseUrlPrefix}deviceManagment/list">Správa zařízení</a>

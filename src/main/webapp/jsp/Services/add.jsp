@@ -1,17 +1,22 @@
-<%-- 
-    Document   : add
-    Created on : 23.4.2014, 10:21:08
-    Author     : Marki
---%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="../header.jsp" %>
+    <h2>Přidání/úprava služby</h2>
+    <%@ include file="submenu.jsp" %>
+    <form:form method="POST" action="${action}" modelattribute="service" commandName="service">
+      <label>Název služby:</label>
+      <form:input path="name"></form:input>
+      <form:errors path="name" class="error"></form:errors>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+      <label>Popis:</label>
+      <form:textarea path="description"></form:textarea>
+      <form:errors path="description" class="error"></form:errors>
+
+      <label>Cena:</label>
+      <form:input path="price"></form:input>
+      <form:errors path="price" class="error"></form:errors>   
+
+      <input type="submit" name="submit" value="Uložit změny" class="submit left" />
+      <a href="${leaveLink}" class="submit left">Zrušit</a>
+    </form:form>
+<%@ include file="../footer.jsp" %>
