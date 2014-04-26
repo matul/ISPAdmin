@@ -1,4 +1,5 @@
 package cz.ispadmin.models;
+import junit.framework.TestCase;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     "file:src/main/webapp/WEB-INF/spring-data-source-test.xml",
   }
 )
-public class ModelTest {
+public class ModelTest extends TestCase {
   
   @Test
   public void exampleTest() {
