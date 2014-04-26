@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author Roman
  */
 @Service
-public class UserDAO extends DAO {
+public class UsersDAO extends DAO {
 
   /**
    * Returns a user by ID

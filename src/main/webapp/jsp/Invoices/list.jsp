@@ -8,33 +8,29 @@
   <table id="companies" class="display">
     <thead>
       <tr>
+        <th>Id faktury</th>
+        <th>Id uživatele</th>
         <th>Uživatelské jméno</th>
-        <th>Jméno</th>
-        <th>Příjmení</th>
-        <th>Název zařízení</th>
-        <th>Ip adresa</th>
-        <th>MAC adresa</th>
-        <th>Lokalizace</th>
-        <th>Výrobce</th>
-        <th>Model</th>
+        <th>Datum vystavení</th>
+        <th>Datum splatnosti</th>
+        <th>Cena</th>
+        <th>Stav</th>
         <th>Upravit</th>
         <th>Smazat</th>
       </tr>
     </thead>
     <tbody>
      <c:choose>
-        <c:when test="${!empty devices}">
-          <c:forEach items="${devices}" var="d">
+        <c:when test="${!empty invoices}">
+          <c:forEach items="${invoices}" var="d">
             <tr>
+              <td>${d.getId()}</td>
+              <td>${d.getUser().getId()}</td>
               <td>${d.getUser().getUsername()}</td>
-              <td>${d.getUser().getFirstname()}</td>
-              <td>${d.getUser().getSurname()}</td>
-              <td>${d.getName()}</td>
-              <td><a href="http://${d.getIpAdress()}">${d.getIpAdress()}</a></td>
-              <td>${d.getMacAdress()}</td>
-              <td>${d.getLocalization()}</td>
-              <td>${d.getManufacturer()}</td>
-              <td>${d.getModel()}</td>
+              <td>${d.getIssueDate()}</td>
+              <td>${d.getDueDate()}</td>
+              <td>${d.getPrice()}</td>
+              <td>${d.getState().getState()}</td>
               <td>
                 <a class="image editUsers" href="${editLink}/${d.getId()}" title="upravit"></a>
               </td>

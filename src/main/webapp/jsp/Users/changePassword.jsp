@@ -34,7 +34,7 @@
     <input type="password" name="passwordVerification"/>
     
     <input type="submit" value="Odeslat" class="submit left" /> 
-    <a href="../ispadmin/users/list" class="submit left">Zrušit</a>
+    <a href="${leaveLink}" class="submit left">Zrušit</a>
 </form>
 
 <%@ include file="../footer.jsp" %>

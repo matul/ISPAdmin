@@ -13,7 +13,7 @@ public class DefaultController extends BaseController {
 
   @RequestMapping("/welcome")  
   public ModelAndView welcome() {
-    this.template.setViewName("Default/welcome");
+    this.initView("Default/welcome");
     return this.template;
   }
   

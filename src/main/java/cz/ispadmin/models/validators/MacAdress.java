@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package cz.ispadmin.models.validators;
 
 import java.lang.annotation.Documented;
@@ -14,19 +15,17 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = EmailValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = MacAdressValidator.class)
+@Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-
 /**
  *
  * @author Marki
  */
-public @interface Email {
-
-    String message() default "{Email}";
-
+public @interface MacAdress {
+    String message() default "{MacAdress}";
+     
     Class<?>[] groups() default {};
-
+     
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,10 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <base href="http://localhost:8080/ispadmin/" />
+    <c:set var="req" value="${pageContext.request}" />
+    <c:set var="http_base" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}/"/>
+    <c:set var="baseUrlPrefix" value="${pageContext.request.secure ? fn:replace(http_base, ':443/', '/') : fn:replace(http_base, ':80/', '/')}"/>
+
+    <base href="${baseUrlPrefix}"/>
     <title>${headline}</title>
     <link href="resources/media/dataTables/demo_table.css" rel="stylesheet" type="text/css" />
     <link href="resources/media/dataTables/demo_table_jui.css" rel="stylesheet" type="text/css" />
@@ -34,18 +39,20 @@
           <div class="bigicons">          
             <img src="resources/media/images/brs.png" class="header-logo" alt="logo"/>         
             <div class="right">                
-              <ul>      
+              <ul> 
+                <!--
+                  <li>
+                    <a href="#" target="_blank" class="preview" title="Zobrazí náhled webu v novém panelu prohlížeče">Náhled stránek</a>
+                  </li>              
+                  <li>
+                    <a href="#" class="user">Můj profil</a>
+                  </li> 
+                -->
                 <li>
-                  <a href="#" target="_blank" class="preview" title="Zobrazí náhled webu v novém panelu prohlížeče">Náhled stránek</a>
-                </li>              
-                <li>
-                  <a href="#" class="user">Můj profil</a>
-                </li>            
-                <li>
-                  <a href="/ispadmin/users/changePassword" class="password">Změnit heslo</a>
+                  <a href="${baseUrlPrefix}users/changePassword" class="password">Změnit heslo</a>
                 </li>      
                 <li>
-                  <a href="/ispadmin/authentication/logout" class="logoff">Odhlásit se</a>
+                  <a href="${baseUrlPrefix}authentication/logout" class="logoff">Odhlásit se</a>
                 </li>    
               </ul>                 
             </div>          
@@ -55,23 +62,23 @@
           <div class="menu">                
             <ul class="left">                          
               <li>
-                <a href="/ispadmin/users/list">Správa klientů</a>
+                <a href="${baseUrlPrefix}users/list">Správa klientů</a>
               </li>  
               <li>
-                <a href="#">Fakturace</a>
+                <a href="${baseUrlPrefix}invoices/list">Fakturace</a>
               </li>  
               <li>
-                <a href="#">Služby ISP</a>
+                <a href="${baseUrlPrefix}services/list">Služby ISP</a>
               </li>  
               <li>
-                <a href="/ispadmin/DeviceManagment/list">Správa zařízení</a>
+                <a href="${baseUrlPrefix}deviceManagment/list">Správa zařízení</a>
               </li>  
               <li>
-                <a href="/ispadmin/serviceDesk/list">Service desk</a>
+                <a href="${baseUrlPrefix}serviceDesk/list">Service desk</a>
               </li>  
-              <li>
+              <!--<li>
                 <a href="#">Autentizace</a>
-              </li>   
+              </li>-->
             </ul>          
             <div class="clear">
               <!-- -->

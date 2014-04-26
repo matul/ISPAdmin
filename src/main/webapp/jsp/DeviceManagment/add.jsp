@@ -13,7 +13,7 @@
         <form:errors path="localization" class="error"></form:errors>
 
         <label>MAC adresa:</label>
-        <form:input path="macAdress"></form:input>
+        <form:input path="macAdress" placeholder="čísla oddělovat : nebo -"></form:input>
         <form:errors path="macAdress" class="error"></form:errors>
 
         <label>Výrobce:</label>
@@ -29,7 +29,7 @@
         <form:errors path="name" class="error"></form:errors>
 
         <input type="submit" name="submit" value="Uložit změny" class="submit left" />
-        <a href="../ispadmin/DeviceManagment/list" class="submit left">Zrušit</a>
+        <a href="${leaveLink}" class="submit left">Zrušit</a>
        
     </form:form>
 <%@ include file="../footer.jsp" %>

@@ -1,6 +1,6 @@
 package cz.ispadmin.controllers;
 
-import cz.ispadmin.models.dao.UserDAO;
+import cz.ispadmin.models.dao.UsersDAO;
 import cz.ispadmin.entities.Users;
 import cz.ispadmin.services.authentication.SignedInUser;
 import java.util.HashMap;
@@ -25,64 +25,70 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/users")
 public class UsersController extends BaseController {
 
-  private final UserDAO userDAO;
-  private final String ACTION_PREFIX = "/ispadmin/users";
+  private final UsersDAO usersDAO;
+  private final String CONTROLLER_PREFIX = "/users";
 
   @Autowired
-  public UsersController(UserDAO model) {
-    this.userDAO = model;
+  public UsersController(UsersDAO model) {
+    this.usersDAO = model;
   }
 
   @RequestMapping("/list")
-  public ModelAndView listClients() {
-    List<Users> users = userDAO.getAllUsers();
+  public ModelAndView listClients(HttpServletRequest request) {
+    this.initView("Users/list");
+    this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
+    this.template.addObject("resetPasswordLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/resetPassword");
+    List<Users> users = usersDAO.getAllUsers();
     this.template.addObject("users", users);
-    this.template.setViewName("Users/list");
     return template;
   }
 
   @RequestMapping(value = "/add")
   public ModelAndView addUser(@Valid @ModelAttribute("user") Users user, BindingResult result, HttpServletRequest request) {
-    this.template.setViewName("Users/add");
-
+    this.initView("Users/add");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
+        
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         this.template.setViewName("redirect:/users/list");
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/add/");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/add");
     return this.template;
   }
 
   @RequestMapping(value = "/edit/{id}")
   public ModelAndView editUser(@Valid @ModelAttribute("user") Users user, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.initView("Users/add");
+    
     if (request.getMethod().equals("GET")) {
-      Users u = this.userDAO.getUserById(id);
+      Users u = this.usersDAO.getUserById(id);
       user.setData(u);
     }
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         this.template.setViewName("redirect:/users/list");
       }
     }
 
-    this.template.addObject("action", ACTION_PREFIX + "/edit/" + id);
-    this.template.setViewName("Users/add");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     return this.template;
   }
 
   @RequestMapping(value = "/resetPassword/{id}")
   public ModelAndView resetPassword(@PathVariable Integer id, HttpServletRequest request, Md5PasswordEncoder passEncoder) {
+    this.initView("Users/resetPassword");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
+
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Users/resetPassword");
-
+   
     if (request.getMethod().equals("POST")) {
-      Users user = this.userDAO.getUserById(id);
+      Users user = this.usersDAO.getUserById(id);
       String password = request.getParameter("password");
       String passwordVerification = request.getParameter("passwordVerification");
 
@@ -98,27 +104,28 @@ public class UsersController extends BaseController {
         String passwordHash = passEncoder.encodePassword(password, null);
         user.setPassword(passwordHash);
         
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         success.put("reset", "Vaše heslo bylo úspěšně změneno.");
         this.template.addObject("success", success);
       }
     }
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/resetPassword/" + id);
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/resetPassword/" + id);
 
     return this.template;
   }
 
   @RequestMapping(value = "/changePassword")
   public ModelAndView changePassword(HttpServletRequest request, Authentication auth, Md5PasswordEncoder passEncoder) {
+    this.initView("Users/changePassword");
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list");
     
     SignedInUser signedInUser = (SignedInUser) auth.getPrincipal();
     HashMap<String, String> errors = new HashMap<String, String>();
     HashMap<String, String> success = new HashMap<String, String>();
-    this.template.setViewName("Users/changePassword");
     
     if (request.getMethod().equals("POST")) {
-      Users user = this.userDAO.getUserById(signedInUser.getUserID());
+      Users user = this.usersDAO.getUserById(signedInUser.getUserID());
       
       String oldPassword = request.getParameter("oldPassword");
       String newPassword = request.getParameter("newPassword");
@@ -140,14 +147,14 @@ public class UsersController extends BaseController {
       if (errors.isEmpty()) {
         String newPasswordHash = passEncoder.encodePassword(newPassword,null);
         user.setPassword(newPasswordHash);
-        this.userDAO.insertOrUpdateUser(user);
+        this.usersDAO.insertOrUpdateUser(user);
         success.put("change", "Vaše heslo bylo úspěšně změneno.");
         this.template.addObject("success", success);
       }
     }
     
     this.template.addObject("errors", errors);
-    this.template.addObject("action", "/ispadmin/users/changePassword");
+    this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/changePassword");
 
     return this.template;
   }

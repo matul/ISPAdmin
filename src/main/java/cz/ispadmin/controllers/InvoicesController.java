@@ -1,7 +1,7 @@
 package cz.ispadmin.controllers;
 
-import cz.ispadmin.entities.Devices;
-import cz.ispadmin.models.dao.DevicesDAO;
+import cz.ispadmin.entities.Invoices;
+import cz.ispadmin.models.dao.InvoicesDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -14,38 +14,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author Honza
+ * @author Maya
  */
 @Controller
-@RequestMapping("/deviceManagment")
-public class DeviceManagmentController extends BaseController {
+@RequestMapping("/invoices")
+public class InvoicesController extends BaseController {
 
-  private final DevicesDAO devicesDAO;
-  private final String CONTROLLER_PREFIX = "/deviceManagment";
+  private final InvoicesDAO invoicesDAO;
+  private final String CONTROLLER_PREFIX = "/invoices";
 
   @Autowired
-  public DeviceManagmentController(DevicesDAO devicesDAO) {
-    this.devicesDAO = devicesDAO;
+  public InvoicesController(InvoicesDAO invoicesDAO) {
+    this.invoicesDAO = invoicesDAO;
   }
 
   @RequestMapping("/list")
-  public ModelAndView listDevices(HttpServletRequest request) {
-    this.initView("DeviceManagment/list");
+  public ModelAndView listInvoices(HttpServletRequest request) {
+    this.initView("Invoices/list");
     this.template.addObject("editLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit");
     this.template.addObject("deleteLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/delete");
-    List<Devices> devices = this.devicesDAO.getAllDevices();
-    this.template.addObject("devices", devices);
+    List<Invoices> invoices = this.invoicesDAO.getAllInvoices();
+    this.template.addObject("invoices", invoices);
     return this.template;
   }
 
   @RequestMapping(value = "/add")
-  public ModelAndView addDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, HttpServletRequest request) {
-    this.initView("DeviceManagment/add");
+  public ModelAndView addInvoice(@Valid @ModelAttribute("invoice") Invoices invoice, BindingResult result, HttpServletRequest request) {
+    this.initView("Invoices/add");
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.devicesDAO.insertOrUpdateDevice(device);
-        this.template.setViewName("redirect:/deviceManagment/list");
+        this.invoicesDAO.insertOrUpdateInvoice(invoice);
+        this.template.setViewName("redirect:/invoices/list");
       }
     }
 
@@ -55,20 +55,20 @@ public class DeviceManagmentController extends BaseController {
   }
 
   @RequestMapping(value = "/edit/{id}")
-  public ModelAndView editDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
-    this.initView("DeviceManagment/add");
+  public ModelAndView editInvoice(@Valid @ModelAttribute("invoice") Invoices invoice, BindingResult result, @PathVariable Integer id, HttpServletRequest request) {
+    this.initView("Invoices/add");
     this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
     this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
    
     if (request.getMethod().equals("GET")) {
-      Devices d = this.devicesDAO.getDevicesById(id);
-      device.setData(d);
+      Invoices d = this.invoicesDAO.getInvoicesById(id);
+      invoice.setData(d);
     }
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        this.devicesDAO.insertOrUpdateDevice(device);
-        this.template.setViewName("redirect:/deviceManagment/list");
+        this.invoicesDAO.insertOrUpdateInvoice(invoice);
+        this.template.setViewName("redirect:/invoices/list");
       }
     }
     return this.template;
@@ -76,17 +76,17 @@ public class DeviceManagmentController extends BaseController {
 
   @RequestMapping("/delete/{id}")
   public ModelAndView delete(HttpServletRequest request, @PathVariable Integer id) {
-    this.initView("DeviceManagment/delete");
+    this.initView("Invoices/delete");
     if (request.getMethod().equals("POST")) {
       String sent = request.getParameter("submitYes");
 
       if (sent != null) {
-        Devices device = this.devicesDAO.getDevicesById(id);
-        if (device != null) {
-          this.devicesDAO.deleteDevice(device);
+        Invoices invoice = this.invoicesDAO.getInvoicesById(id);
+        if (invoice != null) {
+          this.invoicesDAO.deleteInvoice(invoice);
         }
       }
-      this.template.setViewName("redirect:/deviceManagment/list");
+      this.template.setViewName("redirect:/invoices/list");
     }
     return this.template;
   }

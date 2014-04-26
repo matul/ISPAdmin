@@ -15,7 +15,7 @@
         <th>Příjmení</th>
         <th>Stav</th>
         <th>Odpověď</th>
-        <th>Úprava</th>
+        <th>Upravit</th>
       </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
               <td>${i.getState().getState()}</td>
               <td>${i.getAnswer()}</td>
               <td>
-                <a class="image editUsers" href="/ispadmin/serviceDesk/edit/${i.getId()}" title="upravit"></a>
+                <a class="image editUsers" href="${editLink}/${i.getId()}" title="upravit"></a>
               </td> 
             </tr>
           </c:forEach>

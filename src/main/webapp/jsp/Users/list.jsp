@@ -35,10 +35,10 @@
               <td>${u.getPhone_number()}</td>
               <td>${u.getBirthDate()}</td>
               <td>
-                <a class="image editUsers" href="/ispadmin/users/edit/${u.getId()}" title="upravit"></a>
+                <a class="image editUsers" href="${editLink}/${u.getId()}" title="upravit"></a>
               </td>
               <td>
-                <a class="image passrecovery" href="/ispadmin/users/resetPassword/${u.getId()}" title="reset hesla">reset</a>
+                <a class="image passrecovery" href="${resetPasswordLink}/${u.getId()}" title="reset hesla">reset</a>
               </td> 
             </tr>
           </c:forEach>
