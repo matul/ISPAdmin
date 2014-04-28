@@ -1,7 +1,14 @@
 package cz.ispadmin.controllers;
 
+import cz.ispadmin.services.authentication.Authenticator;
+import cz.ispadmin.services.authentication.SignedInUser;
+import java.security.Principal;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +27,16 @@ public class BaseController {
   public BaseController() {
     this.template = new ModelAndView();
   }
-
+  
+//  @Autowired
+//  public void initialize(Authentication auth) {
+//    SignedInUser currentUser = (SignedInUser)auth.getPrincipal();
+//    if (currentUser != null)
+//      this.template.addObject("currentUser", currentUser.getUsername());
+//    else
+//      this.template.addObject("currentUser", "chyba");
+//  }
+  
   @RequestMapping("")
   public ModelAndView StartPage(HttpServletRequest request, HttpServletResponse response) {
     this.template.setViewName("index");

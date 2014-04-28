@@ -34,7 +34,7 @@
       <div class="allin">                     
         <div class="header">        
           <div class="topline">          
-            <div class="user">Přihlášený uživatel: admin</div>               
+            <div class="user">Přihlášený uživatel: ${currentUser}</div>               
           </div>                 
           <div class="bigicons">          
             <img src="resources/media/images/brs.png" class="header-logo" alt="logo"/>         
