@@ -65,7 +65,7 @@ public class AuthenticationController extends BaseController {
       } else {
         String emailVarification = user.getEmail();
         if (!email.equals(emailVarification)) {
-          errors.put("emailVerification", "Zadaný email se neshoduje s účetem.");
+          errors.put("emailVerification", "Zadaný email se neshoduje s účtem.");
         }
       }
       if (errors.isEmpty()) {
