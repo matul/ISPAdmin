@@ -29,15 +29,19 @@
   
   <security:global-method-security secured-annotations="enabled" />
   
-  <security:http auto-config="true" use-expressions="true" >
-    <security:intercept-url pattern="/authentication/logout" access="hasRole('user')" /> 
-    <security:intercept-url pattern="/authentication/*" access="permitAll" /> 
-    <security:intercept-url pattern="/resources/**" access="permitAll" />
-    <security:intercept-url pattern="/**" access="hasRole('user')" />
-    
+  <security:http auto-config="true" use-expressions="true" > 
     <security:form-login login-page="/authentication/login" default-target-url="/users/list"/>
     <security:logout invalidate-session="true" logout-success-url="/authentication/login" logout-url="/authentication/logout"/>
     <security:access-denied-handler error-page="/authentication/forbidden" />
+    
+    <security:intercept-url pattern="/authentication/logout" access="hasRole('user')" /> 
+    <security:intercept-url pattern="/default/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/deviceManagment/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/invoices/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/snmp/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/serviceDesk/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/services/**" access="hasRole('user')" />
+    <security:intercept-url pattern="/users/**" access="hasRole('user')" />
   </security:http>
   
   <security:authentication-manager>

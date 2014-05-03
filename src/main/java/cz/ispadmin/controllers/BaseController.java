@@ -73,6 +73,6 @@ public class BaseController {
     
     User currentUser = this.retrieveCurrentUser();
     if (currentUser != null)
-      this.template.addObject("currentUser", this.retrieveCurrentUser().getUsername());
+      this.template.addObject("currentUser", currentUser.getUsername());
   }
 }
