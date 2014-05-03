@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.ispadmin.entities;
 
 import javax.persistence.Column;
@@ -18,31 +13,30 @@ import javax.validation.constraints.Size;
  * @author Marki
  */
 @Entity
-@Table(name = "incident_states", catalog = "ropr"
-)
+@Table(name = "incident_states", catalog = "ropr")
 public class IncidentStates {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  @Column(name = "id", unique = true, nullable = false)
+  private Integer id;
 
-    @Size(min = 2, max = 15)
-    private String state;
+  @Size(min = 2, max = 15)
+  private String state;
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public String getState() {
-        return state;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
 }

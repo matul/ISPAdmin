@@ -41,7 +41,7 @@ public class DeviceManagmentController extends BaseController {
   @RequestMapping(value = "/add")
   public ModelAndView addDevice(@Valid @ModelAttribute("device") Devices device, BindingResult result, HttpServletRequest request) {
     this.initView("DeviceManagment/add");
-
+    
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
         this.devicesDAO.insertOrUpdateDevice(device);

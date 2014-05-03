@@ -1,7 +1,6 @@
 package cz.ispadmin.entities;
 
 import cz.ispadmin.models.validators.*;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,7 @@ public class Users implements java.io.Serializable {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
-  @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
+  @Column(name = "id", unique = true, nullable = false)
   private Integer id;
 
   @Size(min = 2, max = 20)
@@ -44,18 +43,19 @@ public class Users implements java.io.Serializable {
   private String post_code;
 
   @Size(min = 8, max = 30)
-  @Email(message = "Špatný mail!")
+  @Email(message = "špatný mail")
   private String email;
 
-  @Phone(message = "Špatné číslo!")
+  @Phone(message = "špatné číslo")
   private String phone_number;
 
-  @Birth(message = "Špatné datum narození!")
+  @Birth(message = "špatné datum narození")
   private String birthDate;
-  
+
   private String forgotten_pass_hash;
 
-  public Users() {}
+  public Users() {
+  }
 
   public Users(String username, String password, String firstname, String surname, String description, String city,
                String street, String post_code, String email, String phone_number, String birthDate, String forgottenPassHash) {
@@ -96,7 +96,6 @@ public class Users implements java.io.Serializable {
     this.id = id;
   }
 
-  //@Column(name = "username", nullable = false, length = 30)
   public String getUsername() {
     return this.username;
   }
