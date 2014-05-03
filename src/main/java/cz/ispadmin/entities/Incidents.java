@@ -23,27 +23,26 @@ public class Incidents implements java.io.Serializable {
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id", unique = true, nullable = false)
   private Integer id;
-  
+
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="userId")
+  @JoinColumn(name = "userId")
   private Users user;
-  
+
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="stateId")
+  @JoinColumn(name = "stateId")
   private IncidentStates state;
-  
+
   @Size(min = 2, max = 30)
   private String subject;
-  
+
   @Size(min = 2, max = 1000)
   private String message;
-  
+
   @Size(min = 2, max = 1000)
   private String answer;
-  
 
   public Incidents() {
-    
+
   }
 
   public Incidents(String message) {
@@ -72,21 +71,21 @@ public class Incidents implements java.io.Serializable {
     this.user = user;
   }
 
-    public IncidentStates getState() {
-        return state;
-    }
+  public IncidentStates getState() {
+    return state;
+  }
 
-    public void setState(IncidentStates state) {
-        this.state = state;
-    }
+  public void setState(IncidentStates state) {
+    this.state = state;
+  }
 
-    public String getSubject() {
-        return subject;
-    }
+  public String getSubject() {
+    return subject;
+  }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+  public void setSubject(String subject) {
+    this.subject = subject;
+  }
 
   public String getMessage() {
     return message;
@@ -96,12 +95,12 @@ public class Incidents implements java.io.Serializable {
     this.message = message;
   }
 
-    public String getAnswer() {
-        return answer;
-    }
+  public String getAnswer() {
+    return answer;
+  }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
 
 }

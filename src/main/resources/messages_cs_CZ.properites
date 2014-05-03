@@ -1,0 +1,23 @@
+javax.validation.constraints.AssertFalse.message = musí být ne
+javax.validation.constraints.AssertTrue.message  = musí být ano
+javax.validation.constraints.DecimalMax.message  = musí být menší než nebo rovno {value}
+javax.validation.constraints.DecimalMin.message  = musí být větší než nebo rovno {value}
+javax.validation.constraints.Digits.message      = číselná hodnota mimo rozsah (očekáváno <{integer} číslic>.<{fraction} číslic>)
+javax.validation.constraints.Future.message      = musí být v budoucnosti
+javax.validation.constraints.Max.message         = musí být menší než nebo rovno {value}
+javax.validation.constraints.Min.message         = musí být větší než nebo rovno {value}
+javax.validation.constraints.NotNull.message     = nesmí být null
+javax.validation.constraints.Null.message        = musí být null
+javax.validation.constraints.Past.message        = musí být v minulosti
+javax.validation.constraints.Pattern.message     = se musí shodovat s "{regexp}"
+javax.validation.constraints.Size.message        = velikostttt musí být mezi {min} a {max}
+
+org.hibernate.validator.constraints.CreditCardNumber.message = neplatné číslo kreditní karty
+org.hibernate.validator.constraints.Email.message            = chybná emailová adresa
+org.hibernate.validator.constraints.Length.message           = délka musí být mezi {min} a {max}
+org.hibernate.validator.constraints.NotBlank.message         = nemůže být prázdný/á/é
+org.hibernate.validator.constraints.NotEmpty.message         = nemůže být prázdný/á/é
+org.hibernate.validator.constraints.Range.message            = musí být mezi {min} a {max}
+org.hibernate.validator.constraints.SafeHtml.message         = může obsahovat nebezpečný html obsah
+org.hibernate.validator.constraints.ScriptAssert.message     = skriptovací výraz "{script}" není vyhodnocen na ano
+org.hibernate.validator.constraints.URL.message              = musí být platné URL

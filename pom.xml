@@ -79,10 +79,10 @@
     
     <!-- Mail -->
     <dependency>
-	<groupId>javax.mail</groupId>
-	<artifactId>mail</artifactId>
-	<version>1.4</version>
-        <type>jar</type>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
+      <type>jar</type>
     </dependency>
     
     <!-- Testing -->
@@ -111,6 +111,36 @@
       <scope>test</scope>
     </dependency>
     
+    <!--
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-core</artifactId>
+      <version>2.1.2.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-api</artifactId>
+      <version>2.1.Final</version>
+    </dependency>  
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-spi</artifactId>
+      <version>2.1.Final</version>
+    </dependency>      
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency> 
+    -->
+    
+    <!--
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-firefox-driver</artifactId>
+      <version>2.41.0</version>
+    </dependency>
+    -->
     
     <dependency>
       <groupId>dom4j</groupId>
@@ -288,6 +318,44 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <type>standalone</type>
+          <configuration>
+            <properties>
+              <cargo.servlet.port>10001</cargo.servlet.port>
+            </properties>
+          </configuration>
+        </configuration>
+        <executions>
+          <execution>
+            <id>start</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.7.2</version>
+        <configuration>
+          <parallel>classes</parallel>
+          <threadCount>10</threadCount>
+          <skipTests>true</skipTests>
+        </configuration>
       </plugin>
     </plugins>
     <testResources>

@@ -1,7 +1,5 @@
 package cz.ispadmin.entities;
 
-import cz.ispadmin.models.validators.*;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ public class Services implements java.io.Serializable {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
-  @Column(name = "id", unique = true, nullable = false) ///presunut aj ostatne properties
+  @Column(name = "id", unique = true, nullable = false)
   private Integer id;
 
   @Size(min = 2, max = 20)
@@ -28,7 +26,8 @@ public class Services implements java.io.Serializable {
   @Size(min = 3, max = 10)
   private String price;
 
-  public Services() {}
+  public Services() {
+  }
 
   public Services(String name, String description, String price, String date) {
     this.name = name;
@@ -50,27 +49,27 @@ public class Services implements java.io.Serializable {
     this.id = id;
   }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getPrice() {
-        return price;
-    }
+  public String getPrice() {
+    return price;
+  }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+  public void setPrice(String price) {
+    this.price = price;
+  }
 }

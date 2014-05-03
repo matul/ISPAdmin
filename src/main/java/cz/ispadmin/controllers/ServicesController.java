@@ -71,6 +71,7 @@ public class ServicesController extends BaseController {
     }
 
     this.template.addObject("action", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/edit/" + id);
+    this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
     return this.template;
   }
 

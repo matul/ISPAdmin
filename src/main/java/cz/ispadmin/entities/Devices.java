@@ -17,8 +17,7 @@ import javax.validation.constraints.Size;
  * @author Honza
  */
 @Entity
-@Table(name = "devices", catalog = "ropr"
-)
+@Table(name = "devices", catalog = "ropr")
 public class Devices implements java.io.Serializable {
 
   @Id
@@ -31,14 +30,14 @@ public class Devices implements java.io.Serializable {
   private Users user;
 
   @Size(min = 2, max = 30)
-  @IPAdress(message = "Špatná ip adresa!")
+  @IPAdress(message = "špatná IP adresa")
   private String ipAdress;
 
   @Size(min = 2, max = 100)
   private String localization;
 
   @Size(min = 2, max = 17)
-  @MacAdress(message = "Špatná mac adresa!")
+  @MacAdress(message = "špatná MAC adresa")
   private String macAdress;
 
   @Size(min = 2, max = 50)

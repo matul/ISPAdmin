@@ -6,7 +6,6 @@
 package cz.ispadmin.models.dao;
 
 import cz.ispadmin.entities.IncidentStates;
-import cz.ispadmin.entities.Incidents;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -19,6 +18,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class IncidentStatesDAO extends DAO {
+  
+  public final int NEW_TICKET_STATE_ID = 1;
 
     /**
      * Returns a user by ID

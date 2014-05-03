@@ -2,12 +2,16 @@ package cz.ispadmin.controllers;
 
 import cz.ispadmin.entities.IncidentStates;
 import cz.ispadmin.entities.Incidents;
+import cz.ispadmin.entities.Users;
 import cz.ispadmin.models.dao.IncidentStatesDAO;
 import cz.ispadmin.models.dao.IncidentsDAO;
+import cz.ispadmin.models.dao.UsersDAO;
+import cz.ispadmin.services.authentication.SignedInUser;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,12 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/serviceDesk")
 public class ServiceDeskController extends BaseController {
 
+  private final UsersDAO usersDAO;
   private final IncidentsDAO incidentsDAO;
   private final IncidentStatesDAO statesDAO;
   private final String CONTROLLER_PREFIX = "/serviceDesk";
 
   @Autowired
-  public ServiceDeskController(IncidentsDAO incidentsDAO, IncidentStatesDAO statesDAO) {
+  public ServiceDeskController(UsersDAO usersDAO, IncidentsDAO incidentsDAO, IncidentStatesDAO statesDAO) {
+    this.usersDAO = usersDAO;
     this.incidentsDAO = incidentsDAO;
     this.statesDAO = statesDAO;
   }
@@ -41,17 +47,25 @@ public class ServiceDeskController extends BaseController {
     return this.template;
   }
 
-  //Přidává do stavů stav nahlášeno ------------ CHYBA!!!!
   @RequestMapping(value = "/reportBug")
-  public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, IncidentStates incidentS, BindingResult result, HttpServletRequest request) {
+  public ModelAndView reportBug(@Valid @ModelAttribute("incident") Incidents incident, 
+                                BindingResult result, Authentication auth, 
+                                HttpServletRequest request) {
     this.initView("ServiceDesk/reportBug");
     this.template.addObject("leaveLink", this.getBaseUrl(request, CONTROLLER_PREFIX) + "/list/");
 
     if (request.getMethod().equals("POST")) {
       if (!result.hasErrors()) {
-        incident.setUser(null);
-        incidentS.setState("Nahlášeno");
-        incident.setState(incidentS);
+        SignedInUser currentUser = (SignedInUser)auth.getPrincipal();
+        if (currentUser != null) {
+          Users user = this.usersDAO.getUserById(currentUser.getUserID());
+          if (user != null)
+            incident.setUser(user);
+        }
+        
+        IncidentStates state = this.statesDAO.getStateById(this.statesDAO.NEW_TICKET_STATE_ID);
+        if (state != null)
+          incident.setState(state);
 
         this.incidentsDAO.insertOrUpdateIncident(incident);
         this.template.setViewName("redirect:/serviceDesk/list");
